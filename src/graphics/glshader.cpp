@@ -2,6 +2,7 @@
 #include <graphics/glshader.h>
 #include <istream>
 #include <string>
+#include <variant>
 
 std::string read_file_to_string(const char *filename) {
   std::ifstream file(filename);
@@ -50,6 +51,38 @@ GLProgram::GLProgram(const char *vs_path, const char *fs_path) {
   glDetachShader(handle, fs.handle);
   vs.destroy();
   fs.destroy();
+  populate_uniforms();
+}
+
+void GLProgram::populate_uniforms() {
+  glUseProgram(handle);
+  GLint numUniforms = 0;
+  glGetProgramInterfaceiv(handle, GL_UNIFORM, GL_ACTIVE_RESOURCES,
+                          &numUniforms);
+
+  GLenum properties[] = {GL_NAME_LENGTH, GL_TYPE, GL_LOCATION, GL_BLOCK_INDEX};
+
+  for (GLint i = 0; i < numUniforms; ++i) {
+    GLint results[4];
+    glGetProgramResourceiv(handle, GL_UNIFORM, i, 4, properties, 4, NULL,
+                           results);
+
+    if (results[3] != -1)
+      continue; // Skip uniforms in blocks
+    GLint nameBufSize = results[0] + 1;
+    char *name = new char[nameBufSize];
+    glGetProgramResourceName(handle, GL_UNIFORM, i, nameBufSize, NULL, name);
+    uniforms[name] = results[2];
+    delete[] name;
+  }
+
+  // log all uniforms
+  for (auto &uniform : uniforms) {
+    printf("Uniform %s at location %d\n", uniform.first.c_str(),
+           uniform.second);
+  }
+
+  glUseProgram(0);
 }
 
 void GLProgram::use() const { glUseProgram(handle); }
@@ -77,6 +110,10 @@ void GLProgram::set_uniform(const char *name, const GLUniform &uniform) const {
     glUniform2fv(location, 1, &std::get<vec2>(uniform.value)[0]);
   } else if (std::holds_alternative<float>(uniform.value)) {
     glUniform1f(location, std::get<float>(uniform.value));
+  } else if (std::holds_alternative<int>(uniform.value)) {
+    glUniform1i(location, std::get<int>(uniform.value));
+  } else {
+    printf("Error: Uniform type not supported.\n");
   }
   glUseProgram(0);
 }

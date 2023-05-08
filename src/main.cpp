@@ -1,4 +1,6 @@
+#include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
+#include "light/light.h"
 #include <core/camera.h>
 #include <geometry/geometry.h>
 #include <glm/glm.hpp>
@@ -15,15 +17,15 @@
 static const int width = 640;
 static const int height = 480;
 
-static Camera camera({
-    .position = glm::vec3(0.0f, 0.0f, 5.0f),
-    .target = glm::vec3(0.0f, 0.0f, 0.0f),
-    .up = glm::vec3(0.0f, 1.0f, 0.0f),
-    .fov = glm::radians(45.0f),
-    .aspect = (float)width / (float)height,
-    .near = 0.1f,
-    .far = 100.0f,
-});
+// static Camera camera({
+//     .position = glm::vec3(0.0f, 0.0f, 5.0f),
+//     .target = glm::vec3(0.0f, 0.0f, 0.0f),
+//     .up = glm::vec3(0.0f, 1.0f, 0.0f),
+//     .fov = glm::radians(45.0f),
+//     .aspect = (float)width / (float)height,
+//     .near = 0.1f,
+//     .far = 100.0f,
+// });
 
 int main() {
   if (!glfwInit()) {
@@ -56,19 +58,41 @@ int main() {
     return -1;
   }
   Geometry cube = Geometry::cube();
-  GLGeometry geometry(cube.vertices, cube.indices);
+  Geometry plane = Geometry::quad(10.0f);
+  Geometry quad = Geometry::quad(1.0f);
+  GLGeometry cube_geometry(cube.vertices, cube.indices);
+  GLGeometry plane_geometry(plane.vertices, plane.indices);
+  // GLGeometry quad_geometry(quad.vertices, quad.indices);
+  Light light = {
+      .direction = glm::vec3(0.0f, 2.0f, 1.0f),
+      .color = glm::vec3(1.0f, 1.0f, 1.0f),
+      .intensity = 1.0f,
+  };
+
+  mat4 plane_transform =
+      glm::translate(glm::mat4(1.0f), glm::vec3(0.0, -1.0, 0.0));
 
   GLProgram program("assets/shaders/main.vert.glsl",
                     "assets/shaders/main.frag.glsl");
+
+  GLProgram shadow_program("assets/shaders/shadow.vert.glsl",
+                           "assets/shaders/shadow.frag.glsl");
 
   glm::mat4 model = glm::mat4(1.0f);
 
   static double last_pos_x = 0.0;
   static double last_pos_y = 0.0;
   static bool mouse_holding = false;
-  static vec3 eye = vec3(0.0f, 0.0f, 5.0f);
+  static vec3 eye = vec3(0.0f, 5.0f, 6.0f);
   static vec3 target = vec3(0.0f, 0.0f, 0.0f);
   static mat4 view_matrix = glm::lookAt(eye, target, vec3(0.0, 1.0, 0.0));
+
+  mat4 projection_matrix = glm::perspective(
+      glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+
+  mat4 light_proj = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 100.0f);
+  mat4 light_view = glm::lookAt(eye, vec3(0.0f), vec3(0.0f, 1.0f, 0.0f));
+  mat4 shadow_matrix = light_proj * light_view;
 
   glfwSetMouseButtonCallback(
       window, [](GLFWwindow *window, int button, int action, int mods) {
@@ -90,7 +114,7 @@ int main() {
           float theta = 0.0;
           float phi = 0.0;
           if (radius > 0.001) {
-            theta = atan2(dist_vec.z, dist_vec.x);
+            theta = atan2(dist_vec.x, dist_vec.z);
             float v = min(1.0f, max(-1.0f, dist_vec.y / radius));
             phi = acos(v);
           }
@@ -117,15 +141,33 @@ int main() {
         }
       });
 
-  glfwSetScrollCallback(
-      window, [](GLFWwindow *window, double xoffset, double yoffset) {});
-
-  glfwSetKeyCallback(window, [](GLFWwindow *window, int key, int scancode,
-                                int action, int mods) {
-
-  });
-
   GLBackground background;
+
+  GLuint depth_texture;
+  int shadow_map_width = 1024;
+  int shadow_map_height = 1024;
+  glCreateTextures(GL_TEXTURE_2D, 1, &depth_texture);
+  glTextureStorage2D(depth_texture, 1, GL_DEPTH_COMPONENT32F, shadow_map_width,
+                     shadow_map_height);
+  glTextureParameteri(depth_texture, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTextureParameteri(depth_texture, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTextureParameteri(depth_texture, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTextureParameteri(depth_texture, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTextureParameteri(depth_texture, GL_TEXTURE_COMPARE_MODE,
+                      GL_COMPARE_REF_TO_TEXTURE);
+  glTextureParameteri(depth_texture, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+  GLuint shadow_fbo;
+  glCreateFramebuffers(1, &shadow_fbo);
+  glNamedFramebufferTexture(shadow_fbo, GL_DEPTH_ATTACHMENT, depth_texture, 0);
+  GLenum draw_buffers[] = {GL_NONE};
+  glNamedFramebufferDrawBuffers(shadow_fbo, 1, draw_buffers);
+
+  GLenum result = glCheckNamedFramebufferStatus(shadow_fbo, GL_FRAMEBUFFER);
+  if (result == GL_FRAMEBUFFER_COMPLETE) {
+    printf("Framebuffer is complete.\n");
+  } else {
+    printf("Framebuffer is not complete.\n");
+  }
 
   glfwSwapInterval(1);
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -136,20 +178,42 @@ int main() {
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    program.set_uniform("view", GLUniform{view_matrix});
-    program.set_uniform("projection", GLUniform{camera.projection_matrix()});
-    program.set_uniform("model", GLUniform{model});
+    // the shadow pass
+    glViewport(0, 0, shadow_map_width, shadow_map_height);
+    glBindFramebuffer(GL_FRAMEBUFFER, shadow_fbo);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    shadow_program.set_uniform("shadow", GLUniform{shadow_matrix});
+    shadow_program.set_uniform("model", GLUniform{model});
+    cube_geometry.draw(shadow_program);
+    shadow_program.set_uniform("model", GLUniform{plane_transform});
+    plane_geometry.draw(shadow_program);
 
-    geometry.draw(program);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, width, height);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    program.use();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, depth_texture);
+    program.set_uniform("view", GLUniform{view_matrix});
+    program.set_uniform("projection", GLUniform{projection_matrix});
+    program.set_uniform("model", GLUniform{model});
+    // program.set_uniform("light.direction", GLUniform{light.direction});
+    // program.set_uniform("light.color", GLUniform{light.color});
+    // program.set_uniform("light.intensity", GLUniform{light.intensity});
+    // cube_geometry.draw(program);
+    program.set_uniform("model", GLUniform{plane_transform});
+    plane_geometry.draw(program);
     // background.get_program().set_uniform("view",
     //                                      GLUniform{mat4(mat3(view_matrix))});
     // background.get_program().set_uniform("projection",
-    //                                      GLUniform{camera.projection_matrix()});
+    //                                      GLUniform{projection_matrix});
     // background.draw();
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
-  geometry.destroy();
+  // background.destroy();
+  cube_geometry.destroy();
+  plane_geometry.destroy();
   program.destroy();
   glfwDestroyWindow(window);
   glfwTerminate();

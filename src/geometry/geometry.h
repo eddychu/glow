@@ -86,12 +86,12 @@ public:
     return Geometry(vertices, el);
   }
 
-  static Geometry plane(float size = 1.0f) {
+  static Geometry quad(float size = 1.0f) {
     std::vector<vec3> positions = {
         {-size, 0.0f, -size},
-        {size, 0.0f, -size},
-        {size, 0.0f, size},
         {-size, 0.0f, size},
+        {size, 0.0f, size},
+        {size, 0.0f, -size},
     };
     std::vector<vec3> normals = {
         {0.0f, 1.0f, 0.0f},
@@ -101,9 +101,9 @@ public:
     };
     std::vector<vec2> uvs = {
         {0.0f, 0.0f},
-        {1.0f, 0.0f},
-        {1.0f, 1.0f},
         {0.0f, 1.0f},
+        {1.0f, 1.0f},
+        {1.0f, 0.0f},
     };
 
     std::vector<uint16_t> indices = {0, 1, 2, 0, 2, 3};
