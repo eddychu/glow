@@ -15,8 +15,8 @@
 #include <graphics/glshader.h>
 #include <vector>
 
-static const int width = 640;
-static const int height = 480;
+static int width = 640;
+static int height = 480;
 
 static double last_pos_x = 0.0;
 static double last_pos_y = 0.0;
@@ -24,6 +24,8 @@ static bool mouse_holding = false;
 static vec3 eye = vec3(0.0f, 5.0f, 6.0f);
 static vec3 target = vec3(0.0f, 0.0f, 0.0f);
 static mat4 view_matrix = glm::lookAt(eye, target, vec3(0.0, 1.0, 0.0));
+static mat4 projection_matrix = glm::perspective(
+    glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
 // static Camera camera({
 //     .position = glm::vec3(0.0f, 0.0f, 5.0f),
@@ -44,9 +46,6 @@ int main() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-  const int width = 640;
-  const int height = 480;
 
   GLFWwindow *window =
       glfwCreateWindow(width, height, "Hello World", NULL, NULL);
@@ -71,8 +70,9 @@ int main() {
   GLGeometry cube_geometry(cube.vertices, cube.indices);
   GLGeometry plane_geometry(plane.vertices, plane.indices);
   // GLGeometry quad_geometry(quad.vertices, quad.indices);
+  vec3 light_pos = vec3(-3.0f, 5.0f, 0.0f);
   Light light = {
-      .direction = glm::normalize(eye - target),
+      .direction = glm::normalize(light_pos - target),
       .color = glm::vec3(1.0f, 1.0f, 1.0f),
       .intensity = 1.0f,
   };
@@ -88,11 +88,8 @@ int main() {
 
   glm::mat4 model = glm::mat4(1.0f);
 
-  mat4 projection_matrix = glm::perspective(
-      glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
-
   mat4 light_proj = glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, 0.1f, 100.0f);
-  mat4 light_view = glm::lookAt(eye, vec3(0.0f), vec3(0.0f, 1.0f, 0.0f));
+  mat4 light_view = glm::lookAt(light_pos, vec3(0.0f), vec3(0.0f, 1.0f, 0.0f));
   mat4 shadow_matrix = light_proj * light_view;
 
   glfwSetMouseButtonCallback(
@@ -142,18 +139,28 @@ int main() {
         }
       });
 
+  glfwSetFramebufferSizeCallback(
+      window, [](GLFWwindow *window, int new_width, int new_height) {
+        width = new_width;
+        height = new_height;
+        projection_matrix = glm::perspective(
+            glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+      });
+
   GLBackground background;
 
   GLuint depth_texture;
   int shadow_map_width = 1024;
   int shadow_map_height = 1024;
+  float borderColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
   glCreateTextures(GL_TEXTURE_2D, 1, &depth_texture);
   glTextureStorage2D(depth_texture, 1, GL_DEPTH_COMPONENT32F, shadow_map_width,
                      shadow_map_height);
   glTextureParameteri(depth_texture, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTextureParameteri(depth_texture, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  glTextureParameteri(depth_texture, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTextureParameteri(depth_texture, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTextureParameteri(depth_texture, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+  glTextureParameteri(depth_texture, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+  glTextureParameterfv(depth_texture, GL_TEXTURE_BORDER_COLOR, borderColor);
   // glTextureParameteri(depth_texture, GL_TEXTURE_COMPARE_MODE,
   //                     GL_COMPARE_REF_TO_TEXTURE);
   // glTextureParameteri(depth_texture, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
@@ -180,6 +187,7 @@ int main() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // the shadow pass
+    glCullFace(GL_FRONT);
     glViewport(0, 0, shadow_map_width, shadow_map_height);
     glBindFramebuffer(GL_FRAMEBUFFER, shadow_fbo);
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -188,6 +196,7 @@ int main() {
     cube_geometry.draw(shadow_program);
     shadow_program.set_uniform("model", GLUniform{plane_transform});
     plane_geometry.draw(shadow_program);
+    glCullFace(GL_BACK);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, width, height);
