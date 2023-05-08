@@ -6,18 +6,21 @@ layout (location = 2) in vec2 inUV;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform mat4 light_space_matrix;
 
 out VS_OUT
 {
     vec3 position;
     vec3 normal;
     vec2 uv;
+    vec4 position_light_space;
 } vs_out;
 
 void main()
 {
     vs_out.uv = inUV;
-    vs_out.normal = transpose(inverse(mat3(view * model))) * inNormal;
-    vs_out.position = (view * model * vec4(inPos, 1.0)).xyz;
+    vs_out.normal = transpose(inverse(mat3(model))) * inNormal;
+    vs_out.position = (model * vec4(inPos, 1.0)).xyz;
+    vs_out.position_light_space = (light_space_matrix * model * vec4(inPos, 1.0));
     gl_Position = projection * view * model * vec4(inPos, 1.0);
 }

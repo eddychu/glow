@@ -1,5 +1,6 @@
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
+#include "glm/ext/quaternion_geometric.hpp"
 #include "light/light.h"
 #include <core/camera.h>
 #include <geometry/geometry.h>
@@ -16,6 +17,13 @@
 
 static const int width = 640;
 static const int height = 480;
+
+static double last_pos_x = 0.0;
+static double last_pos_y = 0.0;
+static bool mouse_holding = false;
+static vec3 eye = vec3(0.0f, 5.0f, 6.0f);
+static vec3 target = vec3(0.0f, 0.0f, 0.0f);
+static mat4 view_matrix = glm::lookAt(eye, target, vec3(0.0, 1.0, 0.0));
 
 // static Camera camera({
 //     .position = glm::vec3(0.0f, 0.0f, 5.0f),
@@ -64,7 +72,7 @@ int main() {
   GLGeometry plane_geometry(plane.vertices, plane.indices);
   // GLGeometry quad_geometry(quad.vertices, quad.indices);
   Light light = {
-      .direction = glm::vec3(0.0f, 2.0f, 1.0f),
+      .direction = glm::normalize(eye - target),
       .color = glm::vec3(1.0f, 1.0f, 1.0f),
       .intensity = 1.0f,
   };
@@ -80,17 +88,10 @@ int main() {
 
   glm::mat4 model = glm::mat4(1.0f);
 
-  static double last_pos_x = 0.0;
-  static double last_pos_y = 0.0;
-  static bool mouse_holding = false;
-  static vec3 eye = vec3(0.0f, 5.0f, 6.0f);
-  static vec3 target = vec3(0.0f, 0.0f, 0.0f);
-  static mat4 view_matrix = glm::lookAt(eye, target, vec3(0.0, 1.0, 0.0));
-
   mat4 projection_matrix = glm::perspective(
       glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
-  mat4 light_proj = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 100.0f);
+  mat4 light_proj = glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, 0.1f, 100.0f);
   mat4 light_view = glm::lookAt(eye, vec3(0.0f), vec3(0.0f, 1.0f, 0.0f));
   mat4 shadow_matrix = light_proj * light_view;
 
@@ -153,9 +154,9 @@ int main() {
   glTextureParameteri(depth_texture, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTextureParameteri(depth_texture, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTextureParameteri(depth_texture, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTextureParameteri(depth_texture, GL_TEXTURE_COMPARE_MODE,
-                      GL_COMPARE_REF_TO_TEXTURE);
-  glTextureParameteri(depth_texture, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+  // glTextureParameteri(depth_texture, GL_TEXTURE_COMPARE_MODE,
+  //                     GL_COMPARE_REF_TO_TEXTURE);
+  // glTextureParameteri(depth_texture, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
   GLuint shadow_fbo;
   glCreateFramebuffers(1, &shadow_fbo);
   glNamedFramebufferTexture(shadow_fbo, GL_DEPTH_ATTACHMENT, depth_texture, 0);
@@ -194,13 +195,15 @@ int main() {
     program.use();
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, depth_texture);
+    program.set_uniform("view_pos", GLUniform{eye});
+    program.set_uniform("light_space_matrix", GLUniform{shadow_matrix});
     program.set_uniform("view", GLUniform{view_matrix});
     program.set_uniform("projection", GLUniform{projection_matrix});
     program.set_uniform("model", GLUniform{model});
-    // program.set_uniform("light.direction", GLUniform{light.direction});
-    // program.set_uniform("light.color", GLUniform{light.color});
-    // program.set_uniform("light.intensity", GLUniform{light.intensity});
-    // cube_geometry.draw(program);
+    program.set_uniform("light.direction", GLUniform{light.direction});
+    program.set_uniform("light.color", GLUniform{light.color});
+    program.set_uniform("light.intensity", GLUniform{light.intensity});
+    cube_geometry.draw(program);
     program.set_uniform("model", GLUniform{plane_transform});
     plane_geometry.draw(program);
     // background.get_program().set_uniform("view",
