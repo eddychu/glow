@@ -55,10 +55,12 @@ void main()
     vec3 view_dir = normalize(view_pos - vs_out.position);
     vec3 normal = normalize(vs_out.normal);
     float diff = max(dot(normal, light_dir), 0.0);
+    float spec = pow(max(dot(normal, normalize(light_dir + view_dir)), 0.0), 32.0);
     float attenuation = 1.0 / (1.0 + 0.09 * length(vs_out.position - light.direction));
     vec3 diffuse = diff * light.color * light.intensity * attenuation;
+    vec3 specular = spec * light.color * light.intensity * attenuation;
     float bias = max(0.05 * (1.0 - dot(normal, light_dir)), 0.005);
     float shadow = shadow_caculate(vs_out.position_light_space , bias);
     vec3 ambient = vec3(0.1, 0.1, 0.1) * light.color * light.intensity;
-    FragColor = vec4(ambient + (1.0 - shadow) * diffuse, 1.0);
+    FragColor = vec4(ambient + (1.0 - shadow) * (diffuse + specular), 1.0);
 }

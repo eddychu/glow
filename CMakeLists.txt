@@ -44,4 +44,8 @@ target_link_libraries(glow PRIVATE assimp)
 # target_include_directories(glow PRIVATE ${ASSIMP_INCLUDE_DIRS})
 # target_link_libraries(glow PRIVATE ${ASSIMP_LIBRARIES})
 
+add_subdirectory(extern/spdlog)
+target_include_directories(glow PRIVATE extern/spdlog/include)
+target_link_libraries(glow PRIVATE spdlog::spdlog)
+
 file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
