@@ -15,15 +15,22 @@ class Window {
 public:
   Window() = default;
 
+  ~Window();
   void initialize(const WindowConfig &config);
   void poll_events() const;
+  void swap_buffers() const;
   std::array<int, 2> get_size() const;
+  std::array<double, 2> get_cursor_pos() const {
+    std::array<double, 2> pos;
+    glfwGetCursorPos(m_window, &pos[0], &pos[1]);
+    return pos;
+  }
   bool should_close() const;
   GLFWwindow *window() const { return m_window; }
   void set_should_close(bool should_close) const {
     glfwSetWindowShouldClose(m_window, should_close);
   }
-  void destroy();
+  // void destroy();
 
   typedef std::function<void(int, int, int, int)> onKeyFunc;
   typedef std::function<void(unsigned int)> onCharFunc;

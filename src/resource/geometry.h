@@ -1,8 +1,11 @@
 #pragma once
+#include <memory>
+#include <resource/resource.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <stdint.h>
 #include <vector>
+#include <glad/glad.h>
 using namespace glm;
 
 struct Vertex {
@@ -11,9 +14,9 @@ struct Vertex {
   vec2 uv;
 };
 
-class Geometry {
+class Geometry : public Resource {
 public:
-  static Geometry cube(float size = 1.0f) {
+  static std::unique_ptr<Geometry> make_cube(float size = 1.0f) {
     float side2 = size / 2.0f;
 
     std::vector<vec3> positions = {
@@ -83,10 +86,10 @@ public:
       vertices[i] = v;
     }
 
-    return Geometry(vertices, el);
+    return make_unique<Geometry>(vertices, el);
   }
 
-  static Geometry quad(float size = 1.0f) {
+  static std::unique_ptr<Geometry> quad(float size = 1.0f) {
     std::vector<vec3> positions = {
         {-size, 0.0f, -size},
         {-size, 0.0f, size},
@@ -117,13 +120,73 @@ public:
       vertices[i] = v;
     }
 
-    return Geometry(vertices, indices);
+    return make_unique<Geometry>(vertices, indices);
   }
 
-  explicit Geometry(const std::vector<Vertex> &vertices) : vertices(vertices){};
+  Geometry(const std::vector<Vertex> &vertices)
+      : Resource(ResourceType::Geometry) {
+    has_indices = false;
+    glCreateBuffers(1, &vbo);
+    glNamedBufferStorage(vbo, vertices.size() * sizeof(Vertex), vertices.data(),
+                         0);
+    glCreateVertexArrays(1, &vao);
+    glVertexArrayVertexBuffer(vao, 0, vbo, 0, sizeof(Vertex));
+    glEnableVertexArrayAttrib(vao, 0);
+    glVertexArrayAttribFormat(vao, 0, 3, GL_FLOAT, GL_FALSE,
+                              offsetof(Vertex, position));
+    glVertexArrayAttribBinding(vao, 0, 0);
+    glEnableVertexArrayAttrib(vao, 1);
+    glVertexArrayAttribFormat(vao, 1, 3, GL_FLOAT, GL_FALSE,
+                              offsetof(Vertex, normal));
+    glVertexArrayAttribBinding(vao, 1, 0);
+    glEnableVertexArrayAttrib(vao, 2);
+    glVertexArrayAttribFormat(vao, 2, 2, GL_FLOAT, GL_FALSE,
+                              offsetof(Vertex, uv));
+    glVertexArrayAttribBinding(vao, 2, 0);
+    count = vertices.size();
+  };
   Geometry(const std::vector<Vertex> &vertices,
            const std::vector<uint16_t> &indices)
-      : vertices(vertices), indices(indices){};
-  std::vector<Vertex> vertices;
-  std::vector<uint16_t> indices;
+      : Resource(ResourceType::Geometry) {
+    has_indices = true;
+    glCreateBuffers(1, &vbo);
+    glNamedBufferStorage(vbo, vertices.size() * sizeof(Vertex), vertices.data(),
+                         0);
+    glCreateBuffers(1, &ebo);
+    glNamedBufferStorage(ebo, indices.size() * sizeof(uint16_t), indices.data(),
+                         0);
+    glCreateVertexArrays(1, &vao);
+    glVertexArrayVertexBuffer(vao, 0, vbo, 0, sizeof(Vertex));
+    glEnableVertexArrayAttrib(vao, 0);
+    glVertexArrayAttribFormat(vao, 0, 3, GL_FLOAT, GL_FALSE,
+                              offsetof(Vertex, position));
+    glVertexArrayAttribBinding(vao, 0, 0);
+    glEnableVertexArrayAttrib(vao, 1);
+    glVertexArrayAttribFormat(vao, 1, 3, GL_FLOAT, GL_FALSE,
+                              offsetof(Vertex, normal));
+    glVertexArrayAttribBinding(vao, 1, 0);
+    glEnableVertexArrayAttrib(vao, 2);
+    glVertexArrayAttribFormat(vao, 2, 2, GL_FLOAT, GL_FALSE,
+                              offsetof(Vertex, uv));
+    glVertexArrayAttribBinding(vao, 2, 0);
+    glVertexArrayElementBuffer(vao, ebo);
+    count = indices.size();
+  };
+
+  ~Geometry() {
+    if (vao) {
+      glDeleteVertexArrays(1, &vao);
+    }
+    if (vbo) {
+      glDeleteBuffers(1, &vbo);
+    }
+    if (ebo) {
+      glDeleteBuffers(1, &ebo);
+    }
+  }
+  GLuint vao{0};
+  GLuint vbo{0};
+  GLuint ebo{0};
+  bool has_indices{false};
+  GLuint count{0};
 };

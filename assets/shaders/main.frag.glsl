@@ -21,13 +21,6 @@ in VS_OUT
     vec4 position_light_space;
 } vs_out;
 
-float linearize_depth(float depth)
-{
-    float near_plane = 0.1;
-    float far_plane = 100.0;
-    float z = depth * 2.0 - 1.0; // Back to NDC 
-    return (2.0 * near_plane * far_plane) / (far_plane + near_plane - z * (far_plane - near_plane));	
-}
 
 float shadow_caculate(vec4 frag_pos_light_space, float bias)
 {
@@ -46,6 +39,8 @@ float shadow_caculate(vec4 frag_pos_light_space, float bias)
         }    
     }
     shadow /= 9.0;
+    if (proj_coords.z > 1.0)
+        shadow = 0.0;
     return shadow;
 }
 
@@ -59,7 +54,7 @@ void main()
     float attenuation = 1.0 / (1.0 + 0.09 * length(vs_out.position - light.direction));
     vec3 diffuse = diff * light.color * light.intensity * attenuation;
     vec3 specular = spec * light.color * light.intensity * attenuation;
-    float bias = max(0.05 * (1.0 - dot(normal, light_dir)), 0.005);
+    float bias = max(0.0005 * (1.0 - dot(normal, light_dir)), 0.0005);
     float shadow = shadow_caculate(vs_out.position_light_space , bias);
     vec3 ambient = vec3(0.1, 0.1, 0.1) * light.color * light.intensity;
     FragColor = vec4(ambient + (1.0 - shadow) * (diffuse + specular), 1.0);

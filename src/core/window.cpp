@@ -43,11 +43,13 @@ void Window::initialize(const WindowConfig &config) {
 
 void Window::poll_events() const { glfwPollEvents(); }
 
+void Window::swap_buffers() const { glfwSwapBuffers(m_window); }
+
 bool Window::should_close() const { return glfwWindowShouldClose(m_window); }
 
 std::array<int, 2> Window::get_size() const { return {m_width, m_height}; }
 
-void Window::destroy() {
+Window::~Window() {
   glfwDestroyWindow(m_window);
   glfwTerminate();
 }
