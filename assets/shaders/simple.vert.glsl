@@ -14,12 +14,16 @@ out VS_OUT
     vec3 position;
     vec3 normal;
     vec2 uv;
+    vec3 tangent;
+    vec3 bitangent;
 } vs_out;
 
 void main()
 {
     vs_out.uv = inUV;
-    vs_out.normal = transpose(inverse(mat3(model))) * inNormal;
+    vs_out.normal = (model * vec4(inNormal, 0.0)).xyz;
+    vs_out.tangent = (model * vec4(inTangent, 0.0)).xyz;
+    vs_out.bitangent = (model * vec4(inBitangent, 0.0)).xyz;
     vs_out.position = (model * vec4(inPos, 1.0)).xyz;
     gl_Position = projection * view * model * vec4(inPos, 1.0);
 }

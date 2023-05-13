@@ -209,6 +209,7 @@
 #include <scene/scene.h>
 #include <controllers/camera_controller.h>
 #include <core/camera.h>
+#include <light/light.h>
 int main() {
   int width = 1024;
   int height = 768;
@@ -232,6 +233,22 @@ int main() {
   });
 
   CameraController controller(&camera, width, height);
+
+  std::vector<Light> lights = {Light{
+                                   .direction = vec3(0.0f, 1.0f, 0.0f),
+                                   .color = vec3(1.0f),
+                                   .intensity = 0.5f,
+                               },
+                               {
+                                   .direction = vec3(0.0f, -1.0f, 0.0f),
+                                   .color = vec3(1.0f),
+                                   .intensity = 0.5f,
+                               },
+                               {
+                                   .direction = vec3(0.0f, 0.0f, 1.0f),
+                                   .color = vec3(1.0f),
+                                   .intensity = 0.5f,
+                               }};
 
   ResourceCache cache;
   Scene scene = load_scene("assets/helmet/DamagedHelmet.gltf", &cache);
@@ -301,10 +318,10 @@ int main() {
           glBindTexture(
               GL_TEXTURE_2D,
               cache.get<Texture>(material->albedo_texture_id())->handle());
-          // glActiveTexture(GL_TEXTURE1);
-          // glBindTexture(
-          //     GL_TEXTURE_2D,
-          //     cache.get<Texture>(material->normal_texture_id())->handle());
+          glActiveTexture(GL_TEXTURE1);
+          glBindTexture(
+              GL_TEXTURE_2D,
+              cache.get<Texture>(material->normal_texture_id())->handle());
           // glActiveTexture(GL_TEXTURE2);
           // glBindTexture(
           //     GL_TEXTURE_2D,
@@ -317,7 +334,22 @@ int main() {
           // glBindTexture(
           //     GL_TEXTURE_2D,
           //     cache.get<Texture>(material->emissive_texture_id())->handle());
-
+          for (int i = 0; i < lights.size(); ++i) {
+            std::string light_name = "lights[" + std::to_string(i) + "]";
+            program->set_uniform((light_name + ".direction").c_str(),
+                                 GLUniform{lights[i].direction});
+            program->set_uniform((light_name + ".color").c_str(),
+                                 GLUniform{lights[i].color});
+            program->set_uniform((light_name + ".intensity").c_str(),
+                                 GLUniform{lights[i].intensity});
+          }
+          // program->set_uniform("light.direction",
+          //                      GLUniform{lights[0].direction});
+          // program->set_uniform("light.color", GLUniform{lights[0].color});
+          // program->set_uniform("light.intensity",
+          //                      GLUniform{lights[0].intensity});
+          program->set_uniform("camera_pos",
+                               GLUniform{camera.transform().position()});
           program->set_uniform("model", GLUniform{glm::mat4(1.0f)});
           program->set_uniform("view", GLUniform{view});
           program->set_uniform("projection", GLUniform{projection});
