@@ -160,6 +160,10 @@ void main()
     vec3 specular = prefiltered_color * (F * brdf.x + brdf.y);
     vec3 ambient    = (kD * diffuse + specular) * ao; 
     result += ambient + emmisive;
+
+    // hdr tonemapping
+    result = result / (result + vec3(1.0));
+
     result = linear_to_srgb(result);
     FragColor = vec4(result, 1.0);
 }
