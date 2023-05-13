@@ -198,7 +198,8 @@
 //   window.destroy();
 //   return 0;
 // }
-
+#include <rendering/brdfpass.h>
+#include <rendering/prefilterpass.h>
 #include <rendering/pbrpass.h>
 #include <rendering/skypass.h>
 #include <resource/resource.h>
@@ -274,9 +275,6 @@ int main() {
   auto skybox_shader_id = skybox_shader->id();
   cache.add(std::move(skybox_shader));
 
-  // glm::mat4 view = camera.view_matrix();
-  // glm::mat4 projection = camera.projection_matrix();
-
   double last_pos_x = 0.0;
   double last_pos_y = 0.0;
   window.register_on_mouse_button_func([&](int button, int action, int mods) {
@@ -325,12 +323,37 @@ int main() {
   auto skybox_texture = cache.get<TextureCube>(texture_cube_id);
   sky_pass.init(background_shader, skybox_texture, &camera);
 
+  PrefilterPass prefilter_pass;
+
+  auto prefilter_shader =
+      std::make_unique<GLProgram>("assets/shaders/background.vert.glsl",
+                                  "assets/shaders/prefilter.frag.glsl");
+  auto prefilter_shader_id = prefilter_shader->id();
+  cache.add(std::move(prefilter_shader));
+  prefilter_pass.init(cache.get<GLProgram>(prefilter_shader_id),
+                      cache.get<TextureCube>(texture_cube_id));
+
+  auto brdf_shader = std::make_unique<GLProgram>(
+      "assets/shaders/brdf.vert.glsl", "assets/shaders/brdf.frag.glsl");
+  auto brdf_shader_id = brdf_shader->id();
+  cache.add(std::move(brdf_shader));
+
+  BRDFPass brdf_pass;
+  brdf_pass.init(cache.get<GLProgram>(brdf_shader_id),
+                 prefilter_pass.capture_fbo, prefilter_pass.capture_rbo);
+
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
+  glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
   // glEnable(GL_CULL_FACE);
   // glCullFace(GL_BACK);
   // glFrontFace(GL_CCW);
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+  prefilter_pass.render();
+
+  brdf_pass.render();
+
   while (!window.should_close()) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for (auto &pass : passes) {
@@ -340,13 +363,14 @@ int main() {
       pass.height = height;
       pass.program = cache.get<GLProgram>(pbr_shader_id);
       pass.irradiance_texture = cache.get<TextureCube>(irradiance_map_id);
+      pass.brdf_lut = brdf_pass.brdf_texture;
+      pass.prefilter_map = prefilter_pass.prefilter_texture;
       pass.lights = lights.data();
       pass.light_count = lights.size();
       pass.render();
     }
 
     sky_pass.render();
-
     window.swap_buffers();
     window.poll_events();
   }

@@ -19,6 +19,9 @@ struct PBRPass {
 
   TextureCube *irradiance_texture{nullptr};
 
+  GLuint prefilter_map{0};
+  GLuint brdf_lut{0};
+
   Light *lights{nullptr};
   uint32_t light_count{0};
 

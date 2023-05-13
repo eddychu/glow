@@ -10,7 +10,8 @@ layout (binding = 3) uniform sampler2D texture_ao;
 layout (binding = 4) uniform sampler2D texture_emissive;
 
 layout (binding = 5) uniform samplerCube texture_irradiance_map;
-
+layout (binding = 6) uniform samplerCube texture_prefilter_map;
+layout (binding = 7) uniform sampler2D texture_brdf_lut;
 
 uniform struct Light {
     vec3 position;
@@ -65,9 +66,14 @@ float geometry_smith(vec3 N, vec3 V, vec3 L, float roughness)
     return ggx1 * ggx2;
 }
 
-vec3 fresnel_schlick(float cos_theta, vec3 F0, float roughness)
+vec3 fresnel_schlick_roughness(float cos_theta, vec3 F0, float roughness)
 {
-    return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(1.0 - cos_theta, 5.0);
+    return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(clamp(1.0 - cos_theta, 0.0, 1.0), 5.0);
+}   
+
+vec3 fresnel_schlick(float cos_theta, vec3 F0)
+{
+    return F0 + (1.0 - F0) * pow(clamp(1.0 - cos_theta, 0.0, 1.0), 5.0);
 }
 
 vec3 calc_bump_normal(vec3 normal, vec3 tangent, vec3 bitangent, vec3 normal_map)
@@ -94,7 +100,7 @@ vec3 calc_light_contrib(vec3 normal, vec3 view_dir, float roughness, float metal
         
         float ndf = distribution_ggx(normal, half_dir, roughness);
         float g = geometry_smith(normal, view_dir, light_dir, roughness);
-        vec3 fresnel = fresnel_schlick(max(dot(half_dir, view_dir), 0.0), F0, roughness);
+        vec3 fresnel = fresnel_schlick(max(dot(half_dir, view_dir), 0.0), F0);
 
         vec3 numerator = ndf * g * fresnel;
 
@@ -123,12 +129,11 @@ vec3 linear_to_srgb(vec3 color) {
 
 void main()
 {   
-    vec2 metal_roughness = texture(texture_metallic_roughness, vs_out.uv).rg;
+    vec4 metal_roughness = texture(texture_metallic_roughness, vs_out.uv);
     vec3 emmisive = texture(texture_emissive, vs_out.uv).rgb;
     float ao = texture(texture_ao, vs_out.uv).r;
-    float metallic = metal_roughness.r;
+    float metallic = metal_roughness.b;
     float roughness = metal_roughness.g;
-    // roughness = roughness * roughness;
     vec3 albedo = srgb_to_linear(texture(texture_albedo, vs_out.uv).rgb);
     vec3 normal_map = texture(texture_normal, vs_out.uv).xyz;
     normal_map = normal_map * 2.0 - 1.0;
@@ -140,14 +145,20 @@ void main()
 
     // hard code light
     vec3 result = calc_light_contrib(normal, view_dir, roughness, metallic, F0, albedo);
-    
-    vec3 kS = fresnel_schlick(max(dot(normal, view_dir), 0.0), F0, roughness);
+    result = vec3(0.0);
+    vec3 F = fresnel_schlick_roughness(max(dot(normal, view_dir), 0.0), F0, roughness);
+    vec3 kS = F;
     vec3 kD = 1.0 - kS;
-    
+    kD *= 1.0 - metallic;
+
     vec3 irradiance = texture(texture_irradiance_map, normal).rgb;
     vec3 diffuse    = irradiance * albedo;
-    vec3 ambient    = (kD * diffuse) * ao; 
 
+    const float MAX_REFLECTION_LOD = 4.0;
+    vec3 prefiltered_color = textureLod(texture_prefilter_map, reflect(-view_dir, normal), roughness * MAX_REFLECTION_LOD).rgb;
+    vec2 brdf = texture(texture_brdf_lut, vec2(max(dot(normal, view_dir), 0.0), roughness)).rg;
+    vec3 specular = prefiltered_color * (F * brdf.x + brdf.y);
+    vec3 ambient    = (kD * diffuse + specular) * ao; 
     result += ambient + emmisive;
     result = linear_to_srgb(result);
     FragColor = vec4(result, 1.0);

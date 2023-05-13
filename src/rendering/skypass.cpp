@@ -46,7 +46,7 @@ void SkyPass::render() {
   program->set_uniform("view", GLUniform{mat4(mat3(camera->view_matrix()))});
   program->set_uniform("projection", GLUniform{camera->projection_matrix()});
   glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_CUBE_MAP, texture->handle());
+  glBindTexture(GL_TEXTURE_CUBE_MAP, texture->id());
   glBindVertexArray(vao);
   glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, nullptr);
 }
