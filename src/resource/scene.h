@@ -1,5 +1,7 @@
 #pragma once
-#include "resource/resource.h"
+#include <core/camera.h>
+#include <resource/material.h>
+#include <resource/resource.h>
 #include <core/transform.h>
 #include <memory>
 #include <stdint.h>
@@ -22,7 +24,7 @@ struct Node {
  */
 
 struct SubMesh {
-  uint32_t material_id{0};
+  int32_t material{-1};
   uint32_t geometry_id{0};
 };
 
@@ -30,9 +32,11 @@ struct Mesh {
   std::vector<SubMesh> sub_meshes;
 };
 
-struct Scene {
+struct Scene : public Resource {
+  Scene() : Resource(ResourceType::Scene) {}
   std::vector<Node> nodes;
   std::vector<Mesh> meshes;
+  std::vector<Material> materials;
 };
 
-Scene load_scene(const std::string &filename, class ResourceCache *cache);
+uint32_t load_scene(const std::string &filename, class ResourceCache *cache);

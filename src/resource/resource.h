@@ -9,6 +9,7 @@ enum class ResourceType {
   Material,
   Geometry,
   Shader,
+  Scene,
   Unknown
 };
 

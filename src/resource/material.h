@@ -3,11 +3,11 @@
 #include <glm/glm.hpp>
 #include <stdint.h>
 
-class Material : public Resource {
+class Material {
 public:
   Material(const glm::vec3 &color = glm::vec3(1.0, 0.0, 0.0),
            float roughness = 0.5f, float metallic = 0.5f)
-      : Resource(ResourceType::Material) {}
+      : m_color(color), m_roughness(roughness), m_metallic(metallic) {}
   void set_color(const glm::vec3 &color) { m_color = color; }
   const glm::vec3 &color() const { return m_color; }
 
