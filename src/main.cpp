@@ -223,7 +223,7 @@ int main() {
   window.initialize({
       .width = width,
       .height = height,
-      .title = "Hello World",
+      .title = "Glow Renderer 0.1",
       .is_fullscreen = false,
   });
 
