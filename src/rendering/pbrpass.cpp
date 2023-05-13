@@ -48,6 +48,8 @@ void PBRPass::render() {
     glBindTexture(GL_TEXTURE_2D, ao_texture->handle());
     glActiveTexture(GL_TEXTURE4);
     glBindTexture(GL_TEXTURE_2D, emissive_texture->handle());
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, irradiance_texture->handle());
     for (int i = 0; i < light_count; ++i) {
       std::string light_name = "lights[" + std::to_string(i) + "]";
       auto value = lights[i].value;

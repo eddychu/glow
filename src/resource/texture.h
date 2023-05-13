@@ -30,8 +30,7 @@ private:
 
 class TextureCube : public Resource {
 public:
-  TextureCube(const std::string &path, const std::string &file_extension,
-              const TextureConfig &config);
+  TextureCube(const std::string &path, const std::string &file_extension);
 
   void destroy() const;
 

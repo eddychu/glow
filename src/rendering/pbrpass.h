@@ -17,6 +17,8 @@ struct PBRPass {
   Texture *ao_texture{nullptr};
   Texture *emissive_texture{nullptr};
 
+  TextureCube *irradiance_texture{nullptr};
+
   Light *lights{nullptr};
   uint32_t light_count{0};
 

@@ -36,37 +36,64 @@ void Texture::destroy() const {
 }
 
 TextureCube::TextureCube(const std::string &path,
-                         const std::string &file_extension,
-                         const TextureConfig &config)
-    : Resource(config.type) {
+                         const std::string &file_extension)
+    : Resource(ResourceType::TextureCube) {
   GLenum target = GL_TEXTURE_CUBE_MAP;
   spdlog::info("Loading texture: {}", path);
   int width, height, nrChannels;
   const char *names[] = {"posx", "negx", "posy", "negy", "posz", "negz"};
-  unsigned char *data;
-  std::string full_path = path + "/" + names[0] + "." + file_extension;
-  data = stbi_load(full_path.c_str(), &width, &height, &nrChannels, 4);
-  if (!data) {
-    spdlog::error("Failed to load texture: {}", full_path);
-    throw std::runtime_error("Failed to load texture");
-  }
-  glCreateTextures(target, 1, &m_handle);
-  glTextureStorage2D(m_handle, config.levels, GL_RGBA8, width, height);
-  glTextureSubImage3D(m_handle, 0, 0, 0, 0, width, height, 1, GL_RGBA,
-                      GL_UNSIGNED_BYTE, data);
-  stbi_image_free(data);
-  for (int i = 1; i < 6; i++) {
-    std::string full_path = path + "/" + names[i] + "." + file_extension;
+  if (file_extension == "hdr") {
+    float *data;
+    std::string full_path = path + "/" + names[0] + "." + file_extension;
+    data = stbi_loadf(full_path.c_str(), &width, &height, &nrChannels, 4);
+    if (!data) {
+      spdlog::error("Failed to load texture: {}", full_path);
+      throw std::runtime_error("Failed to load texture");
+    }
+    glCreateTextures(target, 1, &m_handle);
+    glTextureStorage2D(m_handle, 1, GL_RGBA32F, width, height);
+    glTextureSubImage3D(m_handle, 0, 0, 0, 0, width, height, 1, GL_RGBA,
+                        GL_FLOAT, data);
+    stbi_image_free(data);
+    for (int i = 1; i < 6; i++) {
+      std::string full_path = path + "/" + names[i] + "." + file_extension;
+      data = stbi_loadf(full_path.c_str(), &width, &height, &nrChannels, 4);
+      if (!data) {
+        spdlog::error("Failed to load texture: {}", full_path);
+        throw std::runtime_error("Failed to load texture");
+      }
+      glTextureSubImage3D(m_handle, 0, 0, 0, i, width, height, 1, GL_RGBA,
+                          GL_FLOAT, data);
+
+      stbi_image_free(data);
+    }
+  } else {
+    unsigned char *data;
+    std::string full_path = path + "/" + names[0] + "." + file_extension;
     data = stbi_load(full_path.c_str(), &width, &height, &nrChannels, 4);
     if (!data) {
       spdlog::error("Failed to load texture: {}", full_path);
       throw std::runtime_error("Failed to load texture");
     }
-    glTextureSubImage3D(m_handle, 0, 0, 0, i, width, height, 1, GL_RGBA,
+    glCreateTextures(target, 1, &m_handle);
+    glTextureStorage2D(m_handle, 1, GL_RGBA8, width, height);
+    glTextureSubImage3D(m_handle, 0, 0, 0, 0, width, height, 1, GL_RGBA,
                         GL_UNSIGNED_BYTE, data);
-
     stbi_image_free(data);
+    for (int i = 1; i < 6; i++) {
+      std::string full_path = path + "/" + names[i] + "." + file_extension;
+      data = stbi_load(full_path.c_str(), &width, &height, &nrChannels, 4);
+      if (!data) {
+        spdlog::error("Failed to load texture: {}", full_path);
+        throw std::runtime_error("Failed to load texture");
+      }
+      glTextureSubImage3D(m_handle, 0, 0, 0, i, width, height, 1, GL_RGBA,
+                          GL_UNSIGNED_BYTE, data);
+
+      stbi_image_free(data);
+    }
   }
+
   glTextureParameteri(m_handle, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTextureParameteri(m_handle, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTextureParameteri(m_handle, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

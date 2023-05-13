@@ -199,9 +199,9 @@
 //   return 0;
 // }
 
-#include "rendering/pbrpass.h"
-#include "rendering/skypass.h"
-#include "resource/resource.h"
+#include <rendering/pbrpass.h>
+#include <rendering/skypass.h>
+#include <resource/resource.h>
 #include <resource/texture.h>
 #include <spdlog/spdlog.h>
 #include <resource/geometry.h>
@@ -251,11 +251,14 @@ int main() {
                     .color = vec3(1.0f),
                     .intensity = 1.f,
                 }},
-      Light{.value = PointLight{
-                .position = vec3(0.0f, 0.0f, 5.0f),
-                .color = vec3(1.0f),
-                .intensity = 1.f,
-            }}};
+      Light{.value =
+                PointLight{
+                    .position = vec3(0.0f, 0.0f, 5.0f),
+                    .color = vec3(1.0f),
+                    .intensity = 1.f,
+                }}
+
+  };
 
   ResourceCache cache;
   uint32_t scene_id = load_scene("assets/helmet/DamagedHelmet.gltf", &cache);
@@ -308,12 +311,14 @@ int main() {
   std::vector<PBRPass> passes = from_scene(scene_id, &cache);
 
   auto texture_cube =
-      std::make_unique<TextureCube>("assets/skybox/pisa", "png",
-                                    TextureConfig{
-                                        .type = ResourceType::TextureCube,
-                                    });
+      std::make_unique<TextureCube>("assets/skybox/grace", "hdr");
   auto texture_cube_id = texture_cube->id();
   cache.add(std::move(texture_cube));
+
+  auto irradiance_map =
+      std::make_unique<TextureCube>("assets/skybox/grace-diffuse", "hdr");
+  auto irradiance_map_id = irradiance_map->id();
+  cache.add(std::move(irradiance_map));
 
   SkyPass sky_pass;
   auto background_shader = cache.get<GLProgram>(skybox_shader_id);
@@ -326,8 +331,6 @@ int main() {
   // glCullFace(GL_BACK);
   // glFrontFace(GL_CCW);
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  // set sample count opengl
-  // glEnable(GL_MULTISAMPLE);
   while (!window.should_close()) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for (auto &pass : passes) {
@@ -336,6 +339,7 @@ int main() {
       pass.width = width;
       pass.height = height;
       pass.program = cache.get<GLProgram>(pbr_shader_id);
+      pass.irradiance_texture = cache.get<TextureCube>(irradiance_map_id);
       pass.lights = lights.data();
       pass.light_count = lights.size();
       pass.render();
