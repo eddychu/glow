@@ -199,13 +199,16 @@
 //   return 0;
 // }
 
-#include "spdlog/spdlog.h"
+#include <resource/texture.h>
+#include <spdlog/spdlog.h>
 #include <resource/geometry.h>
 #include <core/window.h>
 #include <resource/shader.h>
 #include <memory>
 #include <resource/material.h>
 #include <scene/scene.h>
+#include <controllers/camera_controller.h>
+#include <core/camera.h>
 int main() {
   int width = 1024;
   int height = 768;
@@ -218,6 +221,18 @@ int main() {
       .is_fullscreen = false,
   });
 
+  Camera camera(CameraConfig{
+      .position = vec3(0.0f, 0.0f, 3.0f),
+      .target = vec3(0.0f),
+      .up = vec3(0.0f, 1.0f, 0.0f),
+      .fov = 45.0f,
+      .aspect = (float)width / (float)height,
+      .near = 0.1f,
+      .far = 100.0f,
+  });
+
+  CameraController controller(&camera, width, height);
+
   ResourceCache cache;
   Scene scene = load_scene("assets/helmet/DamagedHelmet.gltf", &cache);
   auto shader = std::make_unique<GLProgram>("assets/shaders/simple.vert.glsl",
@@ -225,14 +240,47 @@ int main() {
   auto shader_id = shader->id();
   cache.add(std::move(shader));
 
-  glm::mat4 view =
-      glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f),
-                  glm::vec3(0.0f, 1.0f, 0.0f));
-  glm::mat4 projection = glm::perspective(
-      glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+  glm::mat4 view = camera.view_matrix();
+  glm::mat4 projection = camera.projection_matrix();
+
+  double last_pos_x = 0.0;
+  double last_pos_y = 0.0;
+  window.register_on_mouse_button_func([&](int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+      controller.set_enable(true);
+      auto cursor_pos = window.get_cursor_pos();
+      last_pos_x = cursor_pos[0];
+      last_pos_y = cursor_pos[1];
+    } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+      controller.set_enable(false);
+    }
+  });
+
+  window.register_on_cursor_pos_func([&](double xpos, double ypos) {
+    float x_offset = xpos - last_pos_x;
+    float y_offset = ypos - last_pos_y;
+    controller.rotate(x_offset, y_offset);
+    view = camera.view_matrix();
+    last_pos_x = xpos;
+    last_pos_y = ypos;
+  });
+
+  window.register_on_window_size_func([&](int new_width, int new_height) {
+    width = new_width;
+    height = new_height;
+    camera.set_aspect((float)width / (float)height);
+    // todo: update camera projection matrix
+    projection = camera.projection_matrix();
+  });
+
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
+  glCullFace(GL_BACK);
+  glFrontFace(GL_CCW);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
   while (!window.should_close()) {
-
+    glViewport(0, 0, width, height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for (auto &node : scene.nodes) {
       // update
@@ -247,16 +295,38 @@ int main() {
           auto program = cache.get<GLProgram>(shader_id);
           auto geometry = cache.get<Geometry>(geometry_id);
           program->use();
-          spdlog::info("Drawing mesh {} with material {} and geometry {}",
-                       node.mesh, material_id, geometry_id);
+          // spdlog::info("Drawing mesh {} with material {} and geometry {}",
+          //              node.mesh, material_id, geometry_id);
+          glActiveTexture(GL_TEXTURE0);
+          glBindTexture(
+              GL_TEXTURE_2D,
+              cache.get<Texture>(material->albedo_texture_id())->handle());
+          // glActiveTexture(GL_TEXTURE1);
+          // glBindTexture(
+          //     GL_TEXTURE_2D,
+          //     cache.get<Texture>(material->normal_texture_id())->handle());
+          // glActiveTexture(GL_TEXTURE2);
+          // glBindTexture(
+          //     GL_TEXTURE_2D,
+          //     cache.get<Texture>(material->metallic_texture_id())->handle());
+          // glActiveTexture(GL_TEXTURE3);
+          // glBindTexture(
+          //     GL_TEXTURE_2D,
+          //     cache.get<Texture>(material->ao_texture_id())->handle());
+          // glActiveTexture(GL_TEXTURE4);
+          // glBindTexture(
+          //     GL_TEXTURE_2D,
+          //     cache.get<Texture>(material->emissive_texture_id())->handle());
+
           program->set_uniform("model", GLUniform{glm::mat4(1.0f)});
           program->set_uniform("view", GLUniform{view});
           program->set_uniform("projection", GLUniform{projection});
-          glBindVertexArray(geometry->vao);
-          if (geometry->has_indices) {
-            glDrawElements(GL_TRIANGLES, geometry->count, GL_UNSIGNED_SHORT, 0);
+          glBindVertexArray(geometry->handle());
+          if (geometry->has_indices()) {
+            glDrawElements(GL_TRIANGLES, geometry->count(), GL_UNSIGNED_SHORT,
+                           0);
           } else {
-            glDrawArrays(GL_TRIANGLES, 0, geometry->count);
+            glDrawArrays(GL_TRIANGLES, 0, geometry->count());
           }
         }
       }

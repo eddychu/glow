@@ -29,3 +29,8 @@ Texture::Texture(const std::string &path, const TextureConfig &config)
   glTextureParameteri(m_handle, GL_TEXTURE_WRAP_R, GL_REPEAT);
   stbi_image_free(data);
 }
+
+void Texture::destroy() const {
+  spdlog::info("texture destroyed");
+  glDeleteTextures(1, &m_handle);
+}

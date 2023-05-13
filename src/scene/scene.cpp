@@ -1,7 +1,7 @@
-#include "assimp/material.h"
-#include "resource/material.h"
-#include "resource/resource.h"
-#include "resource/texture.h"
+#include <assimp/material.h>
+#include <resource/material.h>
+#include <resource/resource.h>
+#include <resource/texture.h>
 #include <memory>
 #include <scene/scene.h>
 #include <resource/geometry.h>
@@ -46,16 +46,18 @@ static void process_submesh(Mesh &mesh, aiMesh *ai_mesh,
       vec.x = ai_mesh->mTextureCoords[0][i].x;
       vec.y = ai_mesh->mTextureCoords[0][i].y;
       vertex.uv = vec;
-      // tangent
-      //   vector.x = ai_mesh->mTangents[i].x;
-      //   vector.y = ai_mesh->mTangents[i].y;
-      //   vector.z = ai_mesh->mTangents[i].z;
-      //   vertex.tangent = vector;
-      //   // bitangent
-      //   vector.x = mesh->mBitangents[i].x;
-      //   vector.y = mesh->mBitangents[i].y;
-      //   vector.z = mesh->mBitangents[i].z;
-      //   vertex.Bitangent = vector;
+      vector.x = ai_mesh->mTangents[i].x;
+      vector.y = ai_mesh->mTangents[i].y;
+      vector.z = ai_mesh->mTangents[i].z;
+      vertex.tangent = vector;
+      // bitangent
+      vector.x = ai_mesh->mBitangents[i].x;
+      vector.y = ai_mesh->mBitangents[i].y;
+      vector.z = ai_mesh->mBitangents[i].z;
+      vertex.bitangent = vector;
+    } else {
+      spdlog::error("no texture coordinates found");
+      throw std::runtime_error("no texture coordinates found");
     }
     vertices.push_back(vertex);
   }

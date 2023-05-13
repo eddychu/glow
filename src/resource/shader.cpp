@@ -4,7 +4,7 @@
 #include <istream>
 #include <string>
 #include <variant>
-
+#include <spdlog/spdlog.h>
 std::string read_file_to_string(const char *filename) {
   std::ifstream file(filename);
   std::string str;
@@ -26,8 +26,9 @@ GLShader::GLShader(const char *path, GLenum type) {
   if (!success) {
     char infoLog[512];
     glGetShaderInfoLog(handle, 512, NULL, infoLog);
-    printf("Error: Failed to compile shader %s.\n", path);
-    printf("%s\n", infoLog);
+    spdlog::error("Error: Failed to compile shader {}.", path);
+    spdlog::error("{}", infoLog);
+    throw std::runtime_error("Failed to compile shader.");
   }
 }
 
@@ -46,8 +47,9 @@ GLProgram::GLProgram(const char *vs_path, const char *fs_path)
   if (!success) {
     char infoLog[512];
     glGetProgramInfoLog(handle, 512, NULL, infoLog);
-    printf("Error: Failed to link program.\n");
-    printf("%s\n", infoLog);
+    spdlog::error("Error: Failed to link program.");
+    spdlog::error("{}", infoLog);
+    throw std::runtime_error("Failed to link program.");
   }
   glDetachShader(handle, vs.handle);
   glDetachShader(handle, fs.handle);

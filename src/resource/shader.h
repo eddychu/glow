@@ -5,12 +5,17 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <unordered_map>
+#include <spdlog/spdlog.h>
 using namespace glm;
 
 struct GLShader {
   GLuint handle;
   GLShader(const char *path, GLenum type);
   void destroy() const;
+  ~GLShader() {
+    spdlog::info("GLShader destroyed");
+    destroy();
+  }
 };
 
 struct GLUniform {
@@ -26,6 +31,10 @@ public:
   void use() const;
   void unuse() const;
   void destroy() const;
+  ~GLProgram() {
+    spdlog::info("GLProgram destroyed");
+    destroy();
+  }
   GLuint handle;
   std::unordered_map<std::string, GLuint> uniforms;
 };

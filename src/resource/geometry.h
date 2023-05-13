@@ -12,6 +12,8 @@ struct Vertex {
   vec3 position;
   vec3 normal;
   vec2 uv;
+  vec3 tangent;
+  vec3 bitangent;
 };
 
 class Geometry : public Resource {
@@ -123,70 +125,23 @@ public:
     return make_unique<Geometry>(vertices, indices);
   }
 
-  Geometry(const std::vector<Vertex> &vertices)
-      : Resource(ResourceType::Geometry) {
-    has_indices = false;
-    glCreateBuffers(1, &vbo);
-    glNamedBufferStorage(vbo, vertices.size() * sizeof(Vertex), vertices.data(),
-                         0);
-    glCreateVertexArrays(1, &vao);
-    glVertexArrayVertexBuffer(vao, 0, vbo, 0, sizeof(Vertex));
-    glEnableVertexArrayAttrib(vao, 0);
-    glVertexArrayAttribFormat(vao, 0, 3, GL_FLOAT, GL_FALSE,
-                              offsetof(Vertex, position));
-    glVertexArrayAttribBinding(vao, 0, 0);
-    glEnableVertexArrayAttrib(vao, 1);
-    glVertexArrayAttribFormat(vao, 1, 3, GL_FLOAT, GL_FALSE,
-                              offsetof(Vertex, normal));
-    glVertexArrayAttribBinding(vao, 1, 0);
-    glEnableVertexArrayAttrib(vao, 2);
-    glVertexArrayAttribFormat(vao, 2, 2, GL_FLOAT, GL_FALSE,
-                              offsetof(Vertex, uv));
-    glVertexArrayAttribBinding(vao, 2, 0);
-    count = vertices.size();
-  };
+  Geometry(const std::vector<Vertex> &vertices);
   Geometry(const std::vector<Vertex> &vertices,
-           const std::vector<uint16_t> &indices)
-      : Resource(ResourceType::Geometry) {
-    has_indices = true;
-    glCreateBuffers(1, &vbo);
-    glNamedBufferStorage(vbo, vertices.size() * sizeof(Vertex), vertices.data(),
-                         0);
-    glCreateBuffers(1, &ebo);
-    glNamedBufferStorage(ebo, indices.size() * sizeof(uint16_t), indices.data(),
-                         0);
-    glCreateVertexArrays(1, &vao);
-    glVertexArrayVertexBuffer(vao, 0, vbo, 0, sizeof(Vertex));
-    glEnableVertexArrayAttrib(vao, 0);
-    glVertexArrayAttribFormat(vao, 0, 3, GL_FLOAT, GL_FALSE,
-                              offsetof(Vertex, position));
-    glVertexArrayAttribBinding(vao, 0, 0);
-    glEnableVertexArrayAttrib(vao, 1);
-    glVertexArrayAttribFormat(vao, 1, 3, GL_FLOAT, GL_FALSE,
-                              offsetof(Vertex, normal));
-    glVertexArrayAttribBinding(vao, 1, 0);
-    glEnableVertexArrayAttrib(vao, 2);
-    glVertexArrayAttribFormat(vao, 2, 2, GL_FLOAT, GL_FALSE,
-                              offsetof(Vertex, uv));
-    glVertexArrayAttribBinding(vao, 2, 0);
-    glVertexArrayElementBuffer(vao, ebo);
-    count = indices.size();
-  };
+           const std::vector<uint16_t> &indices);
 
-  ~Geometry() {
-    if (vao) {
-      glDeleteVertexArrays(1, &vao);
-    }
-    if (vbo) {
-      glDeleteBuffers(1, &vbo);
-    }
-    if (ebo) {
-      glDeleteBuffers(1, &ebo);
-    }
-  }
+  void destroy();
+
+  ~Geometry();
+
+  bool has_indices() const { return m_has_indices; }
+  GLuint handle() const { return vao; }
+  GLuint count() const { return m_count; }
+
+private:
+  void setup_vbo(const std::vector<Vertex> &vertices);
   GLuint vao{0};
   GLuint vbo{0};
   GLuint ebo{0};
-  bool has_indices{false};
-  GLuint count{0};
+  bool m_has_indices{false};
+  GLuint m_count{0};
 };

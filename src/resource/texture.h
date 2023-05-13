@@ -18,6 +18,12 @@ class Texture : public Resource {
 public:
   Texture(const std::string &path, const TextureConfig &config);
 
+  void destroy() const;
+
+  GLuint handle() const { return m_handle; }
+
+  ~Texture() { destroy(); }
+
 private:
   GLuint m_handle;
 };

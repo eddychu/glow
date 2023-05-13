@@ -2,6 +2,8 @@
 layout (location = 0) in vec3 inPos;
 layout (location = 1) in vec3 inNormal;
 layout (location = 2) in vec2 inUV;
+layout (location = 3) in vec3 inTangent;
+layout (location = 4) in vec3 inBitangent;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -12,7 +14,6 @@ out VS_OUT
     vec3 position;
     vec3 normal;
     vec2 uv;
-    vec4 position_light_space;
 } vs_out;
 
 void main()
