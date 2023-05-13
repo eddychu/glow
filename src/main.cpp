@@ -225,6 +225,7 @@ int main() {
       .height = height,
       .title = "Glow Renderer 0.1",
       .is_fullscreen = false,
+      .multisample = 4,
   });
 
   Camera camera(CameraConfig{

@@ -9,7 +9,7 @@ void Window::initialize(const WindowConfig &config) {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+  glfwWindowHint(GLFW_SAMPLES, config.multisample);
   m_window = glfwCreateWindow(config.width, config.height, config.title,
                               nullptr, nullptr);
 
@@ -39,6 +39,7 @@ void Window::initialize(const WindowConfig &config) {
   // spdlog::info("OpenGL Version: %s", glGetString(GL_VERSION)));
 
   spdlog::info("GLFW Version: %s", glfwGetVersionString());
+  glEnable(GL_MULTISAMPLE);
 }
 
 void Window::poll_events() const { glfwPollEvents(); }

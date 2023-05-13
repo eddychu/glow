@@ -9,6 +9,7 @@ struct WindowConfig {
   int height{720};
   const char *title{"glow 0.1"};
   bool is_fullscreen{false};
+  int multisample{0};
 };
 
 class Window {
