@@ -27,3 +27,18 @@ public:
 private:
   GLuint m_handle;
 };
+
+class TextureCube : public Resource {
+public:
+  TextureCube(const std::string &path, const std::string &file_extension,
+              const TextureConfig &config);
+
+  void destroy() const;
+
+  GLuint handle() const { return m_handle; }
+
+  ~TextureCube() { destroy(); }
+
+private:
+  GLuint m_handle;
+};

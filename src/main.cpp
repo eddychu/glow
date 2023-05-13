@@ -200,6 +200,8 @@
 // }
 
 #include "rendering/pbrpass.h"
+#include "rendering/skypass.h"
+#include "resource/resource.h"
 #include <resource/texture.h>
 #include <spdlog/spdlog.h>
 #include <resource/geometry.h>
@@ -241,29 +243,36 @@ int main() {
                 DirectionalLight{
                     .direction = vec3(0.0f, 1.0f, 0.0f),
                     .color = vec3(1.0f),
-                    .intensity = 0.5f,
+                    .intensity = 1.f,
                 }},
       Light{.value =
                 DirectionalLight{
                     .direction = vec3(0.0f, -1.0f, 0.0f),
                     .color = vec3(1.0f),
-                    .intensity = 0.5f,
+                    .intensity = 1.f,
                 }},
-      Light{.value = DirectionalLight{
-                .direction = vec3(0.0f, 0.0f, 1.0f),
+      Light{.value = PointLight{
+                .position = vec3(0.0f, 0.0f, 5.0f),
                 .color = vec3(1.0f),
-                .intensity = 0.5f,
+                .intensity = 1.f,
             }}};
 
   ResourceCache cache;
   uint32_t scene_id = load_scene("assets/helmet/DamagedHelmet.gltf", &cache);
-  auto shader = std::make_unique<GLProgram>("assets/shaders/simple.vert.glsl",
-                                            "assets/shaders/simple.frag.glsl");
-  auto shader_id = shader->id();
-  cache.add(std::move(shader));
+  auto pbr_shader = std::make_unique<GLProgram>(
+      "assets/shaders/simple.vert.glsl", "assets/shaders/simple.frag.glsl");
+  auto pbr_shader_id = pbr_shader->id();
+  cache.add(std::move(pbr_shader));
 
-  glm::mat4 view = camera.view_matrix();
-  glm::mat4 projection = camera.projection_matrix();
+  auto skybox_shader =
+      std::make_unique<GLProgram>("assets/shaders/background.vert.glsl",
+                                  "assets/shaders/background.frag.glsl");
+
+  auto skybox_shader_id = skybox_shader->id();
+  cache.add(std::move(skybox_shader));
+
+  // glm::mat4 view = camera.view_matrix();
+  // glm::mat4 projection = camera.projection_matrix();
 
   double last_pos_x = 0.0;
   double last_pos_y = 0.0;
@@ -282,7 +291,7 @@ int main() {
     float x_offset = xpos - last_pos_x;
     float y_offset = ypos - last_pos_y;
     controller.rotate(x_offset, y_offset);
-    view = camera.view_matrix();
+    // view = camera.view_matrix();
     last_pos_x = xpos;
     last_pos_y = ypos;
   });
@@ -292,111 +301,47 @@ int main() {
     height = new_height;
     camera.set_aspect((float)width / (float)height);
     // todo: update camera projection matrix
-    projection = camera.projection_matrix();
+    // projection = camera.projection_matrix();
   });
 
   // auto scene = cache.get<Scene>(scene_id);
   std::vector<PBRPass> passes = from_scene(scene_id, &cache);
 
+  auto texture_cube =
+      std::make_unique<TextureCube>("assets/skybox/pisa", "png",
+                                    TextureConfig{
+                                        .type = ResourceType::TextureCube,
+                                    });
+  auto texture_cube_id = texture_cube->id();
+  cache.add(std::move(texture_cube));
+
+  SkyPass sky_pass;
+  auto background_shader = cache.get<GLProgram>(skybox_shader_id);
+  auto skybox_texture = cache.get<TextureCube>(texture_cube_id);
+  sky_pass.init(background_shader, skybox_texture, &camera);
+
   glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LEQUAL);
   // glEnable(GL_CULL_FACE);
   // glCullFace(GL_BACK);
   // glFrontFace(GL_CCW);
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
+  // set sample count opengl
+  // glEnable(GL_MULTISAMPLE);
   while (!window.should_close()) {
-    glViewport(0, 0, width, height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     for (auto &pass : passes) {
+      pass.samples = 4;
       pass.camera = &camera;
       pass.width = width;
       pass.height = height;
-      pass.program = cache.get<GLProgram>(shader_id);
+      pass.program = cache.get<GLProgram>(pbr_shader_id);
       pass.lights = lights.data();
       pass.light_count = lights.size();
       pass.render();
     }
 
-    // for (auto &node : scene.nodes) {
-    //   // update
-    //   // node->update();
-    //   // draw
-    //   if (node.mesh > -1) {
-    //     auto mesh = scene.meshes[node.mesh];
-    //     for (const auto &sub_mesh : mesh.sub_meshes) {
-    //       auto material_id = sub_mesh.material_id;
-    //       auto geometry_id = sub_mesh.geometry_id;
-    //       auto material = cache.get<Material>(material_id);
-    //       auto program = cache.get<GLProgram>(shader_id);
-    //       auto geometry = cache.get<Geometry>(geometry_id);
-    //       program->use();
-    //       // spdlog::info("Drawing mesh {} with material {} and geometry {}",
-    //       //              node.mesh, material_id, geometry_id);
-    //       glActiveTexture(GL_TEXTURE0);
-    //       glBindTexture(
-    //           GL_TEXTURE_2D,
-    //           cache.get<Texture>(material->albedo_texture_id())->handle());
-    //       glActiveTexture(GL_TEXTURE1);
-    //       glBindTexture(
-    //           GL_TEXTURE_2D,
-    //           cache.get<Texture>(material->normal_texture_id())->handle());
-    //       glActiveTexture(GL_TEXTURE2);
-    //       glBindTexture(
-    //           GL_TEXTURE_2D,
-    //           cache.get<Texture>(material->metallic_texture_id())->handle());
-    //       glActiveTexture(GL_TEXTURE3);
-    //       glBindTexture(
-    //           GL_TEXTURE_2D,
-    //           cache.get<Texture>(material->ao_texture_id())->handle());
-    //       glActiveTexture(GL_TEXTURE4);
-    //       glBindTexture(
-    //           GL_TEXTURE_2D,
-    //           cache.get<Texture>(material->emissive_texture_id())->handle());
-    //       for (int i = 0; i < lights.size(); ++i) {
-    //         std::string light_name = "lights[" + std::to_string(i) + "]";
-    //         auto value = lights[i].value;
-    //         try {
-    //           DirectionalLight light = std::get<DirectionalLight>(value);
-    //           program->set_uniform((light_name + ".direction").c_str(),
-    //                                GLUniform{light.direction});
-    //           program->set_uniform((light_name + ".color").c_str(),
-    //                                GLUniform{light.color});
-    //           program->set_uniform((light_name + ".intensity").c_str(),
-    //                                GLUniform{light.intensity});
-    //         } catch (const std::bad_variant_access &) {
-    //           // PointLight light = std::get<PointLight>(value);
-    //           // program->set_uniform((light_name + ".position").c_str(),
-    //           //                      GLUniform{light.position});
-    //           // program->set_uniform((light_name + ".color").c_str(),
-    //           //                      GLUniform{light.color});
-    //           // program->set_uniform((light_name + ".intensity").c_str(),
-    //           //                      GLUniform{light.intensity});
-    //           spdlog::error("Unsupported light type");
-    //           throw std::runtime_error("Unsupported light type");
-    //         }
-    //       }
-    //       // program->set_uniform("light.direction",
-    //       //                      GLUniform{lights[0].direction});
-    //       // program->set_uniform("light.color", GLUniform{lights[0].color});
-    //       // program->set_uniform("light.intensity",
-    //       //                      GLUniform{lights[0].intensity});
-    //       program->set_uniform("camera_pos",
-    //                            GLUniform{camera.transform().position()});
-    //       program->set_uniform("model", GLUniform{glm::mat4(1.0f)});
-    //       program->set_uniform("view", GLUniform{view});
-    //       program->set_uniform("projection", GLUniform{projection});
-    //       glBindVertexArray(geometry->handle());
-    //       if (geometry->has_indices()) {
-    //         glDrawElements(GL_TRIANGLES, geometry->count(),
-    //         GL_UNSIGNED_SHORT,
-    //                        0);
-    //       } else {
-    //         glDrawArrays(GL_TRIANGLES, 0, geometry->count());
-    //       }
-    //     }
-    //   }
-    // }
+    sky_pass.render();
 
     window.swap_buffers();
     window.poll_events();

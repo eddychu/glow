@@ -51,25 +51,47 @@ void PBRPass::render() {
     for (int i = 0; i < light_count; ++i) {
       std::string light_name = "lights[" + std::to_string(i) + "]";
       auto value = lights[i].value;
-      try {
-        DirectionalLight light = std::get<DirectionalLight>(value);
-        program->set_uniform((light_name + ".direction").c_str(),
-                             GLUniform{light.direction});
+      if (const auto *light = std::get_if<DirectionalLight>(&value); light) {
+        program->set_uniform((light_name + ".position").c_str(),
+                             GLUniform{light->direction});
         program->set_uniform((light_name + ".color").c_str(),
-                             GLUniform{light.color});
+                             GLUniform{light->color});
         program->set_uniform((light_name + ".intensity").c_str(),
-                             GLUniform{light.intensity});
-      } catch (const std::bad_variant_access &) {
-        // PointLight light = std::get<PointLight>(value);
-        // program->set_uniform((light_name + ".position").c_str(),
-        //                      GLUniform{light.position});
-        // program->set_uniform((light_name + ".color").c_str(),
-        //                      GLUniform{light.color});
-        // program->set_uniform((light_name + ".intensity").c_str(),
-        //                      GLUniform{light.intensity});
+                             GLUniform{light->intensity});
+        program->set_uniform((light_name + ".is_directional").c_str(),
+                             GLUniform{1});
+      } else if (const auto *light = std::get_if<PointLight>(&value); light) {
+        program->set_uniform((light_name + ".position").c_str(),
+                             GLUniform{light->position});
+        program->set_uniform((light_name + ".color").c_str(),
+                             GLUniform{light->color});
+        program->set_uniform((light_name + ".intensity").c_str(),
+                             GLUniform{light->intensity});
+        program->set_uniform((light_name + ".is_directional").c_str(),
+                             GLUniform{0});
+      } else {
         spdlog::error("Unsupported light type");
         throw std::runtime_error("Unsupported light type");
       }
+      //   try {
+      //     DirectionalLight light = std::get<DirectionalLight>(value);
+      //     program->set_uniform((light_name + ".direction").c_str(),
+      //                          GLUniform{light.direction});
+      //     program->set_uniform((light_name + ".color").c_str(),
+      //                          GLUniform{light.color});
+      //     program->set_uniform((light_name + ".intensity").c_str(),
+      //                          GLUniform{light.intensity});
+      //   } catch (const std::bad_variant_access &) {
+      //     // PointLight light = std::get<PointLight>(value);
+      //     // program->set_uniform((light_name + ".position").c_str(),
+      //     //                      GLUniform{light.position});
+      //     // program->set_uniform((light_name + ".color").c_str(),
+      //     //                      GLUniform{light.color});
+      //     // program->set_uniform((light_name + ".intensity").c_str(),
+      //     //                      GLUniform{light.intensity});
+      //     spdlog::error("Unsupported light type");
+      //     throw std::runtime_error("Unsupported light type");
+      //   }
     }
     // program->set_uniform("light.direction",
     //                      GLUniform{lights[0].direction});

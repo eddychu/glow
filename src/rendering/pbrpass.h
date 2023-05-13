@@ -29,6 +29,8 @@ struct PBRPass {
   uint32_t width{0};
   uint32_t height{0};
 
+  uint32_t samples{0};
+
   void render();
 };
 
