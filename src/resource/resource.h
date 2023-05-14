@@ -6,6 +6,7 @@
 enum class ResourceType {
   Texture2d,
   TextureCube,
+  FrameBuffer,
   Material,
   Geometry,
   Shader,

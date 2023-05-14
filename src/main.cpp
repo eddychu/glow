@@ -205,7 +205,7 @@
 #include <resource/resource.h>
 #include <resource/texture.h>
 #include <spdlog/spdlog.h>
-#include <resource/geometry.h>
+#include <resource/geometry_buffer.h>
 #include <core/window.h>
 #include <resource/shader.h>
 #include <memory>
@@ -352,7 +352,6 @@ int main() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
   prefilter_pass.render();
-
   brdf_pass.render();
 
   while (!window.should_close()) {

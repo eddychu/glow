@@ -2,11 +2,12 @@
 #include <resource/resource.h>
 #include <glm/glm.hpp>
 #include <stdint.h>
+#include <variant>
 
-class Material {
+class PBRMaterial {
 public:
-  Material(const glm::vec3 &color = glm::vec3(1.0, 0.0, 0.0),
-           float roughness = 0.5f, float metallic = 0.5f)
+  PBRMaterial(const glm::vec3 &color = glm::vec3(1.0, 0.0, 0.0),
+              float roughness = 0.5f, float metallic = 0.5f)
       : m_color(color), m_roughness(roughness), m_metallic(metallic) {}
   void set_color(const glm::vec3 &color) { m_color = color; }
   const glm::vec3 &color() const { return m_color; }
@@ -61,4 +62,8 @@ private:
   uint32_t m_ao_texture_id{0};
   uint32_t m_emissive_texture_id{0};
   uint32_t m_shader_id{0};
+};
+
+struct Material {
+  std::variant<PBRMaterial> material;
 };

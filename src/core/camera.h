@@ -4,27 +4,18 @@
 #include <core/transform.h>
 
 struct CameraConfig {
-  vec3 position;
-  vec3 target;
-  vec3 up;
-  float fov;
-  float aspect;
-  float near;
-  float far;
+  vec3 position = vec3(0.0, 0.0, 5.0);
+  vec3 target = vec3(0.0, 0.0, 0.0);
+  vec3 up = vec3(0.0, 1.0, 0.0);
+  float fov = glm::radians(45.0);
+  float aspect = 1.0;
+  float near = 0.1;
+  float far = 1000.0;
 };
 
 class Camera {
 public:
-  Camera(const CameraConfig &config) {
-    m_target = config.target;
-    m_fov = config.fov;
-    m_near = config.near;
-    m_far = config.far;
-    glm::mat4 view = glm::lookAt(config.position, config.target, config.up);
-    m_transform.set_matrix_invert(view);
-    m_projection =
-        glm::perspective(config.fov, config.aspect, config.near, config.far);
-  }
+  Camera(const CameraConfig &config = CameraConfig());
   mat4 view_matrix() const { return m_transform.matrix_invert(); }
   mat4 projection_matrix() const { return m_projection; }
   void set_position(const glm::vec3 &position) {

@@ -1,5 +1,5 @@
 #pragma once
-#include <resource/geometry.h>
+#include <resource/geometry_buffer.h>
 #include <resource/material.h>
 #include <resource/resource.h>
 #include <resource/shader.h>
@@ -29,7 +29,7 @@ struct PBRPass {
 
   Camera *camera{nullptr};
 
-  std::vector<Geometry *> geometries;
+  std::vector<GeometryBuffer *> geometries;
 
   uint32_t width{0};
   uint32_t height{0};

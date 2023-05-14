@@ -1,5 +1,6 @@
 #pragma once
 
+#include "resource/geometry_buffer.h"
 #include <resource/texture.h>
 #include <resource/shader.h>
 #include <stdint.h>
@@ -21,26 +22,7 @@ struct PrefilterPass {
 
   GLuint prefilter_texture{0};
 
-  mat4 projection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
-
-  std::vector<mat4> views = {
-      glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),
-                  glm::vec3(0.0f, -1.0f, 0.0f)),
-      glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),
-                  glm::vec3(0.0f, -1.0f, 0.0f)),
-      glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),
-                  glm::vec3(0.0f, 0.0f, 1.0f)),
-      glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),
-                  glm::vec3(0.0f, 0.0f, -1.0f)),
-      glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f),
-                  glm::vec3(0.0f, -1.0f, 0.0f)),
-      glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),
-                  glm::vec3(0.0f, -1.0f, 0.0f))};
-
-  GLuint vbo{0};
-  GLuint vao{0};
-  GLuint ebo{0};
-  uint32_t count{0};
+  GeometryBuffer *geometry{nullptr};
 
   void init(GLProgram *program, TextureCube *environment_texture);
 

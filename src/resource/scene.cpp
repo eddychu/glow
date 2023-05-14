@@ -1,11 +1,11 @@
-#include "assimp/scene.h"
+#include <assimp/scene.h>
 #include <assimp/material.h>
 #include <resource/material.h>
 #include <resource/resource.h>
 #include <resource/texture.h>
 #include <memory>
 #include <resource/scene.h>
-#include <resource/geometry.h>
+#include <resource/geometry_buffer.h>
 #include <spdlog/spdlog.h>
 #include <stdexcept>
 #include <stdint.h>
@@ -69,7 +69,7 @@ static void process_submesh(Mesh &mesh, aiMesh *ai_mesh,
     for (unsigned int j = 0; j < face.mNumIndices; j++)
       indices.push_back(face.mIndices[j]);
   }
-  auto geometry = std::make_unique<Geometry>(vertices, indices);
+  auto geometry = std::make_unique<GeometryBuffer>(vertices, indices);
   auto geometry_id = geometry->id();
   cache->add(std::move(geometry));
   submesh.geometry_id = geometry_id;
@@ -110,14 +110,20 @@ static void process_material(std::unique_ptr<Scene> &scene,
   scene->materials.resize(ai_scene->mNumMaterials);
   for (unsigned int i = 0; i < ai_scene->mNumMaterials; i++) {
     aiMaterial *ai_material = ai_scene->mMaterials[i];
+
     // pbr material
     // 1. albedo maps
     aiString str;
     aiReturn ret = ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+
     if (ret == AI_SUCCESS) {
       std::string path = directory + "/" + str.C_Str();
       auto texture = std::make_unique<Texture>(path, TextureConfig{});
-      scene->materials[i].set_albedo_texture_id(texture->id());
+      if (auto material =
+              std::get_if<PBRMaterial>(&scene->materials[i].material);
+          material) {
+        material->set_albedo_texture_id(texture->id());
+      }
       cache->add(std::move(texture));
     } else {
       spdlog::warn("no albedo texture found");
@@ -128,7 +134,13 @@ static void process_material(std::unique_ptr<Scene> &scene,
     if (ret == AI_SUCCESS) {
       std::string path = directory + "/" + str.C_Str();
       auto texture = std::make_unique<Texture>(path, TextureConfig{});
-      scene->materials[i].set_normal_texture_id(texture->id());
+      if (auto *material =
+              std::get_if<PBRMaterial>(&scene->materials[i].material);
+          material) {
+        material->set_normal_texture_id(texture->id());
+      }
+
+      // scene->materials[i].set_normal_texture_id(texture->id());
       cache->add(std::move(texture));
     } else {
       spdlog::warn("no normal texture found");
@@ -139,7 +151,11 @@ static void process_material(std::unique_ptr<Scene> &scene,
     if (ret == AI_SUCCESS) {
       std::string path = directory + "/" + str.C_Str();
       auto texture = std::make_unique<Texture>(path, TextureConfig{});
-      scene->materials[i].set_metallic_texture_id(texture->id());
+      if (auto *material =
+              std::get_if<PBRMaterial>(&scene->materials[i].material);
+          material) {
+        material->set_metallic_texture_id(texture->id());
+      }
       cache->add(std::move(texture));
     } else {
       spdlog::warn("no metallic texture found");
@@ -150,7 +166,11 @@ static void process_material(std::unique_ptr<Scene> &scene,
     if (ret == AI_SUCCESS) {
       std::string path = directory + "/" + str.C_Str();
       auto texture = std::make_unique<Texture>(path, TextureConfig{});
-      scene->materials[i].set_ao_texture_id(texture->id());
+      if (auto *material =
+              std::get_if<PBRMaterial>(&scene->materials[i].material);
+          material) {
+        material->set_ao_texture_id(texture->id());
+      }
       cache->add(std::move(texture));
     } else {
       spdlog::warn("no ao texture found {}", str.C_Str());
@@ -161,7 +181,11 @@ static void process_material(std::unique_ptr<Scene> &scene,
     if (ret == AI_SUCCESS) {
       std::string path = directory + "/" + str.C_Str();
       auto texture = std::make_unique<Texture>(path, TextureConfig{});
-      scene->materials[i].set_emissive_texture_id(texture->id());
+      if (auto *material =
+              std::get_if<PBRMaterial>(&scene->materials[i].material);
+          material) {
+        material->set_emissive_texture_id(texture->id());
+      }
       cache->add(std::move(texture));
     } else {
       spdlog::warn("no emissive texture found");

@@ -1,3 +1,4 @@
+#include "resource/geometry_buffer.h"
 #include <light/light.h>
 #include <resource/material.h>
 #include <resource/scene.h>
@@ -16,17 +17,22 @@ std::vector<PBRPass> from_scene(uint32_t scene_id, ResourceCache *cache) {
       auto mesh = scene->meshes[node.mesh];
       auto materials = scene->materials;
       for (const auto &sub_mesh : mesh.sub_meshes) {
-        auto geometry = cache->get<Geometry>(sub_mesh.geometry_id);
+        auto geometry = cache->get<GeometryBuffer>(sub_mesh.geometry_id);
         auto &material = materials[sub_mesh.material];
         PBRPass pass;
         pass.geometries.push_back(geometry);
-        pass.albedo_texture = cache->get<Texture>(material.albedo_texture_id());
-        pass.normal_texture = cache->get<Texture>(material.normal_texture_id());
-        pass.metallic_texture =
-            cache->get<Texture>(material.metallic_texture_id());
-        pass.ao_texture = cache->get<Texture>(material.ao_texture_id());
-        pass.emissive_texture =
-            cache->get<Texture>(material.emissive_texture_id());
+        if (auto mat_ptr = std::get_if<PBRMaterial>(&material.material);
+            mat_ptr) {
+          pass.albedo_texture =
+              cache->get<Texture>(mat_ptr->albedo_texture_id());
+          pass.normal_texture =
+              cache->get<Texture>(mat_ptr->normal_texture_id());
+          pass.metallic_texture =
+              cache->get<Texture>(mat_ptr->metallic_texture_id());
+          pass.ao_texture = cache->get<Texture>(mat_ptr->ao_texture_id());
+          pass.emissive_texture =
+              cache->get<Texture>(mat_ptr->emissive_texture_id());
+        }
         passes[sub_mesh.material] = pass;
       }
     }
@@ -79,31 +85,8 @@ void PBRPass::render() {
         spdlog::error("Unsupported light type");
         throw std::runtime_error("Unsupported light type");
       }
-      //   try {
-      //     DirectionalLight light = std::get<DirectionalLight>(value);
-      //     program->set_uniform((light_name + ".direction").c_str(),
-      //                          GLUniform{light.direction});
-      //     program->set_uniform((light_name + ".color").c_str(),
-      //                          GLUniform{light.color});
-      //     program->set_uniform((light_name + ".intensity").c_str(),
-      //                          GLUniform{light.intensity});
-      //   } catch (const std::bad_variant_access &) {
-      //     // PointLight light = std::get<PointLight>(value);
-      //     // program->set_uniform((light_name + ".position").c_str(),
-      //     //                      GLUniform{light.position});
-      //     // program->set_uniform((light_name + ".color").c_str(),
-      //     //                      GLUniform{light.color});
-      //     // program->set_uniform((light_name + ".intensity").c_str(),
-      //     //                      GLUniform{light.intensity});
-      //     spdlog::error("Unsupported light type");
-      //     throw std::runtime_error("Unsupported light type");
-      //   }
     }
-    // program->set_uniform("light.direction",
-    //                      GLUniform{lights[0].direction});
-    // program->set_uniform("light.color", GLUniform{lights[0].color});
-    // program->set_uniform("light.intensity",
-    //                      GLUniform{lights[0].intensity});
+
     program->set_uniform("camera_pos",
                          GLUniform{camera->transform().position()});
     program->set_uniform("model", GLUniform{glm::mat4(1.0f)});

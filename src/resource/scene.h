@@ -37,6 +37,7 @@ struct Scene : public Resource {
   std::vector<Node> nodes;
   std::vector<Mesh> meshes;
   std::vector<Material> materials;
+  Camera camera;
 };
 
 uint32_t load_scene(const std::string &filename, class ResourceCache *cache);

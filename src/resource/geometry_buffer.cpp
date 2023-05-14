@@ -1,6 +1,6 @@
-#include <resource/geometry.h>
+#include <resource/geometry_buffer.h>
 #include <spdlog/spdlog.h>
-Geometry::Geometry(const std::vector<Vertex> &vertices)
+GeometryBuffer::GeometryBuffer(const std::vector<Vertex> &vertices)
     : Resource(ResourceType::Geometry) {
   m_has_indices = false;
   glCreateBuffers(1, &vbo);
@@ -12,8 +12,8 @@ Geometry::Geometry(const std::vector<Vertex> &vertices)
   m_count = vertices.size();
 }
 
-Geometry::Geometry(const std::vector<Vertex> &vertices,
-                   const std::vector<uint16_t> &indices)
+GeometryBuffer::GeometryBuffer(const std::vector<Vertex> &vertices,
+                               const std::vector<uint16_t> &indices)
     : Resource(ResourceType::Geometry) {
   m_has_indices = true;
   glCreateBuffers(1, &vbo);
@@ -29,7 +29,7 @@ Geometry::Geometry(const std::vector<Vertex> &vertices,
   m_count = indices.size();
 }
 
-void Geometry::setup_vbo(const std::vector<Vertex> &vertices) {
+void GeometryBuffer::setup_vbo(const std::vector<Vertex> &vertices) {
 
   glEnableVertexArrayAttrib(vao, 0);
   glVertexArrayAttribFormat(vao, 0, 3, GL_FLOAT, GL_FALSE,
@@ -57,7 +57,7 @@ void Geometry::setup_vbo(const std::vector<Vertex> &vertices) {
   glVertexArrayAttribBinding(vao, 4, 0);
 }
 
-void Geometry::destroy() {
+void GeometryBuffer::destroy() {
 
   if (vao) {
     glDeleteVertexArrays(1, &vao);
@@ -70,7 +70,7 @@ void Geometry::destroy() {
   }
 }
 
-Geometry::~Geometry() {
+GeometryBuffer::~GeometryBuffer() {
   spdlog::info("Geometry destroyed");
   destroy();
 }
