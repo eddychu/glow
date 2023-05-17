@@ -1,7 +1,7 @@
 #pragma once
 #include <scene/material.h>
-#include <resource/texture.h>
-#include <resource/shader.h>
+#include <opengl/texture.h>
+#include <opengl/shader.h>
 #include <scene/scene.h>
 #include <core/camera.h>
 #include <renderers/renderlist.h>
@@ -28,8 +28,9 @@ public:
     for (const auto &uniform : material.uniforms()) {
       program.set_uniform(uniform.first.c_str(), uniform.second);
     }
+    auto &textures = material.textures();
     for (int i = 0; i < material.textures().size(); i++) {
-      auto &texture_id = material.textures()[i];
+
       auto texture = ResourceCache::instance().get<Texture>(texture_id);
       glActiveTexture(GL_TEXTURE0 + i);
       GLenum target = GL_TEXTURE_2D;

@@ -1,5 +1,4 @@
 #pragma once
-#include <resource/shader.h>
 #include <string>
 #include <glm/glm.hpp>
 #include <stdint.h>
@@ -17,24 +16,27 @@ struct ShaderSource {
   }
 };
 
+extern ShaderSource default_shader_source;
+
+extern uint32_t g_material_id;
+
 class Material {
 public:
-  Material() = default;
+  Material()
+      : m_shader_source(default_shader_source), m_id(next_material_id()) {}
+
+  static uint32_t next_material_id() { return g_material_id++; }
+
+  uint32_t id() const { return m_id; }
+
+  const ShaderSource &shader_source() const { return m_shader_source; }
 
   void set_shader_source(const ShaderSource &shader_source) {
     m_shader_source = shader_source;
   }
 
-  void add_uniform(const std::string &name, const GLUniform &uniform) {
-    m_uniforms[name] = uniform;
-  }
-
   void add_texture(const std::string &name, uint32_t texture_id) {
     m_textures[name] = texture_id;
-  }
-
-  const std::unordered_map<std::string, GLUniform> &uniforms() const {
-    return m_uniforms;
   }
 
   const std::unordered_map<std::string, uint32_t> &textures() const {
@@ -42,9 +44,9 @@ public:
   }
 
 private:
-  std::unordered_map<std::string, GLUniform> m_uniforms;
   std::unordered_map<std::string, uint32_t> m_textures;
-  ShaderSource m_shader_source;
+  ShaderSource m_shader_source = default_shader_source;
+  uint32_t m_id;
 };
 // class PBRMaterial {
 // public:

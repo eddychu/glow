@@ -1,4 +1,4 @@
-#include <resource/geometry_buffer.h>
+#include <opengl/geometry_buffer.h>
 #include <spdlog/spdlog.h>
 #include <stdint.h>
 GeometryBuffer::GeometryBuffer(const std::vector<Vertex> &vertices)

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <resource/geometry_buffer.h>
+#include <opengl/geometry_buffer.h>
 #include <scene/material.h>
-#include <resource/resource.h>
-#include <resource/shader.h>
+#include <opengl/resource.h>
+#include <opengl/shader.h>
 #include <scene/scene.h>
 #include <unordered_map>
 #include <vector>
@@ -13,7 +13,7 @@
  *
  */
 struct RenderItem {
-  GeometryBuffer *geometry_buffer;
+  GeometryBuffer *geometry;
   Material *material;
   SubMesh *sub_mesh{nullptr};
 };
@@ -25,6 +25,7 @@ struct RenderItem {
 struct Renderable {
   std::vector<RenderItem> render_items;
   GLProgram *program;
+  uint32_t material_id;
 };
 
 /**
@@ -47,13 +48,18 @@ struct RenderList {
                                                     sub_mesh.geometry.indices);
           auto material = scene.materials[sub_mesh.material];
           for (auto &renderable : renderables) {
-            if (renderable.program->id() == material.shader_id()) {
+            if (renderable.material_id == material.id()) {
               renderable.render_items.push_back({geometry_buffer, &material});
             }
           }
           Renderable renderable;
           renderable.render_items.push_back({geometry_buffer, &material});
-          renderable.program = add_renderable(renderable);
+          renderable.material_id = material.id();
+          const auto &shader_source = material.shader_source();
+          renderable.program =
+              new GLProgram(shader_source.vertex_path.c_str(),
+                            shader_source.fragment_path.c_str());
+          add_renderable(renderable);
         }
       }
     }

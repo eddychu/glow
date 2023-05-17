@@ -1,22 +1,18 @@
 #pragma once
 #include "geometry/geometry.h"
-#include "glm/fwd.hpp"
 #include <core/camera.h>
 #include <scene/material.h>
-#include <resource/resource.h>
 #include <core/transform.h>
 #include <memory>
 #include <stdint.h>
 #include <vector>
 #include <string>
 struct Sampler {
-  enum class Filter { Nearest = GL_NEAREST, Linear = GL_LINEAR };
-  enum class Wrap {
-    Repeat = GL_REPEAT,
-    MirroredRepeat = GL_MIRRORED_REPEAT,
-    ClampToEdge = GL_CLAMP_TO_EDGE,
-    ClampToBorder = GL_CLAMP_TO_BORDER
+  enum class Filter {
+    Nearest,
+    Linear,
   };
+  enum class Wrap { Repeat, MirroredRepeat, ClampToEdge, ClampToBorder };
 
   static Filter filter_from_int(int i) {
     switch (i) {

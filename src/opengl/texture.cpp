@@ -1,42 +1,59 @@
-#include "resource/resource.h"
-#include <resource/texture.h>
+#include <opengl/resource.h>
+#include <opengl/texture.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <spdlog/spdlog.h>
-Texture::Texture(const std::string &path, const TextureConfig &config)
-    : Resource(config.type) {
+GLTexture::GLTexture(const Texture &texture)
+    : Resource(ResourceType::Texture2d) {
   GLenum target = GL_TEXTURE_2D;
-  // TODO: Add support for other texture types.
-  //   if (config.type == ResourceType::TextureCube) {
-  //     target = GL_TEXTURE_CUBE_MAP;
-  //   }
-  spdlog::info("Loading texture: {}", path);
-  int width, height, nrChannels;
-  unsigned char *data =
-      stbi_load(path.c_str(), &width, &height, &nrChannels, 4);
-  if (!data) {
-    spdlog::error("Failed to load texture: {}", path);
-    throw std::runtime_error("Failed to load texture");
+  GLenum internal_format = GL_RGBA8;
+  GLenum format = GL_RGBA;
+
+  switch (texture.component) {
+  case 1: {
+    internal_format = GL_R8;
+    format = GL_RED;
+    break;
   }
+  case 2: {
+    internal_format = GL_RG8;
+    format = GL_RG;
+    break;
+  }
+  case 3: {
+    internal_format = GL_RGB8;
+    format = GL_RGB;
+    break;
+  }
+  case 4: {
+    internal_format = GL_RGBA8;
+    format = GL_RGBA;
+    break;
+  }
+  default: {
+    spdlog::error("Invalid texture component: {}", texture.component);
+    throw std::runtime_error("Invalid texture component");
+  }
+  }
+
   glCreateTextures(target, 1, &m_handle);
-  glTextureStorage2D(m_handle, config.levels, GL_RGBA8, width, height);
-  glTextureSubImage2D(m_handle, 0, 0, 0, width, height, GL_RGBA,
-                      GL_UNSIGNED_BYTE, data);
+  glTextureStorage2D(m_handle, 1, GL_RGBA8, texture.width, texture.height);
+  glTextureSubImage2D(m_handle, 0, 0, 0, texture.width, texture.height, GL_RGBA,
+                      GL_UNSIGNED_BYTE, texture.data.data());
   glTextureParameteri(m_handle, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTextureParameteri(m_handle, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTextureParameteri(m_handle, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTextureParameteri(m_handle, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTextureParameteri(m_handle, GL_TEXTURE_WRAP_R, GL_REPEAT);
-  stbi_image_free(data);
 }
 
-void Texture::destroy() const {
+void GLTexture::destroy() const {
   spdlog::info("texture destroyed");
   glDeleteTextures(1, &m_handle);
 }
 
-TextureCube::TextureCube(const std::string &path,
-                         const std::string &file_extension)
+GLTextureCube::GLTextureCube(const std::string &path,
+                             const std::string &file_extension)
     : Resource(ResourceType::TextureCube) {
   GLenum target = GL_TEXTURE_CUBE_MAP;
   spdlog::info("Loading texture: {}", path);
@@ -101,7 +118,7 @@ TextureCube::TextureCube(const std::string &path,
   glTextureParameteri(m_handle, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
 
-void TextureCube::destroy() const {
+void GLTextureCube::destroy() const {
   spdlog::info("texture destroyed");
   glDeleteTextures(1, &m_handle);
 }

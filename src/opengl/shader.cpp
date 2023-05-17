@@ -1,6 +1,6 @@
-#include <resource/resource.h>
+#include <opengl/resource.h>
 #include <fstream>
-#include <resource/shader.h>
+#include <opengl/shader.h>
 #include <istream>
 #include <string>
 #include <variant>

@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <resource/resource.h>
+#include <opengl/resource.h>
 #include <geometry/geometry.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>

@@ -1,5 +1,5 @@
 #pragma once
-#include <resource/resource.h>
+#include <opengl/resource.h>
 #include <glad/glad.h>
 #include <variant>
 #include <glm/glm.hpp>
