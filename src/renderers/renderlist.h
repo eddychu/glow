@@ -13,8 +13,9 @@
  *
  */
 struct RenderItem {
-  GeometryBuffer *geometry;
+  GeometryBuffer *geometry_buffer;
   Material *material;
+  SubMesh *sub_mesh{nullptr};
 };
 
 /**
@@ -42,20 +43,17 @@ struct RenderList {
       if (node.mesh > -1) {
         auto sub_meshes = scene.meshes[node.mesh].sub_meshes;
         for (const auto &sub_mesh : sub_meshes) {
-          auto geometry_buffer = ResourceCache::instance().get<GeometryBuffer>(
-              sub_mesh.geometry_id);
+          auto geometry_buffer = new GeometryBuffer(sub_mesh.geometry.vertices,
+                                                    sub_mesh.geometry.indices);
           auto material = scene.materials[sub_mesh.material];
-          auto program =
-              ResourceCache::instance().get<GLProgram>(material.shader_id());
           for (auto &renderable : renderables) {
-            if (renderable.program == program) {
+            if (renderable.program->id() == material.shader_id()) {
               renderable.render_items.push_back({geometry_buffer, &material});
             }
           }
           Renderable renderable;
           renderable.render_items.push_back({geometry_buffer, &material});
-          renderable.program = program;
-          add_renderable(renderable);
+          renderable.program = add_renderable(renderable);
         }
       }
     }

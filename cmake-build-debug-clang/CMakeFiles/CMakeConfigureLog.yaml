@@ -1,0 +1,331 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.22621 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/eddy/scoop/apps/llvm/current/bin/clang.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+      
+      The C compiler identification is Clang, found in:
+        C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/3.26.3/CompilerIdC/a.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:1153 (message)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:221 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting C compiler /showIncludes prefix:
+        
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:1153 (message)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:221 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting C compiler /showIncludes prefix:
+        
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/eddy/scoop/apps/llvm/current/bin/clang++.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is Clang, found in:
+        C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/3.26.3/CompilerIdCXX/a.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:1153 (message)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:221 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:1153 (message)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:221 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-i1a820"
+      binary: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-i1a820"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0 -g -Xclang -gcodeview"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-i1a820
+        
+        Run Build Command(s):C:/Program Files/JetBrains/CLion 2023.1.2/bin/ninja/win/x64/ninja.exe -v cmTC_3738d && [1/2] C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe   -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_3738d.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_3738d.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles/cmTC_3738d.dir/CMakeCCompilerABI.c.obj -c C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeCCompilerABI.c
+        [2/2] cmd.exe /C "cd . && C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_3738d.dir/CMakeCCompilerABI.c.obj -o cmTC_3738d.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_3738d.lib -Xlinker /pdb:cmTC_3738d.pdb -Xlinker /version:0.0     && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-rvs9cg"
+      binary: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-rvs9cg"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-O0 -g -Xclang -gcodeview"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-rvs9cg
+        
+        Run Build Command(s):C:/Program Files/JetBrains/CLion 2023.1.2/bin/ninja/win/x64/ninja.exe -v cmTC_2f128 && [1/2] C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe   -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_2f128.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_2f128.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles/cmTC_2f128.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeCXXCompilerABI.cpp
+        [2/2] cmd.exe /C "cd . && C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -fuse-ld=lld-link -nostartfiles -nostdlib -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_2f128.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_2f128.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_2f128.lib -Xlinker /pdb:cmTC_2f128.pdb -Xlinker /version:0.0     && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/Internal/FeatureTesting.cmake:34 (try_compile)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/Internal/FeatureTesting.cmake:83 (_record_compiler_features)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake:121 (_record_compiler_features_cxx)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompileFeatures.cmake:70 (cmake_record_cxx_compile_features)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:70 (CMAKE_DETERMINE_COMPILE_FEATURES)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compile features"
+    directories:
+      source: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-11vrpb"
+      binary: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-11vrpb"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-O0 -g -Xclang -gcodeview"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_FEATURE_TEST"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-11vrpb
+        
+        Run Build Command(s):C:/Program Files/JetBrains/CLion 2023.1.2/bin/ninja/win/x64/ninja.exe -v cmTC_89a1b && [1/2] C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe   -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd   -std=c++14 -MD -MT CMakeFiles/cmTC_89a1b.dir/feature_tests.cxx.obj -MF CMakeFiles\\cmTC_89a1b.dir\\feature_tests.cxx.obj.d -o CMakeFiles/cmTC_89a1b.dir/feature_tests.cxx.obj -c C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-11vrpb/feature_tests.cxx
+        [2/2] cmd.exe /C "cd . && C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -fuse-ld=lld-link -nostartfiles -nostdlib -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_89a1b.dir/feature_tests.cxx.obj -o cmTC_89a1b.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_89a1b.lib -Xlinker /pdb:cmTC_89a1b.pdb -Xlinker /version:0.0   -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/Internal/FeatureTesting.cmake:34 (try_compile)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/Internal/FeatureTesting.cmake:83 (_record_compiler_features)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake:129 (_record_compiler_features_cxx)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeDetermineCompileFeatures.cmake:70 (cmake_record_cxx_compile_features)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:70 (CMAKE_DETERMINE_COMPILE_FEATURES)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compile features"
+    directories:
+      source: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-amq2qf"
+      binary: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-amq2qf"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-O0 -g -Xclang -gcodeview"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_FEATURE_TEST"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-amq2qf
+        
+        Run Build Command(s):C:/Program Files/JetBrains/CLion 2023.1.2/bin/ninja/win/x64/ninja.exe -v cmTC_daaeb && [1/2] C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe   -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd   -std=c++14 -MD -MT CMakeFiles/cmTC_daaeb.dir/feature_tests.cxx.obj -MF CMakeFiles\\cmTC_daaeb.dir\\feature_tests.cxx.obj.d -o CMakeFiles/cmTC_daaeb.dir/feature_tests.cxx.obj -c C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-amq2qf/feature_tests.cxx
+        [2/2] cmd.exe /C "cd . && C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -fuse-ld=lld-link -nostartfiles -nostdlib -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_daaeb.dir/feature_tests.cxx.obj -o cmTC_daaeb.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_daaeb.lib -Xlinker /pdb:cmTC_daaeb.pdb -Xlinker /version:0.0   -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "extern/glfw/CMakeLists.txt:62 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-s1ki2n"
+      binary: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-s1ki2n"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0 -g -Xclang -gcodeview"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/eddy/Projects/glow/extern/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-s1ki2n
+        
+        Run Build Command(s):C:/Program Files/JetBrains/CLion 2023.1.2/bin/ninja/win/x64/ninja.exe -v cmTC_9aeb6 && [1/2] C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DCMAKE_HAVE_LIBC_PTHREAD  -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_9aeb6.dir/src.c.obj -MF CMakeFiles\\cmTC_9aeb6.dir\\src.c.obj.d -o CMakeFiles/cmTC_9aeb6.dir/src.c.obj -c C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-s1ki2n/src.c
+        FAILED: CMakeFiles/cmTC_9aeb6.dir/src.c.obj 
+        C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DCMAKE_HAVE_LIBC_PTHREAD  -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_9aeb6.dir/src.c.obj -MF CMakeFiles\\cmTC_9aeb6.dir\\src.c.obj.d -o CMakeFiles/cmTC_9aeb6.dir/src.c.obj -c C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-s1ki2n/src.c
+        C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-s1ki2n/src.c:1:10: fatal error: 'pthread.h' file not found
+        #include <pthread.h>
+                 ^~~~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "extern/glfw/CMakeLists.txt:62 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-c1gb3p"
+      binary: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-c1gb3p"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0 -g -Xclang -gcodeview"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/eddy/Projects/glow/extern/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-c1gb3p
+        
+        Run Build Command(s):C:/Program Files/JetBrains/CLion 2023.1.2/bin/ninja/win/x64/ninja.exe -v cmTC_5f818 && [1/2] C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe   -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_5f818.dir/CheckFunctionExists.c.obj -MF CMakeFiles\\cmTC_5f818.dir\\CheckFunctionExists.c.obj.d -o CMakeFiles/cmTC_5f818.dir/CheckFunctionExists.c.obj -c C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-c1gb3p/CheckFunctionExists.c
+        [2/2] cmd.exe /C "cd . && C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_5f818.dir/CheckFunctionExists.c.obj -o cmTC_5f818.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_5f818.lib -Xlinker /pdb:cmTC_5f818.pdb -Xlinker /version:0.0   -lpthreads.lib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
+        FAILED: cmTC_5f818.exe 
+        cmd.exe /C "cd . && C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_5f818.dir/CheckFunctionExists.c.obj -o cmTC_5f818.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_5f818.lib -Xlinker /pdb:cmTC_5f818.pdb -Xlinker /version:0.0   -lpthreads.lib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
+        lld-link: error: could not open 'pthreads.lib': no such file or directory
+        clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "extern/glfw/CMakeLists.txt:62 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-5qmfe8"
+      binary: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-5qmfe8"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0 -g -Xclang -gcodeview"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/eddy/Projects/glow/extern/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-5qmfe8
+        
+        Run Build Command(s):C:/Program Files/JetBrains/CLion 2023.1.2/bin/ninja/win/x64/ninja.exe -v cmTC_9f789 && [1/2] C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe   -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_9f789.dir/CheckFunctionExists.c.obj -MF CMakeFiles\\cmTC_9f789.dir\\CheckFunctionExists.c.obj.d -o CMakeFiles/cmTC_9f789.dir/CheckFunctionExists.c.obj -c C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-5qmfe8/CheckFunctionExists.c
+        [2/2] cmd.exe /C "cd . && C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_9f789.dir/CheckFunctionExists.c.obj -o cmTC_9f789.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_9f789.lib -Xlinker /pdb:cmTC_9f789.pdb -Xlinker /version:0.0   -lpthread.lib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
+        FAILED: cmTC_9f789.exe 
+        cmd.exe /C "cd . && C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_9f789.dir/CheckFunctionExists.c.obj -o cmTC_9f789.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_9f789.lib -Xlinker /pdb:cmTC_9f789.pdb -Xlinker /version:0.0   -lpthread.lib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
+        lld-link: error: could not open 'pthread.lib': no such file or directory
+        clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/FindThreads.cmake:136 (try_compile)"
+      - "C:/Users/eddy/scoop/apps/cmake/3.26.3/share/cmake-3.26/Modules/FindThreads.cmake:179 (_threads_check_flag_pthread)"
+      - "extern/glfw/CMakeLists.txt:62 (find_package)"
+    checks:
+      - "Check if compiler accepts -pthread"
+    directories:
+      source: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-imxzs6"
+      binary: "C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-imxzs6"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0 -g -Xclang -gcodeview"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/eddy/Projects/glow/extern/glfw/CMake/modules"
+    buildResult:
+      variable: "THREADS_HAVE_PTHREAD_ARG"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-imxzs6
+        
+        Run Build Command(s):C:/Program Files/JetBrains/CLion 2023.1.2/bin/ninja/win/x64/ninja.exe -v cmTC_9030f && [1/2] C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe   -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_9030f.dir/CheckForPthreads.c.obj -MF CMakeFiles\\cmTC_9030f.dir\\CheckForPthreads.c.obj.d -o CMakeFiles/cmTC_9030f.dir/CheckForPthreads.c.obj -c C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-imxzs6/CheckForPthreads.c
+        FAILED: CMakeFiles/cmTC_9030f.dir/CheckForPthreads.c.obj 
+        C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe   -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_9030f.dir/CheckForPthreads.c.obj -MF CMakeFiles\\cmTC_9030f.dir\\CheckForPthreads.c.obj.d -o CMakeFiles/cmTC_9030f.dir/CheckForPthreads.c.obj -c C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-imxzs6/CheckForPthreads.c
+        C:/Users/eddy/Projects/glow/cmake-build-debug-clang/CMakeFiles/CMakeScratch/TryCompile-imxzs6/CheckForPthreads.c:1:10: fatal error: 'pthread.h' file not found
+        #include <pthread.h>
+                 ^~~~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...

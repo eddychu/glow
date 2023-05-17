@@ -1,0 +1,320 @@
+[
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\controllers\\camera_controller.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\controllers\\camera_controller.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\controllers\\camera_controller.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\controllers\\camera_controller.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\core\\camera.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\core\\camera.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\core\\camera.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\core\\camera.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\core\\window.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\core\\window.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\core\\window.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\core\\window.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\engine.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\engine.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\engine.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\engine.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\geometry\\geometry.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\geometry\\geometry.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\geometry\\geometry.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\geometry\\geometry.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\graphics\\glbackgroud.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glbackgroud.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glbackgroud.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\graphics\\glbackgroud.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\graphics\\glbuffer.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glbuffer.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glbuffer.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\graphics\\glbuffer.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\graphics\\glframebuffer.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glframebuffer.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glframebuffer.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\graphics\\glframebuffer.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\graphics\\glgeometry.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glgeometry.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glgeometry.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\graphics\\glgeometry.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\graphics\\glmaterial.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glmaterial.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glmaterial.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\graphics\\glmaterial.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\graphics\\glrenderer.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glrenderer.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glrenderer.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\graphics\\glrenderer.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\graphics\\glshader.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glshader.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\glshader.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\graphics\\glshader.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\graphics\\gltexture.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\gltexture.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\graphics\\gltexture.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\graphics\\gltexture.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\light\\light.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\light\\light.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\light\\light.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\light\\light.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\loaders\\gltf\\gltf.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\loaders\\gltf\\gltf.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\loaders\\gltf\\gltf.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\loaders\\gltf\\gltf.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\main.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\main.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\main.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\main.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\renderers\\forward.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\renderers\\forward.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\renderers\\forward.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\renderers\\forward.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\rendering\\brdfpass.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\rendering\\brdfpass.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\rendering\\brdfpass.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\rendering\\brdfpass.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\rendering\\pbrpass.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\rendering\\pbrpass.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\rendering\\pbrpass.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\rendering\\pbrpass.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\rendering\\prefilterpass.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\rendering\\prefilterpass.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\rendering\\prefilterpass.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\rendering\\prefilterpass.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\rendering\\skypass.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\rendering\\skypass.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\rendering\\skypass.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\rendering\\skypass.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\resource\\geometry_buffer.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\resource\\geometry_buffer.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\resource\\geometry_buffer.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\resource\\geometry_buffer.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\resource\\resource.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\resource\\resource.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\resource\\resource.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\resource\\resource.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\resource\\scene.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\resource\\scene.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\resource\\scene.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\resource\\scene.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\resource\\shader.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\resource\\shader.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\resource\\shader.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\resource\\shader.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\resource\\texture.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\resource\\texture.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\resource\\texture.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\resource\\texture.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\scene\\material.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\scene\\material.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\scene\\material.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\scene\\material.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/src -IC:/Users/eddy/Projects/glow/extern/glad/include -IC:/Users/eddy/Projects/glow/extern/glm -IC:/Users/eddy/Projects/glow/extern/stb -IC:/Users/eddy/Projects/glow/extern/tinygltf -IC:/Users/eddy/Projects/glow/extern/spdlog/include -IC:/Users/eddy/Projects/glow/extern/glfw/include -O0 -g -Xclang -gcodeview -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o CMakeFiles\\glow.dir\\src\\scene\\scene.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\src\\scene\\scene.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\src\\scene\\scene.cpp",
+  "output": "CMakeFiles\\glow.dir\\src\\scene\\scene.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -IC:/Users/eddy/Projects/glow/extern/glad/include -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\glad\\CMakeFiles\\glad.dir\\src\\glad.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glad\\src\\glad.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glad\\src\\glad.c",
+  "output": "extern\\glad\\CMakeFiles\\glad.dir\\src\\glad.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\context.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\context.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\context.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\context.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\init.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\init.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\init.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\init.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\input.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\input.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\input.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\input.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\monitor.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\monitor.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\monitor.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\monitor.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\vulkan.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\vulkan.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\vulkan.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\vulkan.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\window.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\window.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\window.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\window.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_init.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_init.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_init.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_init.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_joystick.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_joystick.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_joystick.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_joystick.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_monitor.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_monitor.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_monitor.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_monitor.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_time.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_time.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_time.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_time.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_thread.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_thread.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_thread.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_thread.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_window.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_window.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\win32_window.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_window.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\wgl_context.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\wgl_context.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\wgl_context.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\wgl_context.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\egl_context.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\egl_context.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\egl_context.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\egl_context.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang.exe -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/eddy/Projects/glow/extern/glfw/include -IC:/Users/eddy/Projects/glow/extern/glfw/src -IC:/Users/eddy/Projects/glow/cmake-build-debug-clang/extern/glfw/src -O0 -g -Xclang -gcodeview -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -o extern\\glfw\\src\\CMakeFiles\\glfw.dir\\osmesa_context.c.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\osmesa_context.c",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\glfw\\src\\osmesa_context.c",
+  "output": "extern\\glfw\\src\\CMakeFiles\\glfw.dir\\osmesa_context.c.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -O0 -g -Xclang -gcodeview -std=gnu++14 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\tinygltf\\CMakeFiles\\loader_example.dir\\loader_example.cc.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\tinygltf\\loader_example.cc",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\tinygltf\\loader_example.cc",
+  "output": "extern\\tinygltf\\CMakeFiles\\loader_example.dir\\loader_example.cc.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -O0 -g -Xclang -gcodeview -std=gnu++14 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\tinygltf\\CMakeFiles\\tinygltf.dir\\tiny_gltf.cc.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\tinygltf\\tiny_gltf.cc",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\tinygltf\\tiny_gltf.cc",
+  "output": "extern\\tinygltf\\CMakeFiles\\tinygltf.dir\\tiny_gltf.cc.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/extern/spdlog/include -O0 -g -Xclang -gcodeview -std=c++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\spdlog.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\spdlog.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\spdlog.cpp",
+  "output": "extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\spdlog.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/extern/spdlog/include -O0 -g -Xclang -gcodeview -std=c++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\stdout_sinks.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\stdout_sinks.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\stdout_sinks.cpp",
+  "output": "extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\stdout_sinks.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/extern/spdlog/include -O0 -g -Xclang -gcodeview -std=c++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\color_sinks.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\color_sinks.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\color_sinks.cpp",
+  "output": "extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\color_sinks.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/extern/spdlog/include -O0 -g -Xclang -gcodeview -std=c++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\file_sinks.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\file_sinks.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\file_sinks.cpp",
+  "output": "extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\file_sinks.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/extern/spdlog/include -O0 -g -Xclang -gcodeview -std=c++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\async.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\async.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\async.cpp",
+  "output": "extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\async.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/extern/spdlog/include -O0 -g -Xclang -gcodeview -std=c++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\cfg.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\cfg.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\cfg.cpp",
+  "output": "extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\cfg.cpp.obj"
+},
+{
+  "directory": "C:/Users/eddy/Projects/glow/cmake-build-debug-clang",
+  "command": "C:\\Users\\eddy\\scoop\\apps\\llvm\\current\\bin\\clang++.exe -DSPDLOG_COMPILED_LIB -IC:/Users/eddy/Projects/glow/extern/spdlog/include -O0 -g -Xclang -gcodeview -std=c++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -o extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\bundled_fmtlib_format.cpp.obj -c C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\bundled_fmtlib_format.cpp",
+  "file": "C:\\Users\\eddy\\Projects\\glow\\extern\\spdlog\\src\\bundled_fmtlib_format.cpp",
+  "output": "extern\\spdlog\\CMakeFiles\\spdlog.dir\\src\\bundled_fmtlib_format.cpp.obj"
+}
+]

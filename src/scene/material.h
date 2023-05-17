@@ -6,30 +6,46 @@
 #include <unordered_map>
 #include <variant>
 
+struct ShaderSource {
+  std::string vertex_path;
+  std::string fragment_path;
+
+  // override equal operator
+  bool operator==(const ShaderSource &other) const {
+    return vertex_path == other.vertex_path &&
+           fragment_path == other.fragment_path;
+  }
+};
+
 class Material {
 public:
-  void set_shader(uint32_t shader_id) { m_shader_id = shader_id; }
+  Material() = default;
 
-  uint32_t shader_id() const { return m_shader_id; }
+  void set_shader_source(const ShaderSource &shader_source) {
+    m_shader_source = shader_source;
+  }
 
   void add_uniform(const std::string &name, const GLUniform &uniform) {
     m_uniforms[name] = uniform;
   }
 
-  void add_texture(uint32_t texture_id) { m_textures.push_back(texture_id); }
+  void add_texture(const std::string &name, uint32_t texture_id) {
+    m_textures[name] = texture_id;
+  }
 
   const std::unordered_map<std::string, GLUniform> &uniforms() const {
     return m_uniforms;
   }
 
-  const std::vector<uint32_t> &textures() const { return m_textures; }
+  const std::unordered_map<std::string, uint32_t> &textures() const {
+    return m_textures;
+  }
 
 private:
   std::unordered_map<std::string, GLUniform> m_uniforms;
-  std::vector<uint32_t> m_textures;
-  uint32_t m_shader_id;
+  std::unordered_map<std::string, uint32_t> m_textures;
+  ShaderSource m_shader_source;
 };
-
 // class PBRMaterial {
 // public:
 //   PBRMaterial() = default;

@@ -1,5 +1,3 @@
-#include "resource/resource.h"
-#include "resource/texture.h"
 #include <renderers/renderlist.h>
 #include <resource/scene.h>
 #include <renderers/forward.h>
