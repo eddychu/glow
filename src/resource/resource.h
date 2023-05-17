@@ -41,6 +41,11 @@ public:
   ResourceCache() = default;
   ~ResourceCache() = default;
 
+  static ResourceCache &instance() {
+    static ResourceCache cache;
+    return cache;
+  }
+
   template <typename T> T *get(uint32_t id) {
     auto it = m_resources.find(id);
     if (it != m_resources.end()) {

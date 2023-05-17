@@ -23,6 +23,15 @@ public:
   GLuint handle() const { return vao; }
   GLuint count() const { return m_count; }
 
+  void draw() const {
+    glBindVertexArray(vao);
+    if (m_has_indices) {
+      glDrawElements(GL_TRIANGLES, m_count, GL_UNSIGNED_SHORT, 0);
+    } else {
+      glDrawArrays(GL_TRIANGLES, 0, m_count);
+    }
+  }
+
 private:
   void setup_vbo(const std::vector<Vertex> &vertices);
   GLuint vao{0};

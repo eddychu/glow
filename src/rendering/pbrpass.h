@@ -1,42 +1,42 @@
-#pragma once
-#include <resource/geometry_buffer.h>
-#include <resource/material.h>
-#include <resource/resource.h>
-#include <resource/shader.h>
-#include <resource/texture.h>
-#include <cstdint>
-#include <light/light.h>
-#include <core/camera.h>
-#include <stdint.h>
-#include <unordered_map>
-#include <vector>
-struct PBRPass {
-  Texture *albedo_texture{nullptr};
-  Texture *normal_texture{nullptr};
-  Texture *metallic_texture{nullptr};
-  Texture *ao_texture{nullptr};
-  Texture *emissive_texture{nullptr};
+// #pragma once
+// #include <resource/geometry_buffer.h>
+// #include <resource/material.h>
+// #include <resource/resource.h>
+// #include <resource/shader.h>
+// #include <resource/texture.h>
+// #include <cstdint>
+// #include <light/light.h>
+// #include <core/camera.h>
+// #include <stdint.h>
+// #include <unordered_map>
+// #include <vector>
+// struct PBRPass {
+//   Texture *albedo_texture{nullptr};
+//   Texture *normal_texture{nullptr};
+//   Texture *metallic_texture{nullptr};
+//   Texture *ao_texture{nullptr};
+//   Texture *emissive_texture{nullptr};
 
-  TextureCube *irradiance_texture{nullptr};
+//   TextureCube *irradiance_texture{nullptr};
 
-  GLuint prefilter_map{0};
-  GLuint brdf_lut{0};
+//   GLuint prefilter_map{0};
+//   GLuint brdf_lut{0};
 
-  Light *lights{nullptr};
-  uint32_t light_count{0};
+//   Light *lights{nullptr};
+//   uint32_t light_count{0};
 
-  GLProgram *program{nullptr};
+//   GLProgram *program{nullptr};
 
-  Camera *camera{nullptr};
+//   Camera *camera{nullptr};
 
-  std::vector<GeometryBuffer *> geometries;
+//   std::vector<GeometryBuffer *> geometries;
 
-  uint32_t width{0};
-  uint32_t height{0};
+//   uint32_t width{0};
+//   uint32_t height{0};
 
-  uint32_t samples{0};
+//   uint32_t samples{0};
 
-  void render();
-};
+//   void render();
+// };
 
-std::vector<PBRPass> from_scene(uint32_t scene_id, ResourceCache *cache);
+// std::vector<PBRPass> from_scene(uint32_t scene_id, ResourceCache *cache);
