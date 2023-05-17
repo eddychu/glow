@@ -1,4 +1,7 @@
 #include <geometry/geometry.h>
+#include <vector>
+
+// TODO: currently they are missing tangent and binormal vectors.
 
 Geometry make_quad(float size) {
   std::vector<vec3> positions = {
@@ -32,6 +35,7 @@ Geometry make_quad(float size) {
   return {
       vertices,
       indices,
+      GeometryMode::Triangles,
   };
 }
 
@@ -102,8 +106,27 @@ Geometry make_cube(float size) {
     vertices[i].uv = uvs[i];
   }
 
-  return {
-      vertices,
-      el,
-  };
+  return {vertices, el, GeometryMode::Triangles};
+}
+
+Geometry make_grid(int divide_x, int divide_z) {
+
+  std::vector<Vertex> vertices;
+
+  float x_step = 1.0f / divide_x;
+  float z_step = 1.0f / divide_z;
+  float x_start = -0.5f;
+  float z_start = -0.5f;
+
+  for (int i = 0; i <= divide_x; i++) {
+    for (int j = 0; j <= divide_z; j++) {
+      Vertex v;
+      v.position = vec3(x_start + i * x_step, 0.0f, z_start + j * z_step);
+      v.normal = vec3(0.0f, 1.0f, 0.0f);
+      v.uv = vec2(i * x_step, j * z_step);
+      vertices.push_back(v);
+    }
+  }
+
+  return {vertices, {}, GeometryMode::Points};
 }
