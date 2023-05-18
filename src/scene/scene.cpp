@@ -291,3 +291,4 @@ Scene load_scene(const std::string &filename) {
 
   return result;
 }
+
