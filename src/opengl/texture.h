@@ -8,6 +8,8 @@ class GLTexture : public Resource {
 public:
   GLTexture(const Texture &texture);
 
+  GLTexture(const HDRTexture &texture);
+
   void destroy() const;
 
   void bind(uint32_t slot = 0) const {
@@ -25,9 +27,14 @@ private:
 
 class GLTextureCube {
 public:
-  GLTextureCube(const std::string &path, const std::string &file_extension);
+  GLTextureCube(const std::vector<Texture> &textures);
 
   void destroy() const;
+
+  void bind(uint32_t slot = 0) const {
+    glActiveTexture(GL_TEXTURE0 + slot);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_handle);
+  }
 
   GLuint handle() const { return m_handle; }
 

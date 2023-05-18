@@ -1,4 +1,4 @@
-#include "light/light.h"
+#include <light/light.h>
 #include <core/window.h>
 #include <opengl/texture.h>
 #include <scene/geometry.h>
@@ -7,6 +7,7 @@
 #include <opengl/shader.h>
 #include <renderers/forward.h>
 #include <controllers/camera_controller.h>
+#include <loaders/texture_loader.h>
 int main() {
   int width = 1024;
   int height = 768;
@@ -33,7 +34,16 @@ int main() {
   CameraController controller(&camera, &window);
   Scene scene = load_scene("assets/helmet/DamagedHelmet.gltf");
   // Scene scene = load_scene("assets/Sponza/glTF/Sponza.gltf");
-
+  std::vector<Texture> textures(6);
+  std::vector<std::string> paths = {
+      "assets/skybox/pisa/posx.png", "assets/skybox/pisa/negx.png",
+      "assets/skybox/pisa/posy.png", "assets/skybox/pisa/negy.png",
+      "assets/skybox/pisa/posz.png", "assets/skybox/pisa/negz.png",
+  };
+  for (int i = 0; i < 6; i++) {
+    textures[i] = load_texture(paths[i]);
+  }
+  scene.environment = textures;
   scene.lights = {
       DirectionalLight{
           .direction = vec3(0.0f, -1.0f, 0.0f),

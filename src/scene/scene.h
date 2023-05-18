@@ -56,6 +56,14 @@ struct Texture : public SceneResource {
   Sampler sampler;
 };
 
+struct HDRTexture : public SceneResource {
+  uint32_t width;
+  uint32_t height;
+  uint32_t component;
+  std::vector<float> data;
+  Sampler sampler;
+};
+
 struct Node : public SceneResource {
   int32_t mesh{-1};
   int32_t parent{-1};
@@ -84,6 +92,7 @@ struct Scene : public SceneResource {
   std::vector<Material> materials;
   std::vector<Texture> textures;
   std::vector<Light> lights;
+  std::vector<Texture> environment;
 };
 
 Scene load_scene(const std::string &filename);

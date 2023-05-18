@@ -1,4 +1,6 @@
 #pragma once
+#include "scene/geometry.h"
+#include <memory>
 #include <scene/material.h>
 #include <opengl/texture.h>
 #include <opengl/shader.h>
@@ -10,6 +12,8 @@ public:
   void init();
 
   void render(const Camera &camera, const Scene &scene);
+
+  void render_sky(const Camera &camera);
 
   /**
    * @brief Render a single geometry with a single material
@@ -45,4 +49,9 @@ private:
   bool is_initialized{false};
 
   size_t MAX_LIGHT_COUNT = 10;
+
+  std::unique_ptr<GeometryBuffer> cube_buffer;
+  std::unique_ptr<GLTextureCube> skybox_texture;
+  std::unique_ptr<GLProgram> skybox_program;
+  Material skybox_material;
 };
