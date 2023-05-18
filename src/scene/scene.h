@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <vector>
 #include <string>
+#include <light/light.h>
 struct Sampler {
   enum class Filter {
     Nearest,
@@ -82,6 +83,7 @@ struct Scene : public SceneResource {
   std::vector<Mesh> meshes;
   std::vector<Material> materials;
   std::vector<Texture> textures;
+  std::vector<Light> lights;
 };
 
 Scene load_scene(const std::string &filename);

@@ -1,12 +1,12 @@
-#include "opengl/texture.h"
+#include "light/light.h"
+#include <core/window.h>
+#include <opengl/texture.h>
 #include <scene/geometry.h>
 #include <opengl/geometry_buffer.h>
 #include <scene/material.h>
 #include <opengl/shader.h>
 #include <renderers/forward.h>
-#include <core/window.h>
 #include <controllers/camera_controller.h>
-#include <stb_image.h>
 int main() {
   int width = 1024;
   int height = 768;
@@ -30,32 +30,21 @@ int main() {
       .far = 100.0f,
   });
 
-  CameraController controller(&camera, width, height);
-  Geometry cube = make_cube(1.0);
-  GeometryBuffer buffer(cube);
-  Material material;
-
-  ShaderSource source;
-  source.vertex_path = "assets/shaders/basic.vert.glsl";
-  source.fragment_path = "assets/shaders/basic.frag.glsl";
-
-  material.set_shader_source(source);
-
-  GLProgram program(material);
-
+  CameraController controller(&camera, &window);
   Scene scene = load_scene("assets/helmet/DamagedHelmet.gltf");
+  // Scene scene = load_scene("assets/Sponza/glTF/Sponza.gltf");
 
-  GLTexture texture(scene.textures[0]);
+  scene.lights = {
+      DirectionalLight{
+          .direction = vec3(0.0f, -1.0f, 0.0f),
+          .color = vec3(1.0f),
+          .intensity = 1.0f,
+      },
+  };
 
   ForwardRenderer renderer;
-
-  glEnable(GL_DEPTH_TEST);
-  glCullFace(GL_BACK);
-  glFrontFace(GL_CCW);
+  renderer.init();
   while (!window.should_close()) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // renderer.render_single(camera, program, material, buffer);
-    // // renderer.render_single(camera, program, material, *geometry_buffer);
     renderer.render(camera, scene);
     window.swap_buffers();
     window.poll_events();

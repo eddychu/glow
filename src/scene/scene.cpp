@@ -1,6 +1,7 @@
 #include "glm/fwd.hpp"
 #include "scene/geometry.h"
 #include "spdlog/spdlog.h"
+#include "utils/calc_tangent.h"
 #include <scene/scene.h>
 #include <stdint.h>
 #define TINYGLTF_NO_STB_IMAGE_WRITE
@@ -147,6 +148,8 @@ void process_mesh(Scene &scene, uint32_t index, const tinygltf::Mesh &mesh,
 
     sub_mesh.geometry.vertices = vertices;
     sub_mesh.geometry.indices = indices;
+    CalcTangents calc;
+    calc.calc(&sub_mesh.geometry);
 
     if (primitive.material > -1) {
       sub_mesh.material = primitive.material;
@@ -159,10 +162,31 @@ void process_material(Scene &scene, uint32_t index,
                       const tinygltf::Model &model) {
   auto &mat = scene.materials[index];
 
-  if (material.values.find("baseColorTexture") != material.values.end()) {
+  // FIX: RIGHT NOW THE ORDER of the textures is important.
+
+  if (material.pbrMetallicRoughness.baseColorTexture.index > -1) {
+    auto texture_index = material.pbrMetallicRoughness.baseColorTexture.index;
+    mat.add_texture(texture_index);
+  }
+  if (material.normalTexture.index > -1) {
+    auto texture_index = material.normalTexture.index;
+    mat.add_texture(texture_index);
+  }
+
+  if (material.pbrMetallicRoughness.metallicRoughnessTexture.index > -1) {
     auto texture_index =
-        material.values.find("baseColorTexture")->second.TextureIndex();
-    mat.add_texture("base_color_texture", texture_index);
+        material.pbrMetallicRoughness.metallicRoughnessTexture.index;
+    mat.add_texture(texture_index);
+  }
+
+  if (material.occlusionTexture.index > -1) {
+    auto texture_index = material.occlusionTexture.index;
+    mat.add_texture(texture_index);
+  }
+
+  if (material.emissiveTexture.index > -1) {
+    auto texture_index = material.emissiveTexture.index;
+    mat.add_texture(texture_index);
   }
 }
 

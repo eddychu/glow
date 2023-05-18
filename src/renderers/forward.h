@@ -7,6 +7,8 @@
 #include <renderers/renderlist.h>
 class ForwardRenderer {
 public:
+  void init();
+
   void render(const Camera &camera, const Scene &scene);
 
   /**
@@ -41,4 +43,6 @@ public:
 private:
   RenderList list;
   bool is_initialized{false};
+
+  size_t MAX_LIGHT_COUNT = 10;
 };

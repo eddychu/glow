@@ -62,6 +62,7 @@ struct RenderList {
           cache.geometry_buffers.push_back(std::move(geometry_buffer));
           RenderItem render_item;
           render_item.material = sub_mesh.material;
+
           render_item.geometry_buffer_index = geometry_index;
           render_item.transform = transform;
           add_renderable(render_item);

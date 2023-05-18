@@ -9,10 +9,21 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-out vec2 texCoord;
+out VS_OUT
+{
+    vec3 position;
+    vec3 normal;
+    vec2 uv;
+    vec3 tangent;
+    vec3 bitangent;
+} vs_out;
 
 void main()
 {
     gl_Position = projection * view * model * vec4(inPos, 1.0);
-    texCoord = inUV;
+    vs_out.position = vec3(model * vec4(inPos, 1.0));
+    vs_out.normal = mat3(transpose(inverse(model))) * inNormal;
+    vs_out.uv = inUV;
+    vs_out.tangent = mat3(transpose(inverse(model))) * inTangent;
+    vs_out.bitangent = mat3(transpose(inverse(model))) * inBitangent;
 }

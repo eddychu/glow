@@ -14,15 +14,13 @@ struct PointLight {
   float intensity;
 };
 
-struct SpotLight {
-  glm::vec3 position;
-  glm::vec3 direction;
-  glm::vec3 color;
-  float intensity;
-  float cut_off;
-  float outer_cut_off;
-};
+// struct SpotLight {
+//   glm::vec3 position;
+//   glm::vec3 direction;
+//   glm::vec3 color;
+//   float intensity;
+//   float cut_off;
+//   float outer_cut_off;
+// };
 
-struct Light {
-  std::variant<DirectionalLight, PointLight, SpotLight> value;
-};
+typedef std::variant<DirectionalLight, PointLight> Light;

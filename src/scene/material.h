@@ -39,20 +39,16 @@ public:
     m_shader_source = shader_source;
   }
 
-  void add_texture(const std::string &name, uint32_t texture_id) {
-    m_textures[name] = texture_id;
-  }
+  void add_texture(uint32_t texture_id) { m_textures.push_back(texture_id); }
 
-  const std::unordered_map<std::string, uint32_t> &textures() const {
-    return m_textures;
-  }
+  const std::vector<uint32_t> &textures() const { return m_textures; }
 
   const std::unordered_map<std::string, UniformValue> &uniforms() const {
     return m_uniforms;
   }
 
 private:
-  std::unordered_map<std::string, uint32_t> m_textures;
+  std::vector<uint32_t> m_textures;
   ShaderSource m_shader_source = default_shader_source;
   std::unordered_map<std::string, UniformValue> m_uniforms;
   uint32_t m_id;

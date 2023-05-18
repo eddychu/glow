@@ -1,11 +1,35 @@
 #pragma once
-
 #include <core/camera.h>
-
+#include <core/window.h>
+#include <spdlog/spdlog.h>
 class CameraController {
 public:
-  CameraController(Camera *camera, int width, int height)
-      : camera(camera), width(width), height(height) {}
+  CameraController(Camera *camera, Window *window)
+      : camera(camera), window(window) {
+    window->register_on_mouse_button_func(
+        [&](int button, int action, int mods) {
+          spdlog::info("mouse button");
+          if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+            enabled = true;
+            spdlog::info("enabled");
+            last_cursor_pos = window->get_cursor_pos();
+          }
+          if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+            enabled = false;
+          }
+        });
+
+    window->register_on_cursor_pos_func([&](double x, double y) {
+      // spdlog::info("cursor pos");
+      if (!enabled)
+        return;
+
+      double dx = x - last_cursor_pos[0];
+      double dy = y - last_cursor_pos[1];
+      rotate(dx, dy);
+      last_cursor_pos = {x, y};
+    });
+  }
   void set_enable(bool enable) { enabled = enable; }
 
   void rotate(float dx, float dy) {
@@ -20,7 +44,8 @@ public:
       float v = min(1.0f, max(-1.0f, dist_vec.y / radius));
       phi = acos(v);
     }
-    int span = std::min(width, height);
+    auto size = window->get_size();
+    int span = std::min(size[0], size[1]);
     theta -= dx * glm::pi<float>() * 2.0 / span;
     phi -= dy * glm::pi<float>() * 2.0 / span;
 
@@ -42,6 +67,6 @@ public:
 private:
   Camera *camera{nullptr};
   bool enabled{false};
-  int width{0};
-  int height{0};
+  Window *window{nullptr};
+  std::array<double, 2> last_cursor_pos{0.0, 0.0};
 };

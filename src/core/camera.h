@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include <core/transform.h>
-
+#include <spdlog/spdlog.h>
 struct CameraConfig {
   vec3 position = vec3(0.0, 0.0, 5.0);
   vec3 target = vec3(0.0, 0.0, 0.0);
@@ -19,6 +19,7 @@ public:
   mat4 view_matrix() const { return m_transform.matrix_invert(); }
   mat4 projection_matrix() const { return m_projection; }
   void set_position(const glm::vec3 &position) {
+    spdlog::info("set position");
     glm::mat4 view = glm::lookAt(position, m_target, vec3(0.0, 1.0, 0.0));
     m_transform.set_matrix_invert(view);
   }
