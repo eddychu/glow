@@ -1,9 +1,13 @@
 #pragma once
+#include <scene/resource.h>
 #include <string>
 #include <glm/glm.hpp>
 #include <stdint.h>
 #include <unordered_map>
 #include <variant>
+using namespace glm;
+
+typedef std::variant<mat4, mat3, vec4, vec3, vec2, float, int> UniformValue;
 
 struct ShaderSource {
   std::string vertex_path;
@@ -20,7 +24,7 @@ extern ShaderSource default_shader_source;
 
 extern uint32_t g_material_id;
 
-class Material {
+class Material : public SceneResource {
 public:
   Material()
       : m_shader_source(default_shader_source), m_id(next_material_id()) {}
@@ -43,9 +47,14 @@ public:
     return m_textures;
   }
 
+  const std::unordered_map<std::string, UniformValue> &uniforms() const {
+    return m_uniforms;
+  }
+
 private:
   std::unordered_map<std::string, uint32_t> m_textures;
   ShaderSource m_shader_source = default_shader_source;
+  std::unordered_map<std::string, UniformValue> m_uniforms;
   uint32_t m_id;
 };
 // class PBRMaterial {

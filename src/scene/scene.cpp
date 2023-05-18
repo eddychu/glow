@@ -1,10 +1,13 @@
-#include "geometry/geometry.h"
+#include "glm/fwd.hpp"
+#include "scene/geometry.h"
 #include "spdlog/spdlog.h"
 #include <scene/scene.h>
 #include <stdint.h>
 #define TINYGLTF_NO_STB_IMAGE_WRITE
 #define TINYGLTF_IMPLEMENTATION
 #include <tiny_gltf.h>
+
+static std::string current_direrctory = "";
 
 void process_mesh(Scene &scene, uint32_t index, const tinygltf::Mesh &mesh,
                   const tinygltf::Model &model) {
@@ -141,7 +144,9 @@ void process_mesh(Scene &scene, uint32_t index, const tinygltf::Mesh &mesh,
       }
       }
     }
-    sub_mesh.geometry = Geometry(vertices, indices);
+
+    sub_mesh.geometry.vertices = vertices;
+    sub_mesh.geometry.indices = indices;
 
     if (primitive.material > -1) {
       sub_mesh.material = primitive.material;
@@ -227,28 +232,27 @@ Scene load_scene(const std::string &filename) {
     const auto &node = model.nodes[scene.nodes[i]];
     process_node(result, i, node, model);
   }
-
+  result.textures.resize(model.textures.size());
   for (uint32_t i = 0; i < model.textures.size(); i++) {
     const auto &texture = model.textures[i];
     const auto &image = model.images[texture.source];
     const auto &sampler = model.samplers[texture.sampler];
-    uint32_t width = image.width;
-    uint32_t height = image.height;
-    uint32_t component = image.component;
 
-    result.textures.push_back(Texture{
-        .width = width,
-        .height = height,
-        .component = component,
-        .data = image.image,
-        .sampler =
-            Sampler{
-                .min_filter = Sampler::filter_from_int(sampler.minFilter),
-                .mag_filter = Sampler::filter_from_int(sampler.magFilter),
-                .wrap_s = Sampler::wrap_from_int(sampler.wrapS),
-                .wrap_t = Sampler::wrap_from_int(sampler.wrapT),
-            },
-    });
+    // std::vector<unsigned char> image_data(image.image.size() *
+    // image.component); memcpy(image_data.data(), image.image.data(),
+    // image.image.size());
+
+    result.textures[i].width = image.width;
+    result.textures[i].height = image.height;
+    result.textures[i].component = image.component;
+    result.textures[i].data = image.image;
+
+    result.textures[i].sampler = Sampler{
+        .min_filter = Sampler::filter_from_int(sampler.minFilter),
+        .mag_filter = Sampler::filter_from_int(sampler.magFilter),
+        .wrap_s = Sampler::wrap_from_int(sampler.wrapS),
+        .wrap_t = Sampler::wrap_from_int(sampler.wrapT),
+    };
   }
 
   for (uint32_t i = 0; i < result.materials.size(); i++) {

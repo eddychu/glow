@@ -6,6 +6,7 @@
 #include <string>
 #include <unordered_map>
 #include <spdlog/spdlog.h>
+#include <scene/material.h>
 using namespace glm;
 
 struct GLShader {
@@ -18,15 +19,11 @@ struct GLShader {
   }
 };
 
-struct GLUniform {
-  std::variant<mat4, mat3, vec4, vec3, vec2, float, int> value;
-};
-
 class GLProgram : public Resource {
 public:
-  GLProgram(const char *vs_path, const char *fs_path);
+  GLProgram(const Material &mat);
   void populate_uniforms();
-  void set_uniform(const char *name, const GLUniform &uniform) const;
+  void set_uniform(const char *name, const UniformValue &uniform) const;
 
   void use() const;
   void unuse() const;

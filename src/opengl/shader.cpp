@@ -1,3 +1,4 @@
+#include "scene/material.h"
 #include <opengl/resource.h>
 #include <fstream>
 #include <opengl/shader.h>
@@ -34,8 +35,10 @@ GLShader::GLShader(const char *path, GLenum type) {
 
 void GLShader::destroy() const { glDeleteShader(handle); }
 
-GLProgram::GLProgram(const char *vs_path, const char *fs_path)
-    : Resource(ResourceType::Shader) {
+GLProgram::GLProgram(const Material &material) {
+  set_id(material.id());
+  const char *vs_path = material.shader_source().vertex_path.c_str();
+  const char *fs_path = material.shader_source().fragment_path.c_str();
   GLShader vs(vs_path, GL_VERTEX_SHADER);
   GLShader fs(fs_path, GL_FRAGMENT_SHADER);
   handle = glCreateProgram();
@@ -93,29 +96,28 @@ void GLProgram::use() const { glUseProgram(handle); }
 
 void GLProgram::destroy() const { glDeleteProgram(handle); }
 
-void GLProgram::set_uniform(const char *name, const GLUniform &uniform) const {
+void GLProgram::set_uniform(const char *name,
+                            const UniformValue &uniform) const {
 
   GLint location = glGetUniformLocation(handle, name);
   if (location == -1) {
     printf("Error: Uniform %s not found.\n", name);
     return;
   }
-  if (std::holds_alternative<mat4>(uniform.value)) {
-    glUniformMatrix4fv(location, 1, GL_FALSE,
-                       &std::get<mat4>(uniform.value)[0][0]);
-  } else if (std::holds_alternative<mat3>(uniform.value)) {
-    glUniformMatrix3fv(location, 1, GL_FALSE,
-                       &std::get<mat3>(uniform.value)[0][0]);
-  } else if (std::holds_alternative<vec4>(uniform.value)) {
-    glUniform4fv(location, 1, &std::get<vec4>(uniform.value)[0]);
-  } else if (std::holds_alternative<vec3>(uniform.value)) {
-    glUniform3fv(location, 1, &std::get<vec3>(uniform.value)[0]);
-  } else if (std::holds_alternative<vec2>(uniform.value)) {
-    glUniform2fv(location, 1, &std::get<vec2>(uniform.value)[0]);
-  } else if (std::holds_alternative<float>(uniform.value)) {
-    glUniform1f(location, std::get<float>(uniform.value));
-  } else if (std::holds_alternative<int>(uniform.value)) {
-    glUniform1i(location, std::get<int>(uniform.value));
+  if (std::holds_alternative<mat4>(uniform)) {
+    glUniformMatrix4fv(location, 1, GL_FALSE, &std::get<mat4>(uniform)[0][0]);
+  } else if (std::holds_alternative<mat3>(uniform)) {
+    glUniformMatrix3fv(location, 1, GL_FALSE, &std::get<mat3>(uniform)[0][0]);
+  } else if (std::holds_alternative<vec4>(uniform)) {
+    glUniform4fv(location, 1, &std::get<vec4>(uniform)[0]);
+  } else if (std::holds_alternative<vec3>(uniform)) {
+    glUniform3fv(location, 1, &std::get<vec3>(uniform)[0]);
+  } else if (std::holds_alternative<vec2>(uniform)) {
+    glUniform2fv(location, 1, &std::get<vec2>(uniform)[0]);
+  } else if (std::holds_alternative<float>(uniform)) {
+    glUniform1f(location, std::get<float>(uniform));
+  } else if (std::holds_alternative<int>(uniform)) {
+    glUniform1i(location, std::get<int>(uniform));
   } else {
     printf("Error: Uniform type not supported.\n");
   }

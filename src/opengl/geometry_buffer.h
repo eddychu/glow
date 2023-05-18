@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <opengl/resource.h>
-#include <geometry/geometry.h>
+#include <scene/geometry.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <stdint.h>
@@ -11,9 +11,7 @@ using namespace glm;
 
 class GeometryBuffer : public Resource {
 public:
-  GeometryBuffer(const std::vector<Vertex> &vertices);
-  GeometryBuffer(const std::vector<Vertex> &vertices,
-                 const std::vector<uint32_t> &indices);
+  GeometryBuffer(const Geometry &geometry);
 
   void destroy();
 

@@ -1,4 +1,4 @@
-#include <geometry/geometry.h>
+#include <scene/geometry.h>
 #include <vector>
 
 // TODO: currently they are missing tangent and binormal vectors.
@@ -31,12 +31,11 @@ Geometry make_quad(float size) {
     vertices[i].normal = normals[i];
     vertices[i].uv = uvs[i];
   }
-
-  return {
-      vertices,
-      indices,
-      GeometryMode::Triangles,
-  };
+  Geometry geometry;
+  geometry.vertices = vertices;
+  geometry.indices = indices;
+  geometry.mode = GeometryMode::Triangles;
+  return geometry;
 }
 
 Geometry make_cube(float size) {
@@ -105,8 +104,11 @@ Geometry make_cube(float size) {
     vertices[i].normal = normals[i];
     vertices[i].uv = uvs[i];
   }
-
-  return {vertices, el, GeometryMode::Triangles};
+  Geometry g;
+  g.vertices = vertices;
+  g.indices = el;
+  g.mode = GeometryMode::Triangles;
+  return g;
 }
 
 Geometry make_grid(int divide_x, int divide_z) {
@@ -127,6 +129,8 @@ Geometry make_grid(int divide_x, int divide_z) {
       vertices.push_back(v);
     }
   }
-
-  return {vertices, {}, GeometryMode::Points};
+  Geometry g;
+  g.vertices = vertices;
+  g.mode = GeometryMode::Points;
+  return g;
 }

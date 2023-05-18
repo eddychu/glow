@@ -1,33 +1,30 @@
 #include <opengl/geometry_buffer.h>
 #include <spdlog/spdlog.h>
 #include <stdint.h>
-GeometryBuffer::GeometryBuffer(const std::vector<Vertex> &vertices)
-    : Resource(ResourceType::Geometry) {
-  m_has_indices = false;
+
+GeometryBuffer::GeometryBuffer(const Geometry &geometry) {
+  set_id(geometry.id());
+  m_has_indices = true;
+  if (geometry.indices.size() == 0) {
+    m_has_indices = false;
+  }
+  auto &vertices = geometry.vertices;
+  auto &indices = geometry.indices;
   glCreateBuffers(1, &vbo);
   glNamedBufferStorage(vbo, vertices.size() * sizeof(Vertex), vertices.data(),
                        0);
+
   glCreateVertexArrays(1, &vao);
   glVertexArrayVertexBuffer(vao, 0, vbo, 0, sizeof(Vertex));
   setup_vbo(vertices);
   m_count = vertices.size();
-}
-
-GeometryBuffer::GeometryBuffer(const std::vector<Vertex> &vertices,
-                               const std::vector<uint32_t> &indices)
-    : Resource(ResourceType::Geometry) {
-  m_has_indices = true;
-  glCreateBuffers(1, &vbo);
-  glNamedBufferStorage(vbo, vertices.size() * sizeof(Vertex), vertices.data(),
-                       0);
-  glCreateBuffers(1, &ebo);
-  glNamedBufferStorage(ebo, indices.size() * sizeof(uint32_t), indices.data(),
-                       0);
-  glCreateVertexArrays(1, &vao);
-  glVertexArrayVertexBuffer(vao, 0, vbo, 0, sizeof(Vertex));
-  glVertexArrayElementBuffer(vao, ebo);
-  setup_vbo(vertices);
-  m_count = indices.size();
+  if (m_has_indices) {
+    glCreateBuffers(1, &ebo);
+    glNamedBufferStorage(ebo, indices.size() * sizeof(uint32_t), indices.data(),
+                         0);
+    glVertexArrayElementBuffer(vao, ebo);
+    m_count = indices.size();
+  }
 }
 
 void GeometryBuffer::setup_vbo(const std::vector<Vertex> &vertices) {

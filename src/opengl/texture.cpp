@@ -1,10 +1,11 @@
+#include <cstdlib>
 #include <opengl/resource.h>
 #include <opengl/texture.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <spdlog/spdlog.h>
-GLTexture::GLTexture(const Texture &texture)
-    : Resource(ResourceType::Texture2d) {
+GLTexture::GLTexture(const Texture &texture) {
+  set_id(texture.id());
   GLenum target = GL_TEXTURE_2D;
   GLenum internal_format = GL_RGBA8;
   GLenum format = GL_RGBA;
@@ -36,15 +37,15 @@ GLTexture::GLTexture(const Texture &texture)
   }
   }
 
-  glCreateTextures(target, 1, &m_handle);
-  glTextureStorage2D(m_handle, 1, GL_RGBA8, texture.width, texture.height);
+  glCreateTextures(GL_TEXTURE_2D, 1, &m_handle);
+  glTextureStorage2D(m_handle, 1, internal_format, texture.width,
+                     texture.height);
   glTextureSubImage2D(m_handle, 0, 0, 0, texture.width, texture.height, GL_RGBA,
                       GL_UNSIGNED_BYTE, texture.data.data());
   glTextureParameteri(m_handle, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTextureParameteri(m_handle, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTextureParameteri(m_handle, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTextureParameteri(m_handle, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTextureParameteri(m_handle, GL_TEXTURE_WRAP_R, GL_REPEAT);
 }
 
 void GLTexture::destroy() const {
@@ -53,8 +54,7 @@ void GLTexture::destroy() const {
 }
 
 GLTextureCube::GLTextureCube(const std::string &path,
-                             const std::string &file_extension)
-    : Resource(ResourceType::TextureCube) {
+                             const std::string &file_extension) {
   GLenum target = GL_TEXTURE_CUBE_MAP;
   spdlog::info("Loading texture: {}", path);
   int width, height, nrChannels;

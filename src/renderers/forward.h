@@ -8,7 +8,6 @@
 class ForwardRenderer {
 public:
   void render(const Camera &camera, const Scene &scene);
-  void render_renderable(const Camera &camera, const Renderable &renderable);
 
   /**
    * @brief Render a single geometry with a single material
@@ -25,20 +24,17 @@ public:
                      const GeometryBuffer &geometry_buffer) {
 
     // program.set_uniform("model", GLUniform{mat4(1.0f)});
-    for (const auto &uniform : material.uniforms()) {
-      program.set_uniform(uniform.first.c_str(), uniform.second);
-    }
-    auto &textures = material.textures();
-    for (int i = 0; i < material.textures().size(); i++) {
+    // for (const auto &uniform : material.uniforms()) {
+    //   program.set_uniform(uniform.first.c_str(), uniform.second);
+    // }
+    // auto &textures = material.textures();
+    // for (int i = 0; i < material.textures().size(); i++) {
+    //   auto texture = ResourceCache::instance().get<Texture>(texture_id);
+    //   glActiveTexture(GL_TEXTURE0 + i);
+    //   GLenum target = GL_TEXTURE_2D;
+    //   glBindTexture(target, texture->id());
+    // }
 
-      auto texture = ResourceCache::instance().get<Texture>(texture_id);
-      glActiveTexture(GL_TEXTURE0 + i);
-      GLenum target = GL_TEXTURE_2D;
-      if (texture->type() == ResourceType::TextureCube) {
-        target = GL_TEXTURE_CUBE_MAP;
-      }
-      glBindTexture(target, texture->id());
-    }
     geometry_buffer.draw();
   }
 

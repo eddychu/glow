@@ -1,4 +1,5 @@
 #pragma once
+#include "scene/resource.h"
 #include <glm/glm.hpp>
 #include <stdint.h>
 using namespace glm;
@@ -18,7 +19,7 @@ enum class GeometryMode {
   Points,
 };
 
-struct Geometry {
+struct Geometry : public SceneResource {
   std::vector<Vertex> vertices;
   std::vector<uint32_t> indices;
   GeometryMode mode = GeometryMode::Triangles;

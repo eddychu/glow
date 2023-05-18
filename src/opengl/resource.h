@@ -3,37 +3,15 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
-enum class ResourceType {
-  Texture2d,
-  TextureCube,
-  FrameBuffer,
-  Material,
-  Geometry,
-  Shader,
-  Scene,
-  Unknown
-};
-
-extern uint32_t g_resource_id;
 
 class Resource {
 public:
-  Resource(ResourceType type) : m_type(type), m_id(next_id()) {}
-
   virtual ~Resource() = default;
-
-  static uint32_t next_id() { return g_resource_id++; }
-
-  ResourceType type() const { return m_type; }
-  std::string name() const { return m_name; }
-  void set_type(ResourceType type) { m_type = type; }
-  void set_name(const std::string &name) { m_name = name; }
   uint32_t id() const { return m_id; }
+  void set_id(uint32_t id) { m_id = id; }
 
 protected:
-  ResourceType m_type = ResourceType::Unknown;
-  std::string m_name{""};
-  uint32_t m_id;
+  uint32_t m_id = {0};
 };
 
 class ResourceCache {
@@ -54,17 +32,19 @@ public:
     return nullptr;
   }
 
-  template <typename T> T *get(const std::string &name) {
-    for (auto &it : m_resources) {
-      if (it.second->name() == name) {
-        return static_cast<T *>(it.second.get());
-      }
-    }
-    return nullptr;
-  }
+  // template <typename T> T *get(const std::string &name) {
+  //   for (auto &it : m_resources) {
+  //     if (it.second->name() == name) {
+  //       return static_cast<T *>(it.second.get());
+  //     }
+  //   }
+  //   return nullptr;
+  // }
 
-  template <typename T> void add(std::unique_ptr<T> resource) {
-    m_resources[resource->id()] = std::move(resource);
+  template <typename T> uint32_t add(std::unique_ptr<T> resource) {
+    uint32_t id = resource->id();
+    m_resources[id] = std::move(resource);
+    return id;
   }
 
   void remove(uint32_t id) { m_resources.erase(id); }

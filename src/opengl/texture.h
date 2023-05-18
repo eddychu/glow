@@ -14,10 +14,10 @@ public:
   ~GLTexture() { destroy(); }
 
 private:
-  GLuint m_handle;
+  GLuint m_handle = 0;
 };
 
-class GLTextureCube : public Resource {
+class GLTextureCube {
 public:
   GLTextureCube(const std::string &path, const std::string &file_extension);
 

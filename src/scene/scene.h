@@ -1,5 +1,5 @@
 #pragma once
-#include "geometry/geometry.h"
+#include <scene/geometry.h>
 #include <core/camera.h>
 #include <scene/material.h>
 #include <core/transform.h>
@@ -47,7 +47,7 @@ struct Sampler {
   Wrap wrap_r{Wrap::Repeat};
 };
 
-struct Texture {
+struct Texture : public SceneResource {
   uint32_t width;
   uint32_t height;
   uint32_t component;
@@ -55,7 +55,7 @@ struct Texture {
   Sampler sampler;
 };
 
-struct Node {
+struct Node : public SceneResource {
   int32_t mesh{-1};
   int32_t parent{-1};
   int32_t first_child{-1};
@@ -68,16 +68,16 @@ struct Node {
  *  this is equivalent to a primitive in glTF.
  */
 
-struct SubMesh {
+struct SubMesh : public SceneResource {
   int32_t material{-1};
   Geometry geometry;
 };
 
-struct Mesh {
+struct Mesh : public SceneResource {
   std::vector<SubMesh> sub_meshes;
 };
 
-struct Scene {
+struct Scene : public SceneResource {
   std::vector<Node> nodes;
   std::vector<Mesh> meshes;
   std::vector<Material> materials;
