@@ -24,9 +24,9 @@ public:
   void draw() const {
     glBindVertexArray(vao);
     if (m_has_indices) {
-      glDrawElements(GL_TRIANGLES, m_count, GL_UNSIGNED_INT, 0);
+      glDrawElements(m_mode, m_count, GL_UNSIGNED_INT, 0);
     } else {
-      glDrawArrays(GL_TRIANGLES, 0, m_count);
+      glDrawArrays(m_mode, 0, m_count);
     }
   }
 
@@ -37,4 +37,5 @@ private:
   GLuint ebo{0};
   bool m_has_indices{false};
   GLuint m_count{0};
+  GLenum m_mode{GL_TRIANGLES};
 };

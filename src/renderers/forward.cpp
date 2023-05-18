@@ -10,10 +10,15 @@
 void ForwardRenderer::init() {
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
   auto cube = make_cube(2.0f);
   cube_buffer = std::make_unique<GeometryBuffer>(cube);
+  grid_program = std::make_unique<GLProgram>("assets/shaders/grid.vert.glsl",
+                                             "assets/shaders/grid.frag.glsl");
+  glCreateVertexArrays(1, &grid_vao);
 }
 
 void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
@@ -82,9 +87,15 @@ void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
     cache.geometry_buffers[item.geometry_buffer_index]->draw();
   }
 
-  if (!scene.environment.empty()) {
-    render_sky(camera);
-  }
+  grid_program->use();
+  grid_program->set_uniform("view", camera.view_matrix());
+  grid_program->set_uniform("proj", camera.projection_matrix());
+  grid_program->set_uniform("cameraPos", camera.transform().position());
+  glBindVertexArray(grid_vao);
+  glDrawArraysInstancedBaseInstance(GL_TRIANGLES, 0, 6, 1, 0);
+  // if (!scene.environment.empty()) {
+  //   render_sky(camera);
+  // }
 }
 
 void ForwardRenderer::render_sky(const Camera &camera) {

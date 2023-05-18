@@ -131,6 +131,6 @@ Geometry make_grid(int divide_x, int divide_z) {
   }
   Geometry g;
   g.vertices = vertices;
-  g.mode = GeometryMode::Points;
+  g.mode = GeometryMode::Lines;
   return g;
 }

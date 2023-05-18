@@ -54,4 +54,7 @@ private:
   std::unique_ptr<GLTextureCube> skybox_texture;
   std::unique_ptr<GLProgram> skybox_program;
   Material skybox_material;
+
+  std::unique_ptr<GLProgram> grid_program;
+  GLuint grid_vao;
 };

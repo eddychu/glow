@@ -35,6 +35,30 @@ GLShader::GLShader(const char *path, GLenum type) {
 
 void GLShader::destroy() const { glDeleteShader(handle); }
 
+GLProgram::GLProgram(const std::string &vertex_path,
+                     const std::string &fragment_path) {
+  GLShader vs(vertex_path.c_str(), GL_VERTEX_SHADER);
+  GLShader fs(fragment_path.c_str(), GL_FRAGMENT_SHADER);
+  handle = glCreateProgram();
+  glAttachShader(handle, vs.handle);
+  glAttachShader(handle, fs.handle);
+  glLinkProgram(handle);
+  GLint success;
+  glGetProgramiv(handle, GL_LINK_STATUS, &success);
+  if (!success) {
+    char infoLog[512];
+    glGetProgramInfoLog(handle, 512, NULL, infoLog);
+    spdlog::error("Error: Failed to link program.");
+    spdlog::error("{}", infoLog);
+    throw std::runtime_error("Failed to link program.");
+  }
+  glDetachShader(handle, vs.handle);
+  glDetachShader(handle, fs.handle);
+  vs.destroy();
+  fs.destroy();
+  populate_uniforms();
+}
+
 GLProgram::GLProgram(const Material &material) {
   set_id(material.id());
   const char *vs_path = material.shader_source().vertex_path.c_str();

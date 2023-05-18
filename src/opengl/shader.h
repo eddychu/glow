@@ -22,6 +22,7 @@ struct GLShader {
 class GLProgram : public Resource {
 public:
   GLProgram(const Material &mat);
+  GLProgram(const std::string &vertex_path, const std::string &fragment_path);
   void populate_uniforms();
   void set_uniform(const char *name, const UniformValue &uniform) const;
 

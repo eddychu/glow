@@ -1,4 +1,5 @@
 
+#include "scene/geometry.h"
 #include <opengl/geometry_buffer.h>
 #include <spdlog/spdlog.h>
 #include <stdint.h>
@@ -25,6 +26,12 @@ GeometryBuffer::GeometryBuffer(const Geometry &geometry) {
                          0);
     glVertexArrayElementBuffer(vao, ebo);
     m_count = indices.size();
+  }
+
+  if (geometry.mode == GeometryMode::Lines) {
+    m_mode = GL_LINES;
+  } else if (geometry.mode == GeometryMode::Points) {
+    m_mode = GL_POINTS;
   }
 }
 
