@@ -1,6 +1,6 @@
 # Glow Renderer
 
-A PBR renderer written in C++. Support PBR materials with IBL diffuse and specular lighting.
+A (wip) PBR renderer written in C++. Support PBR materials with IBL diffuse and specular lighting.
 
 ## build
 
