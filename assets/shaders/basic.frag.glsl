@@ -9,15 +9,12 @@ layout (binding = 4) uniform sampler2D texture_emissive;
 uniform struct Light {
     vec3 position;
     vec3 color;    
-    vec3 direction;
     float intensity;
-    float cut_off;
     int type;
 } lights[10];
 
 uniform int light_count;
 uniform vec3 camera_pos;
-
 in VS_OUT
 {
     vec3 position;
@@ -93,19 +90,19 @@ vec3 calc_light_contrib(vec3 normal, vec3 view_dir, float roughness, float metal
         else if (lights[i].type == 1) {
             light_dir = normalize(lights[i].position - vs_out.position);
             float distance = length(lights[i].position - vs_out.position);
-            attenuation = 1.0 / (distance * distance);
+            attenuation = 1.0;
         } 
         // spot light
         else if (lights[i].type == 2) {
-            light_dir = normalize(lights[i].position - vs_out.position);
-            float angle = acos(dot(-light_dir, lights[i].direction));
-            float cut_off = radians(clamp(lights[i].cut_off, 0.0, 90.0));
-            if (angle < cut_off) {
-                attenuation = pow(dot(-light_dir, lights[i].direction), 5.0);
-            }
+            // light_dir = normalize(lights[i].position - vs_out.position);
+            // float angle = acos(dot(-light_dir, lights[i].direction));
+            // float cut_off = radians(clamp(lights[i].cut_off, 0.0, 90.0));
+            // if (angle < cut_off) {
+            //     attenuation = pow(dot(-light_dir, lights[i].direction), 5.0);
+            // } else {
+            //     attenuation = 0.0;
+            // }
         }
-        // float attenuation = 1.0 / (distance * distance);
-        // float attenuation = 1.0;
         vec3 radiance = lights[i].color * lights[i].intensity * attenuation;
         vec3 half_dir = normalize(view_dir + light_dir);
         
@@ -155,11 +152,9 @@ void main()
     vec3 F0 = vec3(0.04);
     F0 = mix(F0, albedo, metallic);
 
-
-
     vec3 result = calc_light_contrib(normal, view_dir, roughness, metallic, F0, albedo);
 
-    vec3 ambient = vec3(0.1) * albedo * ao;
+    vec3 ambient = vec3(0.000) * albedo * ao;
 
     vec3 color = ambient + result + emmisive;
 

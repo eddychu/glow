@@ -47,6 +47,8 @@ void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
   const auto &cache = list.cache;
   for (const auto &item : list.items) {
     cache.programs[item.material]->use();
+    // cache.programs[item.material]->set_uniform("has_ao_map", false);
+    // cache.programs[item.material]->set_uniform("has_emissive_map", false);
     cache.programs[item.material]->set_uniform("view", camera.view_matrix());
     cache.programs[item.material]->set_uniform("projection",
                                                camera.projection_matrix());
@@ -84,21 +86,21 @@ void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
         cache.programs[item.material]->set_uniform(
             fmt::format("lights[{}].type", i).c_str(), 1);
       } else if (std::holds_alternative<SpotLight>(light)) {
-        auto spot_light = std::get<SpotLight>(light);
-        cache.programs[item.material]->set_uniform(
-            fmt::format("lights[{}].position", i).c_str(), spot_light.position);
-        cache.programs[item.material]->set_uniform(
-            fmt::format("lights[{}].color", i).c_str(),
-            spot_light.color);
-        cache.programs[item.material]->set_uniform(
-            fmt::format("lights[{}].intensity", i).c_str(),
-            spot_light.intensity);
-        cache.programs[item.material]->set_uniform(
-        fmt::format("lights[{}].direction", i).c_str(),
-        spot_light.direction);
-        cache.programs[item.material]->set_uniform(
-            fmt::format("lights[{}].type", i).c_str(), 2);
-            cache.programs[item.material]->set_uniform(fmt::format("lights[{}].cut_off", i).c_str(), spot_light.cutoff);
+        // auto spot_light = std::get<SpotLight>(light);
+        // cache.programs[item.material]->set_uniform(
+        //     fmt::format("lights[{}].position", i).c_str(), spot_light.position);
+        // cache.programs[item.material]->set_uniform(
+        //     fmt::format("lights[{}].color", i).c_str(),
+        //     spot_light.color);
+        // cache.programs[item.material]->set_uniform(
+        //     fmt::format("lights[{}].intensity", i).c_str(),
+        //     spot_light.intensity);
+        // cache.programs[item.material]->set_uniform(
+        // fmt::format("lights[{}].direction", i).c_str(),
+        // spot_light.direction);
+        // cache.programs[item.material]->set_uniform(
+        //     fmt::format("lights[{}].type", i).c_str(), 2);
+        //     cache.programs[item.material]->set_uniform(fmt::format("lights[{}].cut_off", i).c_str(), spot_light.cutoff);
       }
     }
     auto &material = scene.materials[item.material];
@@ -132,9 +134,9 @@ void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
   // axis_buffer->draw();
   // glLineWidth(1.0f);
 
-  // if (!scene.environment.empty()) {
-  //   render_sky(camera);
-  // }
+  if (scene.environment) {
+    render_sky(camera);
+  }
 }
 
 void ForwardRenderer::render_sky(const Camera &camera) {

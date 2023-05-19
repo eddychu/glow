@@ -21,6 +21,7 @@ struct Scene  {
   std::vector<Texture> textures;
   std::vector<Light> lights;
   std::unique_ptr<TextureCube> environment = nullptr;
+  BBox bbox;
 };
 
 Scene load_scene(const std::string &filename);

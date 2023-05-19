@@ -222,6 +222,7 @@ void process_node(Scene &scene, uint32_t index, const tinygltf::Node &node,
 
   if (node.mesh > -1) {
     n.mesh = node.mesh;
+    n.bbox = scene.meshes[node.mesh].bbox;
   }
   if (node.children.size() > 0) {
     n.first_child = node.children.front();
@@ -231,7 +232,11 @@ void process_node(Scene &scene, uint32_t index, const tinygltf::Node &node,
       process_node(scene, n.first_child + i, model.nodes[node.children[i]],
                    model);
     }
+    for (uint32_t i = 0; i < node.children.size(); i++) {
+      n.bbox.expand(scene.nodes[n.first_child + i].bbox);
+    }
   }
+
 }
 
 Scene load_scene(const std::string &filename) {
@@ -301,6 +306,8 @@ Scene load_scene(const std::string &filename) {
     const auto &mesh = model.meshes[i];
     process_mesh(result, i, mesh, model);
   }
+
+  result.bbox = result.nodes[0].bbox;
 
   return result;
 }

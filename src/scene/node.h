@@ -1,4 +1,5 @@
 #pragma once
+#include <core/bbox.h>
 #include <scene/sid.h>
 #include <core/transform.h>
 struct Node : public SceneObject {
@@ -7,4 +8,5 @@ struct Node : public SceneObject {
   int32_t first_child{-1};
   uint32_t num_children{0};
   Transform transform;
+  BBox bbox;
 };

@@ -21,7 +21,7 @@ int main() {
   });
 
   Camera camera(CameraConfig{
-      .position = vec3(0, 0, 3.0f),
+      .position = vec3(0, 0.0, 5.0f),
       .target = vec3(0.0f),
       .up = vec3(0.0f, 1.0f, 0.0f),
       .fov = 45.0f * glm::pi<float>() / 180.0f,
@@ -33,7 +33,7 @@ int main() {
   CameraController controller(&camera, &window);
   Scene scene = load_scene("assets/helmet/DamagedHelmet.gltf");
   // Scene scene = load_scene("assets/Sponza/glTF/Sponza.gltf");
-  
+  // Scene scene = load_scene("assets/plane/glTF/TwoSidedPlane.gltf");
   std::vector<Texture> textures(6);
   std::vector<std::string> paths = {
       "assets/skybox/pisa/posx.png", "assets/skybox/pisa/negx.png",
@@ -49,21 +49,24 @@ int main() {
       //     .intensity = 1.0f,
       // },
 
-      // PointLight {
-      //   .position = vec3(0.0f, 3.0f, 3.0f),
-      //   .color = vec3(1.0f),
-      //   .intensity = 1.0f,
-      // },
-
-      SpotLight {
+      PointLight {
         .position = vec3(0.0f, 3.0f, 0.0f),
         .color = vec3(1.0f),
-        .direction = vec3(0.0f, -1.0f, 0.0f),
         .intensity = 1.0f,
-        .cutoff = 0.001f,
-      }
+      },
+
+      // SpotLight {
+      //   .position = vec3(0.0f, 5.0f, 0.0f),
+      //   .color = vec3(1.0f),
+      //   .direction = vec3(0.0f, -1.0f, 0.0f),
+      //   .intensity = 1.0f,
+      //   .cutoff = 0.1f,
+      // }
   };
 
+  camera.set_target(scene.nodes[0].bbox.center());
+
+  // scene.nodes[0].transform.set_scale(vec3(10.0f));
   ForwardRenderer renderer;
   renderer.init();
   while (!window.should_close()) {

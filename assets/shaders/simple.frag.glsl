@@ -31,6 +31,9 @@ in VS_OUT
 
 const float PI = 3.14159265359;
 
+uniform bool has_ao_map;
+uniform bool has_emissive_map;
+
 float distribution_ggx(vec3 N, vec3 H, float roughness)
 {
     float a = roughness * roughness;
@@ -153,6 +156,14 @@ void main()
 
     vec3 irradiance = texture(texture_irradiance_map, normal).rgb;
     vec3 diffuse    = irradiance * albedo;
+
+    if (!has_ao_map) {
+        ao = 1.0;
+    }
+
+    if (!has_emissive_map) {
+        emmisive = vec3(0.0);
+    }
 
     const float MAX_REFLECTION_LOD = 4.0;
     vec3 prefiltered_color = textureLod(texture_prefilter_map, reflect(-view_dir, normal), roughness * MAX_REFLECTION_LOD).rgb;
