@@ -32,10 +32,10 @@ void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
   if (!is_initialized) {
     list.from_scene(scene);
     is_initialized = true;
-    if (!scene.environment.empty()) {
+    if (scene.environment) {
 
       // TODO: this is a hack to get the skybox working
-      skybox_texture = std::make_unique<GLTextureCube>(scene.environment);
+      skybox_texture = std::make_unique<GLTextureCube>(*scene.environment.get());
       skybox_material.set_shader_source(
           ShaderSource{.vertex_path = "assets/shaders/background.vert.glsl",
                        .fragment_path = "assets/shaders/background.frag.glsl"});

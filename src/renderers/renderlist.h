@@ -1,10 +1,8 @@
 #pragma once
-#include "core/transform.h"
 #include <memory>
-#include <opengl/texture.h>
+#include <opengl/gltexture.h>
 #include <opengl/geometry_buffer.h>
 #include <scene/material.h>
-#include <opengl/resource.h>
 #include <opengl/shader.h>
 #include <scene/scene.h>
 #include <stdint.h>

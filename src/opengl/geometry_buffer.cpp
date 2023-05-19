@@ -1,11 +1,11 @@
 
-#include "scene/geometry.h"
+#include <scene/geometry.h>
 #include <opengl/geometry_buffer.h>
 #include <spdlog/spdlog.h>
 #include <stdint.h>
 
 GeometryBuffer::GeometryBuffer(const Geometry &geometry) {
-  set_id(geometry.id());
+  id = geometry.id();
   m_has_indices = true;
   if (geometry.indices.size() == 0) {
     m_has_indices = false;

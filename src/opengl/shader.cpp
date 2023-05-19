@@ -1,5 +1,4 @@
-#include "scene/material.h"
-#include <opengl/resource.h>
+#include <scene/material.h>
 #include <fstream>
 #include <opengl/shader.h>
 #include <istream>
@@ -60,7 +59,7 @@ GLProgram::GLProgram(const std::string &vertex_path,
 }
 
 GLProgram::GLProgram(const Material &material) {
-  set_id(material.id());
+  id = material.id();
   const char *vs_path = material.shader_source().vertex_path.c_str();
   const char *fs_path = material.shader_source().fragment_path.c_str();
   GLShader vs(vs_path, GL_VERTEX_SHADER);

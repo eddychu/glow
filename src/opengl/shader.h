@@ -1,6 +1,5 @@
 #pragma once
-#include <opengl/resource.h>
-#include <glad/glad.h>
+#include <opengl/globject.h>
 #include <variant>
 #include <glm/glm.hpp>
 #include <string>
@@ -9,7 +8,7 @@
 #include <scene/material.h>
 using namespace glm;
 
-struct GLShader {
+struct GLShader : public GLObject{
   GLuint handle;
   GLShader(const char *path, GLenum type);
   void destroy() const;
@@ -19,7 +18,7 @@ struct GLShader {
   }
 };
 
-class GLProgram : public Resource {
+class GLProgram : public GLObject {
 public:
   GLProgram(const Material &mat);
   GLProgram(const std::string &vertex_path, const std::string &fragment_path);

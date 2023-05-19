@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <opengl/resource.h>
+#include <opengl/globject.h>
 #include <scene/geometry.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -9,7 +9,7 @@
 #include <glad/glad.h>
 using namespace glm;
 
-class GeometryBuffer : public Resource {
+class GeometryBuffer : public GLObject {
 public:
   GeometryBuffer(const Geometry &geometry);
 

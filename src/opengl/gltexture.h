@@ -1,15 +1,9 @@
 #pragma once
-
-#include <glad/glad.h>
-#include <opengl/resource.h>
-#include <scene/scene.h>
-#include <stdint.h>
-class GLTexture : public Resource {
+#include <opengl/globject.h>
+#include <scene/texture.h>
+class GLTexture : public GLObject{
 public:
   GLTexture(const Texture &texture);
-
-  GLTexture(const HDRTexture &texture);
-
   void destroy() const;
 
   void bind(uint32_t slot = 0) const {
@@ -25,9 +19,9 @@ private:
   GLuint m_handle = 0;
 };
 
-class GLTextureCube {
+class GLTextureCube : public GLObject {
 public:
-  GLTextureCube(const std::vector<Texture> &textures);
+  GLTextureCube(const TextureCube& texture);
 
   void destroy() const;
 

@@ -286,13 +286,10 @@ Scene load_scene(const std::string &filename) {
     result.textures[i].height = image.height;
     result.textures[i].component = image.component;
     result.textures[i].data = image.image;
-
-    result.textures[i].sampler = Sampler{
-        .min_filter = Sampler::filter_from_int(sampler.minFilter),
-        .mag_filter = Sampler::filter_from_int(sampler.magFilter),
-        .wrap_s = Sampler::wrap_from_int(sampler.wrapS),
-        .wrap_t = Sampler::wrap_from_int(sampler.wrapT),
-    };
+    result.textures[i].sampler.min_filter = Sampler::filter_from_int(sampler.minFilter);
+    result.textures[i].sampler.mag_filter = Sampler::filter_from_int(sampler.magFilter);
+    result.textures[i].sampler.wrap_s = Sampler::wrap_from_int(sampler.wrapS);
+    result.textures[i].sampler.wrap_t = Sampler::wrap_from_int(sampler.wrapT);
   }
 
   for (uint32_t i = 0; i < result.materials.size(); i++) {

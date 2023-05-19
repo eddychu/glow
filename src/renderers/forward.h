@@ -3,7 +3,7 @@
 #include <scene/geometry.h>
 #include <memory>
 #include <scene/material.h>
-#include <opengl/texture.h>
+#include <opengl/gltexture.h>
 #include <opengl/shader.h>
 #include <scene/scene.h>
 #include <core/camera.h>

@@ -1,6 +1,5 @@
 #include <light/light.h>
 #include <core/window.h>
-#include <opengl/texture.h>
 #include <scene/geometry.h>
 #include <opengl/geometry_buffer.h>
 #include <scene/material.h>
@@ -41,10 +40,8 @@ int main() {
       "assets/skybox/pisa/posy.png", "assets/skybox/pisa/negy.png",
       "assets/skybox/pisa/posz.png", "assets/skybox/pisa/negz.png",
   };
-  for (int i = 0; i < 6; i++) {
-    textures[i] = load_texture(paths[i]);
-  }
-  scene.environment = textures;
+  auto environment = load_texture_cube(paths);
+  scene.environment = std::move(environment);
   scene.lights = {
       // DirectionalLight{
       //     .direction = vec3(0.0f, 0.0f, 1.0f),
