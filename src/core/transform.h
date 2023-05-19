@@ -71,6 +71,21 @@ public:
 
   const mat4 &matrix_invert() const { return m_matrix_invert; }
 
+  void rotate_x(float angle) {
+    m_rotation = glm::rotate(m_rotation, angle, vec3(1, 0, 0));
+    update_matrix();
+  }
+
+  void rotate_y(float angle) {
+    m_rotation = glm::rotate(m_rotation, angle, vec3(0, 1, 0));
+    update_matrix();
+  }
+
+  void rotate(float angle, const vec3 &axis) {
+    m_rotation = glm::rotate(m_rotation, angle, axis);
+    update_matrix();
+  }
+
 private:
   vec3 m_position;
   quat m_rotation;

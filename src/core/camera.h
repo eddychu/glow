@@ -42,6 +42,8 @@ public:
 
   const Transform &transform() const { return m_transform; }
 
+  Transform &transform() { return m_transform; }
+
 private:
   Transform m_transform;
   vec3 m_target;

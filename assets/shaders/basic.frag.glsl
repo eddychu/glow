@@ -9,8 +9,10 @@ layout (binding = 4) uniform sampler2D texture_emissive;
 uniform struct Light {
     vec3 position;
     vec3 color;    
+    vec3 direction;
     float intensity;
-    bool is_directional;
+    float cut_off;
+    int type;
 } lights[10];
 
 uniform int light_count;
@@ -82,15 +84,28 @@ vec3 calc_light_contrib(vec3 normal, vec3 view_dir, float roughness, float metal
     vec3 result = vec3(0.0);
     for (int i = 0; i < light_count; i++) {
         vec3 light_dir = vec3(0.0);
-        float distance = 0.0;
-        if (lights[i].is_directional) {
+        float attenuation = 1.0;
+        // directional light
+        if (lights[i].type == 0) {
             light_dir = normalize(lights[i].position);
-            distance = 1.0;
-        } else {
+        } 
+        // point light
+        else if (lights[i].type == 1) {
             light_dir = normalize(lights[i].position - vs_out.position);
-            distance = length(lights[i].position - vs_out.position);
+            float distance = length(lights[i].position - vs_out.position);
+            attenuation = 1.0 / (distance * distance);
+        } 
+        // spot light
+        else if (lights[i].type == 2) {
+            light_dir = normalize(lights[i].position - vs_out.position);
+            float angle = acos(dot(-light_dir, lights[i].direction));
+            float cut_off = radians(clamp(lights[i].cut_off, 0.0, 90.0));
+            if (angle < cut_off) {
+                attenuation = pow(dot(-light_dir, lights[i].direction), 5.0);
+            }
         }
-        float attenuation = 1.0 / (distance * distance);
+        // float attenuation = 1.0 / (distance * distance);
+        // float attenuation = 1.0;
         vec3 radiance = lights[i].color * lights[i].intensity * attenuation;
         vec3 half_dir = normalize(view_dir + light_dir);
         
