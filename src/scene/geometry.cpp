@@ -134,3 +134,62 @@ Geometry make_grid(int divide_x, int divide_z) {
   g.mode = GeometryMode::Lines;
   return g;
 }
+
+Geometry make_axis(float size) {
+  std::vector<Vertex> vertices = {
+      Vertex(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f)),
+      Vertex(vec3(size, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f)),
+      Vertex(vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)),
+      Vertex(vec3(0.0f, size, 0.0f), vec3(0.0f, 1.0f, 0.0f)),
+      Vertex(vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f)),
+      Vertex(vec3(0.0f, 0.0f, size), vec3(0.0f, 0.0f, 1.0f))};
+  Geometry g;
+  g.vertices = vertices;
+  g.mode = GeometryMode::Lines;
+  return g;
+}
+
+Geometry make_bbox(const BBox &bbox) {
+  std::vector<Vertex> vertices = {
+      Vertex(vec3(bbox.min.x, bbox.min.y, bbox.min.z)),
+      Vertex(vec3(bbox.max.x, bbox.min.y, bbox.min.z)),
+
+      Vertex(vec3(bbox.min.x, bbox.min.y, bbox.min.z)),
+      Vertex(vec3(bbox.min.x, bbox.max.y, bbox.min.z)),
+     
+      Vertex(vec3(bbox.min.x, bbox.min.y, bbox.min.z)),
+      Vertex(vec3(bbox.min.x, bbox.min.y, bbox.max.z)),
+
+      Vertex(vec3(bbox.max.x, bbox.max.y, bbox.max.z)),
+      Vertex(vec3(bbox.min.x, bbox.max.y, bbox.max.z)),
+
+      Vertex(vec3(bbox.max.x, bbox.max.y, bbox.max.z)),
+      Vertex(vec3(bbox.max.x, bbox.min.y, bbox.max.z)),
+
+      Vertex(vec3(bbox.max.x, bbox.max.y, bbox.max.z)),
+      Vertex(vec3(bbox.max.x, bbox.max.y, bbox.min.z)),
+
+      Vertex(vec3(bbox.max.x, bbox.min.y, bbox.min.z)),
+      Vertex(vec3(bbox.max.x, bbox.max.y, bbox.min.z)),
+
+
+      Vertex(vec3(bbox.min.x, bbox.min.y, bbox.max.z)),
+      Vertex(vec3(bbox.min.x, bbox.max.y, bbox.max.z)),
+
+      Vertex(vec3(bbox.min.x, bbox.max.y, bbox.min.z)),
+      Vertex(vec3(bbox.min.x, bbox.max.y, bbox.max.z)),
+
+      Vertex(vec3(bbox.min.x, bbox.max.y, bbox.min.z)),
+      Vertex(vec3(bbox.max.x, bbox.max.y, bbox.min.z)),
+
+      Vertex(vec3(bbox.min.x, bbox.min.y, bbox.max.z)),
+      Vertex(vec3(bbox.max.x, bbox.min.y, bbox.max.z)),
+
+      Vertex(vec3(bbox.max.x, bbox.min.y, bbox.min.z)),
+      Vertex(vec3(bbox.max.x, bbox.min.y, bbox.max.z)),
+      };
+  Geometry g;
+  g.vertices = vertices;
+  g.mode = GeometryMode::Lines;
+  return g;
+}

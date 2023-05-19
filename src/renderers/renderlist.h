@@ -18,12 +18,14 @@ struct RenderCache {
   std::vector<std::unique_ptr<GLProgram>> programs;
   std::vector<std::unique_ptr<GLTexture>> textures;
   std::vector<std::unique_ptr<GeometryBuffer>> geometry_buffers;
+  std::vector<std::unique_ptr<GeometryBuffer>> bbox_buffers;
 };
 
 struct RenderItem {
   uint32_t geometry_buffer_index;
   uint32_t material;
   Transform transform;
+  uint32_t mesh;
 };
 
 /**
@@ -60,9 +62,11 @@ struct RenderList {
               std::make_unique<GeometryBuffer>(sub_mesh.geometry);
           auto geometry_index = cache.geometry_buffers.size();
           cache.geometry_buffers.push_back(std::move(geometry_buffer));
+          cache.bbox_buffers.push_back(
+              std::move(std::make_unique<GeometryBuffer>(make_bbox(sub_mesh.bbox))));
           RenderItem render_item;
           render_item.material = sub_mesh.material;
-
+          render_item.mesh = node.mesh;
           render_item.geometry_buffer_index = geometry_index;
           render_item.transform = transform;
           add_renderable(render_item);

@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <unordered_map>
 #include <variant>
+#include <vector>
 using namespace glm;
 
 typedef std::variant<mat4, mat3, vec4, vec3, vec2, float, int> UniformValue;

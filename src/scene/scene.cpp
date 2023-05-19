@@ -1,7 +1,6 @@
-#include "glm/fwd.hpp"
-#include "scene/geometry.h"
-#include "spdlog/spdlog.h"
-#include "utils/calc_tangent.h"
+#include <scene/geometry.h>
+#include <spdlog/spdlog.h>
+#include <utils/calc_tangent.h>
 #include <scene/scene.h>
 #include <stdint.h>
 #define TINYGLTF_NO_STB_IMAGE_WRITE
@@ -14,7 +13,11 @@ void process_mesh(Scene &scene, uint32_t index, const tinygltf::Mesh &mesh,
                   const tinygltf::Model &model) {
   auto &m = scene.meshes[index];
   m.sub_meshes.resize(mesh.primitives.size());
+  glm::vec3 mesh_min = glm::vec3(FLT_MAX);
+  glm::vec3 mesh_max = glm::vec3(-FLT_MAX);
   for (uint32_t i = 0; i < mesh.primitives.size(); i++) {
+    glm::vec3 sub_mesh_min = glm::vec3(FLT_MAX);
+    glm::vec3 sub_mesh_max = glm::vec3(-FLT_MAX);
     auto &primitive = mesh.primitives[i];
     auto &sub_mesh = m.sub_meshes[i];
 
@@ -103,6 +106,8 @@ void process_mesh(Scene &scene, uint32_t index, const tinygltf::Mesh &mesh,
     for (uint32_t i = 0; i < pos_accessor.count; i++) {
       auto &v = vertices[i];
       v.position = glm::make_vec3(&buffer_pos[i * pos_byte_stride]);
+      sub_mesh_min = glm::min(sub_mesh_min, v.position);
+      sub_mesh_max = glm::max(sub_mesh_max, v.position);
       if (buffer_norm) {
         v.normal = glm::make_vec3(&buffer_norm[i * norm_byte_stride]);
       }
@@ -148,13 +153,23 @@ void process_mesh(Scene &scene, uint32_t index, const tinygltf::Mesh &mesh,
 
     sub_mesh.geometry.vertices = vertices;
     sub_mesh.geometry.indices = indices;
+    sub_mesh.bbox.min = sub_mesh_min;
+    sub_mesh.bbox.max = sub_mesh_max;
+
+
     CalcTangents calc;
     calc.calc(&sub_mesh.geometry);
 
     if (primitive.material > -1) {
       sub_mesh.material = primitive.material;
     }
+
+    mesh_min = glm::min(mesh_min, sub_mesh_min);
+    mesh_max = glm::max(mesh_max, sub_mesh_max);
   }
+
+  m.bbox.min = mesh_min;
+  m.bbox.max = mesh_max;
 }
 
 void process_material(Scene &scene, uint32_t index,
@@ -204,6 +219,7 @@ void process_node(Scene &scene, uint32_t index, const tinygltf::Node &node,
   if (node.scale.size() == 3) {
     n.transform.set_scale(glm::make_vec3(node.scale.data()));
   }
+
   if (node.mesh > -1) {
     n.mesh = node.mesh;
   }

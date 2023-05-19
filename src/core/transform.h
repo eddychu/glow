@@ -1,4 +1,5 @@
 #pragma once
+#include "core/bbox.h"
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 using namespace glm;
@@ -49,6 +50,13 @@ public:
     m_rotation = quat_cast(m_matrix);
     m_scale =
         vec3(length(m_matrix[0]), length(m_matrix[1]), length(m_matrix[2]));
+  }
+
+  BBox transform_bbox(const BBox &bbox) const {
+    BBox result;
+    result.min = vec3(m_matrix * vec4(bbox.min, 1));
+    result.max = vec3(m_matrix * vec4(bbox.max, 1));
+    return result;
   }
 
   const vec3 &position() const { return m_position; }

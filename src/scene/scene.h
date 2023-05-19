@@ -3,6 +3,7 @@
 #include <core/camera.h>
 #include <scene/material.h>
 #include <core/transform.h>
+#include <core/bbox.h>
 #include <memory>
 #include <stdint.h>
 #include <vector>
@@ -80,10 +81,12 @@ struct Node : public SceneResource {
 struct SubMesh : public SceneResource {
   int32_t material{-1};
   Geometry geometry;
+  BBox bbox;
 };
 
 struct Mesh : public SceneResource {
   std::vector<SubMesh> sub_meshes;
+  BBox bbox;
 };
 
 struct Scene : public SceneResource {

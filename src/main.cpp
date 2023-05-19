@@ -22,7 +22,7 @@ int main() {
   });
 
   Camera camera(CameraConfig{
-      .position = vec3(0.0f, 5.0f, 3.0f),
+      .position = vec3(0.0f, 0.0f, 5.0f),
       .target = vec3(0.0f),
       .up = vec3(0.0f, 1.0f, 0.0f),
       .fov = 45.0f * glm::pi<float>() / 180.0f,

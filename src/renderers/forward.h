@@ -1,4 +1,5 @@
 #pragma once
+#include "opengl/geometry_buffer.h"
 #include "scene/geometry.h"
 #include <memory>
 #include <scene/material.h>
@@ -57,4 +58,9 @@ private:
 
   std::unique_ptr<GLProgram> grid_program;
   GLuint grid_vao;
+
+  std::unique_ptr<GLProgram> axis_program;
+  std::unique_ptr<GeometryBuffer> axis_buffer;
+
+  std::unique_ptr<GeometryBuffer> bbox_buffer;
 };

@@ -1,3 +1,4 @@
+#include "core/bbox.h"
 #include "core/camera.h"
 #include "glm/fwd.hpp"
 #include "opengl/geometry_buffer.h"
@@ -19,6 +20,14 @@ void ForwardRenderer::init() {
   grid_program = std::make_unique<GLProgram>("assets/shaders/grid.vert.glsl",
                                              "assets/shaders/grid.frag.glsl");
   glCreateVertexArrays(1, &grid_vao);
+
+  auto axis = make_axis(5.0f);
+  axis_buffer = std::make_unique<GeometryBuffer>(axis);
+
+  axis_program = std::make_unique<GLProgram>("assets/shaders/axis.vert.glsl",
+                                             "assets/shaders/axis.frag.glsl");
+
+                                           
 }
 
 void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
@@ -85,6 +94,12 @@ void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
     }
 
     cache.geometry_buffers[item.geometry_buffer_index]->draw();
+
+    axis_program->use();
+    axis_program->set_uniform("view", camera.view_matrix());
+    axis_program->set_uniform("projection", camera.projection_matrix());
+    axis_program->set_uniform("model", item.transform.matrix());
+    cache.bbox_buffers[item.geometry_buffer_index]->draw();
   }
 
   grid_program->use();
@@ -93,9 +108,19 @@ void ForwardRenderer::render(const Camera &camera, const Scene &scene) {
   grid_program->set_uniform("cameraPos", camera.transform().position());
   glBindVertexArray(grid_vao);
   glDrawArraysInstancedBaseInstance(GL_TRIANGLES, 0, 6, 1, 0);
-  // if (!scene.environment.empty()) {
-  //   render_sky(camera);
-  // }
+
+  // set line width
+  glLineWidth(2.0f);
+  axis_program->use();
+  axis_program->set_uniform("view", camera.view_matrix());
+  axis_program->set_uniform("projection", camera.projection_matrix());
+  axis_program->set_uniform("model", mat4(1.0f));
+  axis_buffer->draw();
+  glLineWidth(1.0f);
+
+  if (!scene.environment.empty()) {
+    render_sky(camera);
+  }
 }
 
 void ForwardRenderer::render_sky(const Camera &camera) {

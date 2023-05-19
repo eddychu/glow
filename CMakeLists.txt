@@ -51,4 +51,6 @@ add_subdirectory(extern/spdlog)
 target_include_directories(glow PRIVATE extern/spdlog/include)
 target_link_libraries(glow PRIVATE spdlog::spdlog)
 
+
+
 file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
