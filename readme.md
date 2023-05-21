@@ -2,7 +2,7 @@
 
 A (wip) PBR renderer written in C++. Support PBR materials with IBL diffuse and specular lighting.
 
-## build
+## Build Instruction
 
 ```bash
 git clone https://github.com/eddychu/glow.git --recursive
