@@ -1,5 +1,4 @@
 // #pragma once
-// #include <graphics/glrenderer.h>
 // #include <chrono>
 // #include <core/window.h>
 // class Engine {
@@ -8,7 +7,8 @@
 //     static Engine instance;
 //     return instance;
 //   }
-
+//   Engine() = default;
+//   Engine(const Engine &) = delete;
 //   void initialize();
 //   void shutdown();
 //   void run();
@@ -18,9 +18,7 @@
 // protected:
 //   void logical_tick(float delta_time);
 //   bool renderer_tick(float delta_time);
-
 //   void calculate_fps(float delta_time);
-
 //   float calculate_delta_time();
 
 // protected:
@@ -31,5 +29,4 @@
 //   int m_frame_count{0};
 //   int m_fps{0};
 //   Window m_window;
-//   GLRenderer m_renderer;
 // };

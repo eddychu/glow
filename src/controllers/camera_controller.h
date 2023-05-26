@@ -2,34 +2,55 @@
 #include <core/camera.h>
 #include <core/window.h>
 #include <spdlog/spdlog.h>
+#include <core/input.h>
 class CameraController {
 public:
   CameraController(Camera *camera, Window *window)
       : camera(camera), window(window) {
-    window->register_on_mouse_button_func(
-        [&](int button, int action, int mods) {
-          spdlog::info("mouse button");
-          if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-            enabled = true;
-            spdlog::info("enabled");
-            last_cursor_pos = window->get_cursor_pos();
-          }
-          if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-            enabled = false;
-          }
-        });
+    // window->register_on_mouse_button_func(
+    //     [&](int button, int action, int mods) {
+    //       spdlog::info("mouse button");
+    //       if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+    //         enabled = true;
+    //         spdlog::info("enabled");
+    //         last_cursor_pos = window->get_cursor_pos();
+    //       }
+    //       if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+    //         enabled = false;
+    //       }
+    //     });
 
-    window->register_on_cursor_pos_func([&](double x, double y) {
-      // spdlog::info("cursor pos");
-      if (!enabled)
-        return;
+    // window->register_on_cursor_pos_func([&](double x, double y) {
+    //   // spdlog::info("cursor pos");
+    //   if (!enabled)
+    //     return;
 
+    //   double dx = x - last_cursor_pos[0];
+    //   double dy = y - last_cursor_pos[1];
+    //   rotate(dx, dy);
+    //   last_cursor_pos = {x, y};
+    // });
+  }
+
+  void update() {
+    if (Input::is_mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT) && !enabled) {
+      enabled = true;
+      window->get_mouse_position(last_cursor_pos[0], last_cursor_pos[1]);
+    }
+    if (!Input::is_mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT) && enabled) {
+      enabled = false;
+    }
+
+    if (enabled) {
+      double x, y;
+      window->get_mouse_position(x, y);
       double dx = x - last_cursor_pos[0];
       double dy = y - last_cursor_pos[1];
       rotate(dx, dy);
       last_cursor_pos = {x, y};
-    });
+    }
   }
+
   void set_enable(bool enable) { enabled = enable; }
 
   void rotate(float dx, float dy) {

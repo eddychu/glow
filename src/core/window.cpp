@@ -1,7 +1,7 @@
 #include <array>
 #include <core/window.h>
 #include <spdlog/spdlog.h>
-void Window::initialize(const WindowConfig &config) {
+Window::Window(const WindowConfig &config) {
   if (!glfwInit()) {
     spdlog::error("Failed to initialize GLFW");
     return;
@@ -10,7 +10,7 @@ void Window::initialize(const WindowConfig &config) {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_SAMPLES, config.multisample);
-  
+
   m_window = glfwCreateWindow(config.width, config.height, config.title,
                               nullptr, nullptr);
 
@@ -21,21 +21,18 @@ void Window::initialize(const WindowConfig &config) {
   }
 
   glfwMakeContextCurrent(m_window);
-  glfwSetWindowUserPointer(m_window, this);
-  glfwSetFramebufferSizeCallback(m_window, window_size_callback);
-  glfwSetCursorPosCallback(m_window, cursor_pos_callback);
-  glfwSetMouseButtonCallback(m_window, mouse_button_callback);
-  glfwSetScrollCallback(m_window, scroll_callback);
-  glfwSetKeyCallback(m_window, key_callback);
-  // glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-  glfwSwapInterval(0);
-  m_width = config.width;
-  m_height = config.height;
 
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     spdlog::error("Failed to initialize GLAD");
     return;
   }
+
+  // glfwSetWindowUserPointer(m_window, this);
+
+  // glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  glfwSwapInterval(0);
+  m_width = config.width;
+  m_height = config.height;
 
   // spdlog::info("OpenGL Version: %s", glGetString(GL_VERSION)));
 
@@ -48,8 +45,6 @@ void Window::poll_events() const { glfwPollEvents(); }
 void Window::swap_buffers() const { glfwSwapBuffers(m_window); }
 
 bool Window::should_close() const { return glfwWindowShouldClose(m_window); }
-
-std::array<int, 2> Window::get_size() const { return {m_width, m_height}; }
 
 Window::~Window() {
   glfwDestroyWindow(m_window);

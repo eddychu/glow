@@ -31,18 +31,6 @@ target_include_directories(glow PRIVATE extern/glm)
 # # add stb
 target_include_directories(glow PRIVATE extern/stb)
 
-# add assimp
-# set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "Build assimp tools" FORCE)
-# set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "Build assimp tests" FORCE)
-# set(ASSIMP_INSTALL OFF CACHE BOOL "Generate installation target" FORCE)
-# set(ASSIMP_NO_EXPORT ON CACHE BOOL "Disable assimp export" FORCE)
-# # set(ASSIMP_BUILD_ZLIB ON CACHE BOOL "Build assimp with zlib" FORCE)
-# add_subdirectory(extern/assimp)
-# target_include_directories(glow PRIVATE extern/assimp/include)
-# target_link_libraries(glow PRIVATE assimp)
-# find_package(assimp REQUIRED)
-# target_include_directories(glow PRIVATE ${ASSIMP_INCLUDE_DIRS})
-# target_link_libraries(glow PRIVATE ${ASSIMP_LIBRARIES})
 
 add_subdirectory(extern/tinygltf)
 target_include_directories(glow PRIVATE extern/tinygltf)
@@ -51,6 +39,10 @@ add_subdirectory(extern/spdlog)
 target_include_directories(glow PRIVATE extern/spdlog/include)
 target_link_libraries(glow PRIVATE spdlog::spdlog)
 
+
+# find_package(SDL2 REQUIRED)
+# target_include_directories(glow PRIVATE ${SDL2_INCLUDE_DIRS})
+# target_link_libraries(glow PRIVATE ${SDL2_LIBRARIES})
 
 
 file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

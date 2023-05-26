@@ -7,12 +7,11 @@
 #include <renderers/forward.h>
 #include <controllers/camera_controller.h>
 #include <loaders/texture_loader.h>
+#include <core/input.h>
 int main() {
   int width = 1024;
   int height = 768;
-  Window window;
-
-  window.initialize({
+  Window window({
       .width = width,
       .height = height,
       .title = "Glow Renderer 0.1",
@@ -29,6 +28,8 @@ int main() {
       .near = 0.1f,
       .far = 100.0f,
   });
+
+  Input::initialize(&window);
 
   CameraController controller(&camera, &window);
   Scene scene = load_scene("assets/helmet/DamagedHelmet.gltf");
@@ -49,10 +50,10 @@ int main() {
       //     .intensity = 1.0f,
       // },
 
-      PointLight {
-        .position = vec3(0.0f, 3.0f, 0.0f),
-        .color = vec3(1.0f),
-        .intensity = 1.0f,
+      PointLight{
+          .position = vec3(0.0f, 3.0f, 0.0f),
+          .color = vec3(1.0f),
+          .intensity = 1.0f,
       },
 
       // SpotLight {
@@ -70,6 +71,7 @@ int main() {
   ForwardRenderer renderer;
   renderer.init();
   while (!window.should_close()) {
+    controller.update();
     renderer.render(camera, scene);
     window.swap_buffers();
     window.poll_events();
